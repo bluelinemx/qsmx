@@ -1,0 +1,22 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="change_view_base_partner_merge_form">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.base_partner_merge_automatic_wizard_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/group/field[@name='partner_ids']" position="replace">
+                    <tree string="Partners">
+                        <field name="id" />
+                        <field name="display_name" />
+                        <field name="email" />
+                        <field name="is_company" />
+                        <field name="rfc" />
+                        <field name="country_id" />
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

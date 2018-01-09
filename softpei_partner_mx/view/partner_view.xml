@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_modulo" model="ir.ui.view">
+            <field name="name">res.partner.inherit1</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+				<!--
+                <field name="type" position="after">
+                    <field name="rfc"/>
+                </field>-->
+                <field name="street2" position="after">
+                    <field name="colony" placeholder="Colonia"/>
+                </field>
+                <field name="website" position="after">
+                    <field name="factura_portal" widget="url" placeholder="e.g. www.odoo.com"/>
+                    <field name="other_factura_portal" widget="url" placeholder="e.g. www.odoo.com"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

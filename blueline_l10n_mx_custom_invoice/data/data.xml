@@ -34,10 +34,6 @@
             <field name="dpi">90</field>
         </record>
 
-        <report
-            id="account.account_invoices_without_payment"
-            paperformat="blueline_l10n_mx_custom_invoice.paperformat_us_no_margin"
-        />
 
     </data>
 </odoo>

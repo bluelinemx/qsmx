@@ -221,6 +221,12 @@
                     <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
                     <t t-set="decimal_precision" t-value="env['decimal.precision'].precision_get('Account')"/>
 
+                    <div class="hidden">
+                        <table class="hidden">
+
+                        </table>
+                    </div>
+
                     <table class="table table-condensed table-bordered mt16" name="invoice_line_table">
                         <thead>
                             <tr>
@@ -253,7 +259,7 @@
                                 </td>
 
                                 <td>
-                                    <span t-field="l.product_id.product_tmpl_id.name"/>
+                                    <span t-esc="l.name or l.product_id.product_tmpl_id.name"/>
                                     <br/>
                                     <span t-if="l.product_id.l10n_mx_edi_code_sat_id">Clave Prod Serv. -
                                         <span t-esc="l.product_id.l10n_mx_edi_code_sat_id.code"/>

@@ -34,6 +34,11 @@
             <field name="dpi">90</field>
         </record>
 
+        <!-- sale.report_invoice_layouted -->
+
+        <record id="account.account_invoices_without_payment" model="ir.actions.report">
+            <field name="paperformat_id" ref="blueline_l10n_mx_custom_invoice.paperformat_euro_no_margin" />
+        </record>
 
     </data>
 </odoo>

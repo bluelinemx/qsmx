@@ -35,7 +35,7 @@
                     <t t-set="company" t-value="res_company"/>
                 </t>
 
-                <div class="page">
+                <div id="invoice-report" class="page">
 
                     <div class="hide row">
                         <div name="invoice_address" class="col-xs-5 col-xs-offset-7">
@@ -100,12 +100,12 @@
                                 <span t-field="company.partner_id.vat"/>
                             </div>
 
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-fiscal-position">
                                 <span>FISCAL POSITION:</span>
                                 <t t-raw="o.company_id.partner_id.property_account_position_id.name"/>
                             </div>
 
-                            <div>
+                            <div class="invoice-address">
                                 <span t-raw="company.partner_id._display_address(without_company=True)"></span>
                                 <br/>
                                 <span>Tel.
@@ -119,14 +119,18 @@
                             <div t-if="o.partner_id.vat">
                                 <span t-field="o.partner_id.vat"/>
                             </div>
+
+                            <t t-set="cfdi_usage_dict" t-value="o.get_l10n_mx_edi_usages()" />
+                            <t t-set="cfdi_usage_code" t-value="xml.Receptor.get('UsoCFDI', '')" />
+
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">CFDI USAGE
-                                <t t-raw="xml.Receptor.get('UsoCFDI', '')"/>
+                                <t t-raw="cfdi_usage_code"/> <t t-raw="cfdi_usage_dict.get(cfdi_usage_code, '')"/>
                             </div>
-                            <div t-raw="o.partner_id._display_address(without_company=True)"></div>
+                            <div class="invoice-address" t-raw="o.partner_id._display_address(without_company=True)"></div>
                         </div>
 
                         <div class="col-xs-4 text-right" style="padding-left: 2px;">
-                            <strong>
+                            <strong class="invoice-name">
                                 <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">
                                     Invoice
                                 </span>
@@ -139,51 +143,51 @@
                                 <span t-field="o.number"/>
                             </strong>
 
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>FISCAL FOLIO (UUID)</div>
-                                <div>
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
+                                <div class="attribute-name">FISCAL FOLIO (UUID)</div>
+                                <div class="attribute-value">
                                     <span t-field="o.l10n_mx_edi_cfdi_uuid"/>
                                 </div>
                             </div>
 
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>SERIAL SAT CERTIFICATE</div>
-                                <div>
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
+                                <div class="attribute-name">SERIAL SAT CERTIFICATE</div>
+                                <div class="attribute-value">
                                     <t t-esc="tfd.get('NoCertificadoSAT')"/>
                                 </div>
                             </div>
 
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>SERIAL EMITTER CERTIFICATE</div>
-                                <div>
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
+                                <div class="attribute-name">SERIAL EMITTER CERTIFICATE</div>
+                                <div class="attribute-value">
                                     <t t-esc="tfd.get('RfcProvCertif')"/>
                                 </div>
                             </div>
 
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>DATE AND TIME OF CERTIFICATION</div>
-                                <div>
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
+                                <div class="attribute-name">DATE AND TIME OF CERTIFICATION</div>
+                                <div class="attribute-value">
                                     <span t-esc="tfd.get('FechaTimbrado', '').replace('T', ' ')"/>
                                 </div>
                             </div>
 
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>RFC OF CERTIFICATION PROVIDER</div>
-                                <div>
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
+                                <div class="attribute-name">RFC OF CERTIFICATION PROVIDER</div>
+                                <div class="attribute-value">
                                     <t t-raw="o.l10n_mx_edi_cfdi_supplier_rfc"/>
                                 </div>
                             </div>
 
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>DATE AND TIME OF CFDI</div>
-                                <div>
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
+                                <div class="attribute-name">DATE AND TIME OF CFDI</div>
+                                <div class="attribute-value">
                                     <span t-esc="xml.get('Fecha', '').replace('T', ' ')"/>
                                 </div>
                             </div>
 
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>EXPEDITION PLACE</div>
-                                <div>
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
+                                <div class="attribute-name">EXPEDITION PLACE</div>
+                                <div class="attribute-value">
                                     <span t-esc="xml.get('LugarExpedicion')"/>
                                 </div>
                             </div>
@@ -417,7 +421,7 @@
                                             EXCHANGE RATE
                                         </td>
                                         <td>
-                                            <span t-field="o.currency_id.rate"/>
+                                            <span t-raw="'%.*f' % (6, 1.0/o.currency_id.rate)"/>
                                         </td>
                                     </tr>
                                     <tr t-if="o.payment_term_id">

@@ -199,7 +199,12 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: blueline_l10n_mx_custom_invoice
-#: model:ir.model.fields,field_description:blueline_l10n_mx_custom_invoice.field_account_invoice_client_identification_number
+#: model:ir.model,name:blueline_l10n_mx_custom_invoice.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Invoice Line"
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.model.fields,field_description:blueline_l10n_mx_custom_invoice.field_account_invoice_line_client_identification_number
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
 msgid "No. Identification"
 msgstr "No. Identificación"

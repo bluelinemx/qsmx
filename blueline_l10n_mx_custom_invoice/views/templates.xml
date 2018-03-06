@@ -345,8 +345,8 @@
                                     </tr>
                                 </table>
                             </div>
-                            <div class="col-xs-8 pull-left" t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <table class="table table-condensed table-borderless">
+                            <div class="col-xs-8 pull-left" >
+                                <table class="table table-condensed table-borderless" t-if="o.l10n_mx_edi_cfdi_uuid">
                                     <tr>
                                         <td width="200">
                                             AMOUNT IN WORDS
@@ -361,7 +361,7 @@
                                    t-value="'Ingreso' if o.type == 'out_invoice' else 'Egreso'"/>
 
                                 <table class="table table-condensed table-borderless">
-                                    <tr>
+                                    <tr t-if="o.l10n_mx_edi_cfdi_uuid">
                                         <td width="200">
                                             INVOICE TYPE
                                         </td>
@@ -372,7 +372,7 @@
                                         </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr t-if="o.l10n_mx_edi_cfdi_uuid">
                                         <td width="200">
                                             PAYMENT METHOD
                                         </td>
@@ -380,7 +380,7 @@
                                             <span t-esc="' - '.join([o.l10n_mx_edi_payment_method_id.code, o.l10n_mx_edi_payment_method_id.name])"/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr t-if="o.l10n_mx_edi_cfdi_uuid">
                                         <td width="200">
                                             PAYMENT FORM
                                         </td>

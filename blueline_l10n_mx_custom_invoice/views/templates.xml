@@ -120,8 +120,10 @@
                                 <span t-field="o.partner_id.vat"/>
                             </div>
 
-                            <t t-set="cfdi_usage_dict" t-value="o.get_l10n_mx_edi_usages()" />
-                            <t t-set="cfdi_usage_code" t-value="xml.Receptor.get('UsoCFDI', '')" />
+                            <t t-if="o.l10n_mx_edi_cfdi_uuid">
+                                <t t-set="cfdi_usage_dict" t-value="o.get_l10n_mx_edi_usages()" />
+                                <t t-set="cfdi_usage_code" t-value="xml.Receptor.get('UsoCFDI', '')" />
+                            </t>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">CFDI USAGE:
                                 <t t-raw="cfdi_usage_code"/> <t t-raw="cfdi_usage_dict.get(cfdi_usage_code, '')"/>
@@ -232,7 +234,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <span t-esc="o.client_identification_number"></span>
+                                    <span t-esc="l.client_identification_number" />
                                 </td>
 
                                 <td>

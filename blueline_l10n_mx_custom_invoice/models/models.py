@@ -5,10 +5,14 @@ from odoo.tools.misc import formatLang
 from functools import partial
 
 
-class Invoice(models.Model):
-    _inherit = 'account.invoice'
+class AccountInvoiceLine(models.Model):
+    _inherit = 'account.invoice.line'
 
     client_identification_number = fields.Char('No. Identification', required=True)
+
+
+class Invoice(models.Model):
+    _inherit = 'account.invoice'
 
     @api.model
     def get_l10n_mx_edi_usages(self):

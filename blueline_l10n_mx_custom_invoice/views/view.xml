@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="customer_invoice_identification_form" model="ir.ui.view">
-      <field name="name">account.invoice.form.inherit</field>
-      <field name="model">account.invoice</field>
-      <field name="inherit_id" ref="account.invoice_form"/>
-      <field name="arch" type="xml">
-        <field name="l10n_mx_edi_usage" position="after">
-              <field name="client_identification_number" attrs="{'readonly':[('l10n_mx_edi_pac_status', '=', 'signed')]}"/>
+        <field name="name">account.invoice.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="after">
+                <field name="client_identification_number"/>
+            </xpath>
         </field>
-      </field>
+    </record>
+
+    <record id="view_invoice_line_form" model="ir.ui.view">
+        <field name="name">account.invoice.line.form.inherit</field>
+        <field name="model">account.invoice.line</field>
+        <field name="inherit_id" ref="account.view_invoice_line_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="client_identification_number"/>
+            </field>
+        </field>
     </record>
 </odoo>

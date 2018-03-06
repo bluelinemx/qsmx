@@ -71,7 +71,7 @@
                             t-att-cantidad="line.quantity"
                             t-att-descripcion="line.name.replace('\n', ',')"
                             t-att-importe="subtotal_wo_discount(line)"
-                            t-att-noIdentificacion="line.product_id.default_code"
+                            t-att-NoIdentificacion="record._get_string_cfdi(line.client_identification_number or '', 100)"
                             t-att-unidad="line.uom_id.name or 'NA'"
                             t-att-valorUnitario="line.price_unit"/>
                 </t>

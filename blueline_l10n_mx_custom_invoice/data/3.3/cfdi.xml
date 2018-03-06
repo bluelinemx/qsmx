@@ -46,7 +46,7 @@
                     <t t-foreach="record.invoice_line_ids" t-as="line">
                         <cfdi:Concepto
                             t-att-ClaveProdServ="line.product_id.l10n_mx_edi_code_sat_id.code"
-                            t-att-NoIdentificacion="record._get_string_cfdi(record.client_identification_number or '')"
+                            t-att-NoIdentificacion="record._get_string_cfdi(line.client_identification_number or '', 100)"
                             t-att-Cantidad="line.quantity"
                             t-att-ClaveUnidad="line.uom_id.l10n_mx_edi_code_sat_id.code"
                             t-att-Unidad="record._get_string_cfdi(line.uom_id.name, 20)"

@@ -416,7 +416,7 @@
                                             <span t-field="o.currency_id.currency_unit_label"/>
                                         </td>
                                     </tr>
-                                    <tr t-if="o.payment_term_id">
+                                    <tr>
                                         <td width="200">
                                             EXCHANGE RATE
                                         </td>
@@ -424,7 +424,7 @@
                                             <span t-raw="'%.*f' % (6, 1.0/o.currency_id.rate)"/>
                                         </td>
                                     </tr>
-                                    <tr t-if="o.payment_term_id">
+                                    <tr>
                                         <td width="200">
                                             DATE OF EXCHANGE RATE
                                         </td>

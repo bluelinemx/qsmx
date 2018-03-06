@@ -24,6 +24,8 @@
     # always loaded
     'data': [
         'data/data.xml',
+        'data/3.3/cfdi.xml',
+        'data/3.2/cfdi.xml',
         'views/view.xml',
         'views/templates.xml',
     ],

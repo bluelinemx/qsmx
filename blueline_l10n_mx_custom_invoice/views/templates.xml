@@ -7,37 +7,10 @@
             </xpath>
         </template>
 
-        <template id="invoice_external_layout_clean">
-
-            <div class="article">
-                <t t-raw="0"/>
-            </div>
-
-        </template>
-
-
-        <template id="invoice_external_layout">
-            <!-- Multicompany -->
-            <t t-if="not o and doc">
-                <t t-set="o" t-value="doc"/>
-            </t>
-
-            <t t-if="o and 'company_id' in o">
-                <t t-set="company" t-value="o.company_id.sudo()"/>
-            </t>
-            <t t-if="not o or not 'company_id' in o">
-                <t t-set="company" t-value="res_company"/>
-            </t>
-
-            <t t-call="blueline_l10n_mx_custom_invoice.invoice_external_layout_clean">
-                <t t-raw="0"/>
-            </t>
-        </template>
-
         <template id="report_invoice_document" inherit_id="account.report_invoice_document" priority="1">
 
             <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
-                <attribute name="t-call">blueline_l10n_mx_custom_invoice.invoice_external_layout</attribute>
+                <attribute name="t-call">web.basic_layout</attribute>
             </xpath>
 
 
@@ -128,7 +101,7 @@
                             </div>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <span>REGIMEN FISCAL:</span>
+                                <span>FISCAL POSITION:</span>
                                 <t t-raw="o.company_id.partner_id.property_account_position_id.name"/>
                             </div>
 
@@ -140,13 +113,13 @@
                                 </span>
                             </div>
 
-                            <h4 class="mt4 mb0">CLIENTE</h4>
+                            <h4 class="mt4 mb0">CLIENT</h4>
                             <h5 class="mt4 mb0" t-field="o.partner_id.name"/>
 
                             <div t-if="o.partner_id.vat">
                                 <span t-field="o.partner_id.vat"/>
                             </div>
-                            <div t-if="o.l10n_mx_edi_cfdi_uuid">USO CFDI
+                            <div t-if="o.l10n_mx_edi_cfdi_uuid">CFDI USAGE
                                 <t t-raw="xml.Receptor.get('UsoCFDI', '')"/>
                             </div>
                             <div t-raw="o.partner_id._display_address(without_company=True)"></div>
@@ -174,42 +147,42 @@
                             </div>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>NO. DE SERIE DEL CERTIFICADO SAT</div>
+                                <div>SERIAL SAT CERTIFICATE</div>
                                 <div>
                                     <t t-esc="tfd.get('NoCertificadoSAT')"/>
                                 </div>
                             </div>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>NO. DE SERIE DEL CERTIFICADO DEL EMISOR</div>
+                                <div>SERIAL EMITTER CERTIFICATE</div>
                                 <div>
                                     <t t-esc="tfd.get('RfcProvCertif')"/>
                                 </div>
                             </div>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>FECHA Y HORA DE CERTIFICACIÓN</div>
+                                <div>DATE AND TIME OF CERTIFICATION</div>
                                 <div>
                                     <span t-esc="tfd.get('FechaTimbrado', '').replace('T', ' ')"/>
                                 </div>
                             </div>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>RFC PROVEEDOR DE CERTIFICACIÓN</div>
+                                <div>RFC OF CERTIFICATION PROVIDER</div>
                                 <div>
                                     <t t-raw="o.l10n_mx_edi_cfdi_supplier_rfc"/>
                                 </div>
                             </div>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>FECHA Y HORA DE EMISIÓN DE CFDI</div>
+                                <div>DATE AND TIME OF CFDI</div>
                                 <div>
                                     <span t-esc="xml.get('Fecha', '').replace('T', ' ')"/>
                                 </div>
                             </div>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <div>LUGAR DE EXPEDICION</div>
+                                <div>EXPEDITION PLACE</div>
                                 <div>
                                     <span t-esc="xml.get('LugarExpedicion')"/>
                                 </div>
@@ -261,7 +234,7 @@
                                 <td>
                                     <span t-esc="l.name or l.product_id.product_tmpl_id.name"/>
                                     <br/>
-                                    <span t-if="l.product_id.l10n_mx_edi_code_sat_id">Clave Prod Serv. -
+                                    <span t-if="l.product_id.l10n_mx_edi_code_sat_id"><span>Code Prod Serv.</span> -
                                         <span t-esc="l.product_id.l10n_mx_edi_code_sat_id.code"/>
                                         <span t-esc="l.product_id.l10n_mx_edi_code_sat_id.name"/>
                                     </span>
@@ -276,20 +249,25 @@
                                         <div><span>Taxes:</span></div>
 
                                         <t t-if="transferred">
-                                            <div>&amp;nbsp;&amp;nbsp;<span>Transfers:</span></div>
+                                            <div t-translation="off">&amp;nbsp;&amp;nbsp;<span>Transfers:</span></div>
                                             <div t-foreach="transferred" t-as="tax">
-                                                <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span t-raw="tax_name(tax.tag_ids[0].name if tax.tag_ids else '')"/> <t t-raw="tax.tag_ids[0].name" /> Base - <t t-raw="'%.*f' % (decimal_precision, l.price_subtotal)"/> </span>
-                                                <span>Tasa - <t t-raw="'%.6f' % abs(tax.amount / 100.0) if tax.l10n_mx_cfdi_tax_type != 'Exento' else False" /> </span>
-                                                <span>Importe - <t t-raw="'%.2f' % abs(tax.amount / 100.0 * l.price_subtotal) if tax.l10n_mx_cfdi_tax_type != 'Exento' else False"/> </span>
+                                                <span>
+                                                    <span t-translation="off">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                                    <span t-raw="tax_name(tax.tag_ids[0].name if tax.tag_ids else '')"/>
+                                                    <t t-raw="tax.tag_ids[0].name" /> Base - <t t-raw="'%.*f' % (decimal_precision, l.price_subtotal)"/>
+                                                </span>
+
+                                                <span>Tax - <t t-raw="'%.6f' % abs(tax.amount / 100.0) if tax.l10n_mx_cfdi_tax_type != 'Exento' else False" /> </span>
+                                                <span>Import - <t t-raw="'%.2f' % abs(tax.amount / 100.0 * l.price_subtotal) if tax.l10n_mx_cfdi_tax_type != 'Exento' else False"/> </span>
                                             </div>
                                         </t>
 
                                         <t t-if="withholding">
-                                            <div>&amp;nbsp;&amp;nbsp;<span>Withholdings:</span></div>
+                                            <div><span t-translation="off">&amp;nbsp;&amp;nbsp;</span><span>Withholdings:</span></div>
                                             <div t-foreach="withholding" t-as="tax">
-                                                <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<span t-raw="tax_name(tax.tag_ids[0].name if tax.tag_ids else '')"/> <t t-raw="tax.tag_ids[0].name" /> Base - <t t-raw="'%.*f' % (decimal_precision, l.price_subtotal)"/> </span>
-                                                <span>Tasa - <t t-raw="'%.6f' % abs(tax.amount / 100.0)" /> </span>
-                                                <span>Importe - <t t-raw="'%.2f' % abs(tax.amount / 100.0 * l.price_subtotal)"/> </span>
+                                                <span><span t-translation="off">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><span t-raw="tax_name(tax.tag_ids[0].name if tax.tag_ids else '')"/> <t t-raw="tax.tag_ids[0].name" /> Base - <t t-raw="'%.*f' % (decimal_precision, l.price_subtotal)"/> </span>
+                                                <span>Tax - <t t-raw="'%.6f' % abs(tax.amount / 100.0)" /> </span>
+                                                <span>Import - <t t-raw="'%.2f' % abs(tax.amount / 100.0 * l.price_subtotal)"/> </span>
                                             </div>
                                         </t>
 
@@ -325,7 +303,7 @@
                                 <table class="table table-condensed table-borderless">
                                     <tr>
                                         <td width="200">
-                                            IMPORTE CON LETRA
+                                            AMOUNT IN WORDS
                                         </td>
                                         <td>
                                             <span t-esc="o.l10n_mx_edi_amount_to_text()"/>
@@ -339,7 +317,7 @@
                                 <table class="table table-condensed table-borderless">
                                     <tr>
                                         <td width="200">
-                                            TIPO DE COMPROBANTE
+                                            INVOICE TYPE
                                         </td>
                                         <td>
                                             <span t-esc="tipo_comprobante[0]"/>
@@ -350,7 +328,7 @@
 
                                     <tr>
                                         <td width="200">
-                                            FORMA DE PAGO
+                                            PAYMENT METHOD
                                         </td>
                                         <td>
                                             <span t-esc="' - '.join([o.l10n_mx_edi_payment_method_id.code, o.l10n_mx_edi_payment_method_id.name])"/>
@@ -358,21 +336,21 @@
                                     </tr>
                                     <tr>
                                         <td width="200">
-                                            MÉTODO DE PAGO
+                                            PAYMENT FORM
                                         </td>
                                         <td>
                                             <span t-if="xml.get('formaDePago', xml.get('MetodoPago')) == 'PPD'">
-                                                PPD - Pago en parcialidades o diferido
+                                                PPD - Partial or deferred payment
                                             </span>
 
                                             <span t-if="xml.get('formaDePago', xml.get('MetodoPago')) == 'PUE'">
-                                                PUE - Pago en una sola exibición
+                                                PUE - Single payment
                                             </span>
                                         </td>
                                     </tr>
                                     <tr t-if="o.payment_term_id">
                                         <td width="200">
-                                            CONDICIONES DE PAGO
+                                            PAYMENT TERMS
                                         </td>
                                         <td>
                                             <span t-field="o.payment_term_id.note"/>
@@ -380,7 +358,7 @@
                                     </tr>
                                     <tr>
                                         <td width="200">
-                                            MONEDA
+                                            CURRENCY
                                         </td>
                                         <td>
                                             <span t-field="o.currency_id.name"/>
@@ -390,7 +368,7 @@
                                     </tr>
                                     <tr t-if="o.payment_term_id">
                                         <td width="200">
-                                            TIPO DE CAMBIO
+                                            EXCHANGE RATE
                                         </td>
                                         <td>
                                             <span t-field="o.currency_id.rate"/>
@@ -398,7 +376,7 @@
                                     </tr>
                                     <tr t-if="o.payment_term_id">
                                         <td width="200">
-                                            FECHA DE TIPO DE CAMBIO
+                                            DATE OF EXCHANGE RATE
                                         </td>
                                         <td>
                                             <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
@@ -423,7 +401,7 @@
                                             <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
                                                 <td>
                                                     <span t-esc="amount_by_group[0]"/>
-                                                    <span>&amp;nbsp;
+                                                    <span><span t-translation="off">&amp;nbsp;</span>
                                                         <span>on</span>
                                                         <t t-esc="amount_by_group[4]"/>
                                                     </span>

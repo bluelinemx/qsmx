@@ -40,5 +40,9 @@
             <field name="paperformat_id" ref="blueline_l10n_mx_custom_invoice.paperformat_euro_no_margin" />
         </record>
 
+        <record id="account.account_invoices" model="ir.actions.report">
+            <field name="paperformat_id" ref="blueline_l10n_mx_custom_invoice.paperformat_euro_no_margin" />
+        </record>
+
     </data>
 </odoo>

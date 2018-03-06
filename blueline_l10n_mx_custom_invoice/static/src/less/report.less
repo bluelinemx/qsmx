@@ -22,9 +22,11 @@ table[name='invoice_line_table'] .invoice_tbody {
     }
     .barcode {
         float: left;
+        padding-left: 0;
+        padding-right: 0;
         img {
-            height: 200px;
-            width: 200px;
+            height: 220px;
+            width: 220px;
         }
     }
     .complement-details {
@@ -40,8 +42,9 @@ table[name='invoice_line_table'] .invoice_tbody {
         text-transform: uppercase;
     }
     div.digital-stamp-content {
-        width: 93%;
+        width: 100% !important;
         margin-top: -10px;
+        font-size: 10px;
     }
     .nowrap {
         white-space: pre;

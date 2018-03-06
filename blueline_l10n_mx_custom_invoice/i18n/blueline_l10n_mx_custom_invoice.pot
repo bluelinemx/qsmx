@@ -1,0 +1,278 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* blueline_l10n_mx_custom_invoice
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180302\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-05 19:54-0500\n"
+"PO-Revision-Date: 2018-03-06 00:39+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<span>Code Prod Serv.</span> -"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<span>Digital stamp SAT</span>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<span>Digital stamp of the emitter</span>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<span>FISCAL POSITION:</span>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<span>Original chain complement of digital certification SAT</span>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<span>Taxes:</span>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<span>Withholdings:</span>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<span>on</span>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<strong>Customer Code:</strong>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<strong>Description:</strong>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<strong>Due Date:</strong>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<strong>Invoice Date:</strong>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<strong>Reference:</strong>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<strong>Source:</strong>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<strong>Subtotal</strong>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "AMOUNT IN WORDS"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Amount"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Base -"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "CFDI USAGE"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "CLIENT"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "CONCEPTS"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "CURRENCY"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Cancelled Invoice"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Credit Note"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "DATE AND TIME OF CERTIFICATION"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "DATE AND TIME OF CFDI"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "DATE OF EXCHANGE RATE"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Description"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Draft Invoice"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "EXCHANGE RATE"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "EXPEDITION PLACE"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "FISCAL FOLIO (UUID)"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Import -"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Invoice"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "No. Identification"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "PAYMENT FORM"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "PAYMENT METHOD"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "PAYMENT TERMS"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "PPD - Partial or deferred payment"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "PUE - Single payment"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Quantity"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "RFC OF CERTIFICATION PROVIDER"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "SERIAL EMITTER CERTIFICATE"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "SERIAL SAT CERTIFICATE"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "INVOICE TYPE"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Tax -"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Tel."
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Unit"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Unit Price"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Vendor Bill"
+msgstr ""
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Vendor Credit Note"
+msgstr ""

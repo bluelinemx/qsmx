@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e-20180302\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-06 16:38+0000\n"
-"PO-Revision-Date: 2018-03-06 11:39-0500\n"
+"POT-Creation-Date: 2018-03-06 23:15+0000\n"
+"PO-Revision-Date: 2018-03-06 18:16-0500\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "<span>Sello digital del CFDI</span>"
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
 msgid "<span>FISCAL POSITION:</span>"
-msgstr "<span>RÉGIMEN FISCAL:</span>"
+msgstr "<span>POSICIÓN FISCAL:</span>"
 
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
@@ -44,18 +44,13 @@ msgstr "<span>Cadena original del complemento de certificación digital del SAT<
 
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
-msgid "<span>Taxes:</span>"
-msgstr "<span>Impuestos:</span>"
+msgid "<span>Transfers:</span>"
+msgstr "<span>Transferencias:</span>"
 
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
 msgid "<span>Withholdings:</span>"
 msgstr "<span>Retenciones:</span>"
-
-#. module: blueline_l10n_mx_custom_invoice
-#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
-msgid "<span>on</span>"
-msgstr "<span>en</span>"
 
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
@@ -201,7 +196,7 @@ msgstr "Factura"
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.model,name:blueline_l10n_mx_custom_invoice.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Invoice Line"
+msgstr "Líneas de Factura"
 
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.model.fields,field_description:blueline_l10n_mx_custom_invoice.field_account_invoice_line_client_identification_number
@@ -255,19 +250,14 @@ msgid "SERIAL SAT CERTIFICATE"
 msgstr "NO. DE SERIE DEL CERTIFICADO SAT"
 
 #. module: blueline_l10n_mx_custom_invoice
-#: model:account.tax.group,name:blueline_l10n_mx_custom_invoice.tax_group_iva_0
-msgid "TRANSFER IVA TASA 0.00000"
-msgstr "TRASLADO IVA TASA 0.00000"
-
-#. module: blueline_l10n_mx_custom_invoice
-#: model:account.tax.group,name:blueline_l10n_mx_custom_invoice.tax_group_iva_16
-msgid "TRANSFER IVA TASA 0.16000"
-msgstr "TRASLADO IVA TASA 0.16000"
-
-#. module: blueline_l10n_mx_custom_invoice
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
 msgid "Tax -"
 msgstr "Tasa -"
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "Taxes:"
+msgstr "Impuestos:"
 
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document

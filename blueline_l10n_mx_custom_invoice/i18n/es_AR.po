@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: es\n"
+"Language: es_AR\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
 #. module: blueline_l10n_mx_custom_invoice

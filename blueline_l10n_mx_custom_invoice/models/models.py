@@ -15,8 +15,12 @@ class Invoice(models.Model):
     _inherit = 'account.invoice'
 
     @api.model
-    def get_l10n_mx_edi_usages(self):
-        return dict(self._fields['l10n_mx_edi_usage'].selection)
+    def get_l10n_mx_edi_usage_label(self):
+        Invoice = self.with_context({'lang': self.partner_id.lang})
+
+        return Invoice.env['ir.translation']._get_source(None, ('selection', ), self.partner_id.lang,
+                                                         dict(self._fields['l10n_mx_edi_usage']._description_selection(self.env)).get(self.l10n_mx_edi_usage)
+                                                         )
 
     @api.multi
     def _get_tax_amount_by_group(self):

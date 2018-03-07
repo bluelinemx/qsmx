@@ -35,7 +35,7 @@
                     <t t-set="company" t-value="res_company"/>
                 </t>
 
-                <div id="invoice-report" class="page">
+                <div id="invoice-report" class="page" t-lang="o.partner_id.lang">
 
                     <div class="hide row">
                         <div name="invoice_address" class="col-xs-5 col-xs-offset-7">
@@ -121,12 +121,12 @@
                             </div>
 
                             <t t-if="o.l10n_mx_edi_cfdi_uuid">
-                                <t t-set="cfdi_usage_dict" t-value="o.get_l10n_mx_edi_usages()" />
+                                <t t-set="cfdi_usage_label" t-value="o.get_l10n_mx_edi_usage_label()" />
                                 <t t-set="cfdi_usage_code" t-value="xml.Receptor.get('UsoCFDI', '')" />
                             </t>
 
                             <div t-if="o.l10n_mx_edi_cfdi_uuid">CFDI USAGE:
-                                <t t-raw="cfdi_usage_code"/> <t t-raw="cfdi_usage_dict.get(cfdi_usage_code, '')"/>
+                                <t t-raw="cfdi_usage_code"/> <t t-raw="cfdi_usage_label"/>
                             </div>
                             <div class="invoice-address" t-raw="o.partner_id._display_address(without_company=True)"></div>
                         </div>
@@ -405,7 +405,7 @@
                                         <td>
                                             <span t-field="o.currency_id.name"/>
                                             -
-                                            <span t-field="o.currency_id.currency_unit_label"/>
+                                            <span t-field="o.currency_id.currency_unit_label" t-lang="o.partner_id.lang"/>
                                         </td>
                                     </tr>
                                     <tr>

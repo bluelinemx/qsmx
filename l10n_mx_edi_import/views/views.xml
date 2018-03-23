@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="l10n_mx_edi_xml_import_wizard_menu" model="ir.actions.act_window">
+            <field name="name">Import EDI XML</field>
+            <field name="res_model">l10n.mx.edi.import.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="l10n_mx_edi_import_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Import EDI XML"
+                  id="l10n_mx_edi_xml_import_wizard_action"
+                  parent="account.menu_finance_receivables_master_data"
+                  action="l10n_mx_edi_xml_import_wizard_menu" groups="account.group_account_manager"/>
+    </data>
+</odoo>

@@ -42,7 +42,7 @@ class EdiImportLine(models.TransientModel):
     @api.one
     def _compute_product(self):
         if self.customer_identification_number:
-            product = self.env['product.product'].search([('default_code', '=', self.customer_identification_number)])
+            product = self.env['product.product'].search([('default_code', '=', self.product_code)])
             if product:
                 self.product_id = product.id
             self.has_product = True if self.product_id else False
@@ -221,6 +221,7 @@ class EdiImport(models.TransientModel):
                 invoice_lines.append((0, 0, {
                     'name': line.product_description,
                     'price_unit': line.product_unit_price,
+                    'customer_identification_number': line.customer_identification_number,
                     'quantity': line.amount,
                     'product_id': line.product_id.id,
                     'uom_id': line.product_id.uom_id.id,

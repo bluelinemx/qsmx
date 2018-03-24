@@ -1,5 +1,6 @@
-import base64
+# -*- coding: utf-8 -*-
 
+import base64
 from odoo import models, fields, api, tools, _
 import xlrd
 from odoo.exceptions import ValidationError, UserError
@@ -21,17 +22,24 @@ class EdiImportLine(models.TransientModel):
     import_id = fields.Many2one('l10n.mx.edi.import.wizard', required=True)
     uom_code = fields.Char('Unit of Measure')
     product_code = fields.Char('Product Code')
+    l10n_mx_edi_code_sat = fields.Char('SAT Code')
     has_product = fields.Boolean()
     product_id = fields.Many2one('product.product', 'Product', compute='_compute_product', store=True)
     product_description = fields.Char('Description')
     product_unit_price = fields.Float('Unit Price', digits=(19, 2))
     price = fields.Float('Price', digits=(19, 2))
-    customer_identification_number = fields.Char('No. Identification')
+    client_identification_number = fields.Char('No. Identification')
     amount = fields.Integer('Amount')
 
     invoice_line_tax_ids = fields.Many2many('account.tax',
                                             'l10n_mx_edi_import_wizard_line_tax_rel', 'invoice_line_id', 'tax_id',
                                             string='Taxes')
+
+    def product_lookup(self):
+        if self.product_code:
+            product = self.env['product.product'].search([('default_code', '=', self.product_code)])
+
+            return product
 
     @api.model
     def create(self, values):
@@ -41,11 +49,11 @@ class EdiImportLine(models.TransientModel):
 
     @api.one
     def _compute_product(self):
-        if self.customer_identification_number:
-            product = self.env['product.product'].search([('default_code', '=', self.product_code)])
-            if product:
-                self.product_id = product.id
-            self.has_product = True if self.product_id else False
+        product = self.product_lookup()
+        if product:
+            self.product_id = product.id
+
+        self.has_product = True if self.product_id else False
 
 
 def get_xml_value(xml, selector, key):
@@ -62,6 +70,8 @@ class EdiImport(models.TransientModel):
 
     xml_file = fields.Binary(required=True)
     name = fields.Char()
+
+    version = fields.Char()
 
     l10n_mx_edi_usage = fields.Selection([
         ('G01', 'Acquisition of merchandise'),
@@ -110,6 +120,7 @@ class EdiImport(models.TransientModel):
     state = fields.Char()
     date_invoice = fields.Datetime()
     payment_term_name = fields.Char("Payement Term")
+    has_payment_term = fields.Boolean()
     payment_term_id = fields.Many2one('account.payment.term', 'Payment Term', compute='_compute_edi_values', store=True)
     l10n_mx_edi_cfdi_certificate_id = fields.Char()
     invoice_id = fields.Many2one('account.invoice', 'Invoice')
@@ -118,9 +129,10 @@ class EdiImport(models.TransientModel):
 
     line_ids = fields.One2many('l10n.mx.edi.import.wizard.line', 'import_id', 'Lines')
 
-    @api.one
+    @api.multi
     @api.depends('currency_code', 'payment_term_name', 'fiscal_position_code', 'l10n_mx_edi_cfdi_supplier_rfc', 'l10n_mx_edi_cfdi_customer_rfc')
     def _compute_edi_values(self):
+        self.ensure_one()
         if self.fiscal_position_code:
             fiscal_position = self.env['account.fiscal.position'].search(
                 [('l10n_mx_edi_code', '=', self.fiscal_position_code)], limit=1)
@@ -130,6 +142,7 @@ class EdiImport(models.TransientModel):
             payment_term = self.env['account.payment.term'].search(
                 [('name', '=', self.payment_term_name)], limit=1)
             self.payment_term_id = payment_term.id or False
+            self.has_payment_term = payment_term.id or False
 
         if self.currency_code:
             self.currency_id = self.env['res.currency'].search([('name', '=', self.currency_code)]).id
@@ -221,7 +234,7 @@ class EdiImport(models.TransientModel):
                 invoice_lines.append((0, 0, {
                     'name': line.product_description,
                     'price_unit': line.product_unit_price,
-                    'client_identification_number': line.customer_identification_number,
+                    'client_identification_number': line.client_identification_number,
                     'quantity': line.amount,
                     'product_id': line.product_id.id,
                     'uom_id': line.product_id.uom_id.id,
@@ -281,22 +294,24 @@ class EdiImport(models.TransientModel):
             action = {'type': 'ir.actions.act_window_close'}
         return action
 
+    @api.one
     def process_xml_file(self):
         try:
             xml = fromstring(base64.b64decode(self.xml_file))
         except:
             raise ValidationError('Unable to parse XML file')
 
-        self.date_invoice = datetime.strptime(xml.attrib['Fecha'], '%Y-%m-%dT%H:%M:%S')
-        self.currency_code = xml.attrib['Moneda']
-        self.l10n_mx_edi_cfdi_amount = float(xml.attrib['Total'])
-        self.payment_term_name = xml.attrib['CondicionesDePago']
+        self.version = xml.attrib.get('Version')
+        self.date_invoice = datetime.strptime(xml.attrib.get('Fecha'), '%Y-%m-%dT%H:%M:%S') if xml.attrib.get('Fecha') else False
+        self.currency_code = xml.attrib.get('Moneda')
+        self.l10n_mx_edi_cfdi_amount = float(xml.attrib.get('Total')) if xml.attrib.get('Total') else 0
+        self.payment_term_name = (xml.attrib.get('CondicionesDePago') or ''),
 
-        self.l10n_mx_edi_cfdi_supplier_name = xml.Emisor.attrib['Nombre']
-        self.l10n_mx_edi_cfdi_supplier_rfc = xml.Emisor.attrib['Rfc']
-        self.l10n_mx_edi_cfdi_customer_name = xml.Receptor.attrib['Nombre']
-        self.l10n_mx_edi_cfdi_customer_rfc = xml.Receptor.attrib['Rfc']
-        self.l10n_mx_edi_usage = xml.Receptor.attrib['UsoCFDI']
+        self.l10n_mx_edi_cfdi_supplier_name = xml.Emisor.attrib.get('Nombre', xml.Emisor.attrib.get('nombre'))
+        self.l10n_mx_edi_cfdi_supplier_rfc = xml.Emisor.attrib.get('Rfc', xml.Emisor.attrib.get('rfc'))
+        self.l10n_mx_edi_cfdi_customer_name = xml.Receptor.attrib.get('Nombre', xml.Receptor.attrib.get('nombre'))
+        self.l10n_mx_edi_cfdi_customer_rfc = xml.Receptor.attrib.get('Rfc', xml.Receptor.attrib.get('rfc'))
+        self.l10n_mx_edi_usage = xml.Receptor.attrib.get('UsoCFDI')
 
         if not self.company_id:
             raise UserError(
@@ -318,7 +333,7 @@ class EdiImport(models.TransientModel):
 
             if self.l10n_mx_edi_cfdi_uuid:
                 self.l10n_mx_edi_pac_status = 'signed'
-                self.l10n_mx_edi_sat_status = 'valid'
+                self.l10n_mx_edi_sat_status = 'undefined'
 
         lines = []
         for i in range(xml.Conceptos.countchildren()):
@@ -336,13 +351,14 @@ class EdiImport(models.TransientModel):
 
             line = {
                 'import_id': self.id,
-                'uom_code': item.attrib['ClaveUnidad'],
-                'product_code': item.attrib['ClaveProdServ'],
-                'customer_identification_number': item.attrib['NoIdentificacion'],
-                'amount': float(item.attrib['Cantidad']),
-                'price': float(item.attrib['Importe']),
-                'product_unit_price': float(item.attrib['ValorUnitario']),
-                'product_description': item.attrib['Descripcion'],
+                'uom_code': item.attrib.get('ClaveUnidad', item.attrib.get('Unidad')),
+                'l10n_mx_edi_code_sat': item.attrib.get('ClaveProdServ'),
+                'product_code': item.attrib['NoIdentificacion'],
+                'client_identification_number': item.attrib['NoIdentificacion'],
+                'amount': float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0))),
+                'price': float(item.attrib.get('Importe', item.attrib.get('importe', 0))),
+                'product_unit_price': float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0))),
+                'product_description': item.attrib.get('Descripcion', item.attrib.get('descripcion', False)),
                 'invoice_line_tax_ids': [(6, 0, tax_ids)],
             }
 

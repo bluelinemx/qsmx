@@ -31,7 +31,8 @@
                                 <field name="date_invoice" readonly="1"/>
                                 <field name="currency_id" readonly="1"/>
                                 <field name="l10n_mx_edi_cfdi_amount" readonly="1"/>
-                                <field name="payment_term_id" readonly="1"/>
+                                <field name="has_payment_term" invisible="1" />
+                                <field name="payment_term_id" attrs="{'readonly': [('has_payment_term', '=', True)]}"/>
                                 <field name="l10n_mx_edi_usage" readonly="1"/>
                             </group>
                             <group>
@@ -57,10 +58,10 @@
                                 <field name="line_ids" mode="tree" nolabel="1" widget="one2many_list">
                                     <tree create="false" delete="false" editable="bottom">
                                         <field name="uom_code" readonly="1"/>
-                                        <field name="customer_identification_number" readonly="1"/>
+                                        <field name="client_identification_number" readonly="1"/>
                                         <field name="product_code" readonly="1"/>
                                         <field name="has_product" invisible="1"/>
-                                        <field name="product_id" attrs="{'readonly': [('has_product', '=', True)]}" context="{'default_default_code': customer_identification_number, 'default_l10n_mx_edi_code_sat_id': product_code, 'default_name': product_description, 'default_lst_price': product_unit_price}"/>
+                                        <field name="product_id" attrs="{'readonly': [('has_product', '=', True)]}" context="{'default_default_code': client_identification_number, 'default_l10n_mx_edi_code_sat_id': product_code, 'default_name': product_description, 'default_lst_price': product_unit_price}"/>
                                         <field name="product_description" readonly="1"/>
                                         <field name="amount" readonly="1"/>
                                         <field name="product_unit_price" readonly="1"/>

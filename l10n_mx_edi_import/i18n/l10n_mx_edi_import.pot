@@ -241,7 +241,7 @@ msgid "Name"
 msgstr ""
 
 #. module: l10n_mx_edi_import
-#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_customer_identification_number
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_client_identification_number
 msgid "No. Identification"
 msgstr ""
 

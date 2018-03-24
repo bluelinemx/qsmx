@@ -32,7 +32,8 @@
                                 <field name="currency_id" readonly="1"/>
                                 <field name="l10n_mx_edi_cfdi_amount" readonly="1"/>
                                 <field name="has_payment_term" invisible="1" />
-                                <field name="payment_term_id" attrs="{'readonly': [('has_payment_term', '=', True)]}"/>
+                                <field name="payment_term_id" readonly="1"/>
+                                <!--<field name="payment_term_id" readonly="1" attrs="{'readonly': [('has_payment_term', '=', True)]}"/>-->
                                 <field name="l10n_mx_edi_usage" readonly="1"/>
                             </group>
                             <group>
@@ -57,7 +58,7 @@
                             <page string="Lines">
                                 <field name="line_ids" mode="tree" nolabel="1" widget="one2many_list">
                                     <tree create="false" delete="false" editable="bottom">
-                                        <field name="uom_code" readonly="1"/>
+                                        <!--<field name="uom_code" readonly="1"/>-->
                                         <field name="client_identification_number" readonly="1"/>
                                         <field name="product_code" readonly="1"/>
                                         <field name="has_product" invisible="1"/>
@@ -68,6 +69,12 @@
                                         <field name="price"  readonly="1"/>
                                     </tree>
                                 </field>
+
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_untaxed"/>
+                                    <field name="amount_tax"/>
+                                    <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>

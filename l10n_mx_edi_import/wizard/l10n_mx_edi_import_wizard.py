@@ -53,7 +53,7 @@ class EdiImportLine(models.TransientModel):
         if product:
             self.product_id = product.id
 
-        self.has_product = True if self.product_id else False
+        self.has_product = self.product_id is not False
 
 
 def get_xml_value(xml, selector, key):
@@ -117,15 +117,19 @@ class EdiImport(models.TransientModel):
     company_id = fields.Many2one('res.partner', 'Company', compute='_compute_edi_values', store=True)
     partner_id = fields.Many2one('res.partner', 'Client', compute='_compute_edi_values', store=True)
     partner_shipping_id = fields.Many2one('res.partner', string='Delivery Address', compute='_compute_edi_values', store=True)
-    state = fields.Char()
+    state = fields.Char("State")
     date_invoice = fields.Datetime()
-    payment_term_name = fields.Char("Payement Term")
+    payment_term_name = fields.Char("Payement Term", size=255)
     has_payment_term = fields.Boolean()
     payment_term_id = fields.Many2one('account.payment.term', 'Payment Term', compute='_compute_edi_values', store=True)
     l10n_mx_edi_cfdi_certificate_id = fields.Char()
     invoice_id = fields.Many2one('account.invoice', 'Invoice')
     fiscal_position_code = fields.Char('Fiscal Position Code')
     fiscal_position_id = fields.Many2one('account.fiscal.position', 'Fiscal Position', compute='_compute_edi_values', store=True)
+
+    amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True)
+    amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True)
+    amount_total = fields.Monetary(string='Total', store=True, readonly=True)
 
     line_ids = fields.One2many('l10n.mx.edi.import.wizard.line', 'import_id', 'Lines')
 
@@ -142,7 +146,7 @@ class EdiImport(models.TransientModel):
             payment_term = self.env['account.payment.term'].search(
                 [('name', '=', self.payment_term_name)], limit=1)
             self.payment_term_id = payment_term.id or False
-            self.has_payment_term = payment_term.id or False
+            self.has_payment_term = payment_term.id is not False
 
         if self.currency_code:
             self.currency_id = self.env['res.currency'].search([('name', '=', self.currency_code)]).id
@@ -264,7 +268,7 @@ class EdiImport(models.TransientModel):
             })
 
             filename = ('%s-%s-MX-Invoice-%s.xml' % (
-                invoice.journal_id.code, invoice.number, '3-3')).replace('/', '')
+                invoice.journal_id.code, invoice.number, self.version.replace('.', '-'))).replace('/', '')
             ctx = self.env.context.copy()
             ctx.pop('default_type', False)
             invoice.l10n_mx_edi_cfdi_name = filename
@@ -294,7 +298,7 @@ class EdiImport(models.TransientModel):
             action = {'type': 'ir.actions.act_window_close'}
         return action
 
-    @api.one
+    @api.multi
     def process_xml_file(self):
         try:
             xml = fromstring(base64.b64decode(self.xml_file))
@@ -304,8 +308,12 @@ class EdiImport(models.TransientModel):
         self.version = xml.attrib.get('Version')
         self.date_invoice = datetime.strptime(xml.attrib.get('Fecha'), '%Y-%m-%dT%H:%M:%S') if xml.attrib.get('Fecha') else False
         self.currency_code = xml.attrib.get('Moneda')
-        self.l10n_mx_edi_cfdi_amount = float(xml.attrib.get('Total')) if xml.attrib.get('Total') else 0
-        self.payment_term_name = (xml.attrib.get('CondicionesDePago') or ''),
+        self.l10n_mx_edi_cfdi_amount = float(xml.attrib.get('Total', xml.attrib.get('total', 0)))
+
+        self.amount_untaxed = float(xml.attrib.get('SubTotal', xml.attrib.get('subTotal', 0)))
+        self.amount_total = float(xml.attrib.get('Total', xml.attrib.get('total', 0)))
+
+        self.payment_term_name = xml.attrib.get('CondicionesDePago') or ''
 
         self.l10n_mx_edi_cfdi_supplier_name = xml.Emisor.attrib.get('Nombre', xml.Emisor.attrib.get('nombre'))
         self.l10n_mx_edi_cfdi_supplier_rfc = xml.Emisor.attrib.get('Rfc', xml.Emisor.attrib.get('rfc'))
@@ -335,6 +343,7 @@ class EdiImport(models.TransientModel):
                 self.l10n_mx_edi_pac_status = 'signed'
                 self.l10n_mx_edi_sat_status = 'valid'
 
+        amount_tax = 0
         lines = []
         for i in range(xml.Conceptos.countchildren()):
             item = xml.Conceptos.Concepto[i]
@@ -343,6 +352,10 @@ class EdiImport(models.TransientModel):
             for tIndex in range(item.Impuestos.Traslados.countchildren()):
                 tax = item.Impuestos.Traslados.Traslado[0]
                 tasa = float(tax.attrib['TasaOCuota']) * 100
+
+                amount = float(tax.attrib.get('Importe', '0'))
+
+                amount_tax += amount
 
                 tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
 
@@ -365,5 +378,5 @@ class EdiImport(models.TransientModel):
             lines.append((0, 0, line))
 
         self.line_ids = lines
-
+        self.amount_tax = amount_tax
         return True

@@ -333,7 +333,7 @@ class EdiImport(models.TransientModel):
 
             if self.l10n_mx_edi_cfdi_uuid:
                 self.l10n_mx_edi_pac_status = 'signed'
-                self.l10n_mx_edi_sat_status = 'undefined'
+                self.l10n_mx_edi_sat_status = 'valid'
 
         lines = []
         for i in range(xml.Conceptos.countchildren()):

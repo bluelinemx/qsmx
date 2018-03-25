@@ -71,7 +71,7 @@ class EdiImport(models.TransientModel):
 
     xml_file = fields.Binary(required=True)
     xml_content = fields.Text(readonly=True)
-    name = fields.Char()
+    name = fields.Char('Folio')
 
     version = fields.Char()
 

@@ -28,6 +28,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="name" readonly="1"/>
                                 <field name="date_invoice" readonly="1"/>
                                 <field name="currency_id" readonly="1"/>
                                 <field name="l10n_mx_edi_cfdi_amount" readonly="1"/>

@@ -251,6 +251,7 @@ class EdiImport(models.TransientModel):
                 'type': 'out_invoice',
                 'state': 'draft',
                 'reference': False,
+                'name': self.name,
                 'date_invoice': self.date_invoice,
                 'partner_shipping_id': self.partner_shipping_id.id,
                 'l10n_mx_edi_usage': self.l10n_mx_edi_usage,
@@ -308,6 +309,7 @@ class EdiImport(models.TransientModel):
             raise ValidationError('Unable to parse XML file')
 
         self.version = xml.attrib.get('Version')
+        self.name = xml.attrib.get('Folio')
         self.date_invoice = datetime.strptime(xml.attrib.get('Fecha'), '%Y-%m-%dT%H:%M:%S') if xml.attrib.get('Fecha') else False
         self.currency_code = xml.attrib.get('Moneda')
         self.l10n_mx_edi_cfdi_amount = float(xml.attrib.get('Total', xml.attrib.get('total', 0)))

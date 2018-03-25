@@ -76,6 +76,9 @@
                                     <field name="amount_total" class="oe_subtotal_footer_separator"/>
                                 </group>
                             </page>
+                            <page string="XML">
+                                <field name="xml_content" widget="ace" options="{'mode': 'xml'}"/>
+                            </page>
                         </notebook>
                     </sheet>
                     <footer>

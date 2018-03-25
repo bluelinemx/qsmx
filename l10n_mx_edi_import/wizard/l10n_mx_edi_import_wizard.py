@@ -4,7 +4,7 @@ import base64
 from odoo import models, fields, api, tools, _
 import xlrd
 from odoo.exceptions import ValidationError, UserError
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, datetime, DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, datetime, DEFAULT_SERVER_DATETIME_FORMAT, etree
 from xlrd import XLRDError
 import logging
 from lxml.objectify import fromstring
@@ -69,6 +69,7 @@ class EdiImport(models.TransientModel):
     _name = 'l10n.mx.edi.import.wizard'
 
     xml_file = fields.Binary(required=True)
+    xml_content = fields.Text(readonly=True)
     name = fields.Char()
 
     version = fields.Char()
@@ -302,6 +303,7 @@ class EdiImport(models.TransientModel):
     def process_xml_file(self):
         try:
             xml = fromstring(base64.b64decode(self.xml_file))
+            self.xml_content = etree.tostring(xml, pretty_print=True)
         except:
             raise ValidationError('Unable to parse XML file')
 
@@ -312,6 +314,10 @@ class EdiImport(models.TransientModel):
 
         self.amount_untaxed = float(xml.attrib.get('SubTotal', xml.attrib.get('subTotal', 0)))
         self.amount_total = float(xml.attrib.get('Total', xml.attrib.get('total', 0)))
+
+        taxes_section = getattr(xml, 'Impuestos', False)
+        if taxes_section:
+            self.amount_tax = float(taxes_section.attrib.get('TotalImpuestosTrasladados', 0))
 
         self.payment_term_name = xml.attrib.get('CondicionesDePago') or ''
 
@@ -331,10 +337,9 @@ class EdiImport(models.TransientModel):
                 _('Unable to process XML from company other than %s with RFC %s') % (
                 self.env.user.partner_id.company_id.name, self.env.user.partner_id.company_id.vat))
 
-        try:
-            timbre = xml.Complemento.find('tfd:TimbreFiscalDigital', EDI_NAMESPACES)
-        except AttributeError:
-            timbre = False
+        complemento_section = getattr(xml, 'Complemento', False)
+
+        timbre = complemento_section.find('tfd:TimbreFiscalDigital', EDI_NAMESPACES) if complemento_section else False
 
         if timbre is not None:
             self.l10n_mx_edi_cfdi_uuid = timbre.get('UUID')
@@ -343,40 +348,42 @@ class EdiImport(models.TransientModel):
                 self.l10n_mx_edi_pac_status = 'signed'
                 self.l10n_mx_edi_sat_status = 'valid'
 
-        amount_tax = 0
-        lines = []
-        for i in range(xml.Conceptos.countchildren()):
-            item = xml.Conceptos.Concepto[i]
-            AccountTax = self.env['account.tax']
-            tax_ids = []
-            for tIndex in range(item.Impuestos.Traslados.countchildren()):
-                tax = item.Impuestos.Traslados.Traslado[0]
-                tasa = float(tax.attrib['TasaOCuota']) * 100
+        concepts_section = getattr(xml, 'Conceptos', False)
 
-                amount = float(tax.attrib.get('Importe', '0'))
+        if concepts_section:
+            lines = []
+            for i in range(concepts_section.countchildren()):
+                item = concepts_section.Concepto[i]
+                AccountTax = self.env['account.tax']
+                tax_ids = []
+                for tIndex in range(item.Impuestos.Traslados.countchildren()):
 
-                amount_tax += amount
+                    concept_tax_section = getattr(item, 'Impuestos')
 
-                tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
+                    if concept_tax_section:
+                        tax = concept_tax_section.Traslados.Traslado[0]
+                        tasa = float(tax.attrib['TasaOCuota']) * 100
 
-                if tax_item.id:
-                    tax_ids.append(tax_item.id)
+                        tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
 
-            line = {
-                'import_id': self.id,
-                'uom_code': item.attrib.get('ClaveUnidad', item.attrib.get('Unidad')),
-                'l10n_mx_edi_code_sat': item.attrib.get('ClaveProdServ'),
-                'product_code': item.attrib['NoIdentificacion'],
-                'client_identification_number': item.attrib['NoIdentificacion'],
-                'amount': float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0))),
-                'price': float(item.attrib.get('Importe', item.attrib.get('importe', 0))),
-                'product_unit_price': float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0))),
-                'product_description': item.attrib.get('Descripcion', item.attrib.get('descripcion', False)),
-                'invoice_line_tax_ids': [(6, 0, tax_ids)],
-            }
+                        if tax_item.id:
+                            tax_ids.append(tax_item.id)
 
-            lines.append((0, 0, line))
+                line = {
+                    'import_id': self.id,
+                    'uom_code': item.attrib.get('ClaveUnidad', item.attrib.get('Unidad')),
+                    'l10n_mx_edi_code_sat': item.attrib.get('ClaveProdServ'),
+                    'product_code': item.attrib['NoIdentificacion'],
+                    'client_identification_number': item.attrib['NoIdentificacion'],
+                    'amount': float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0))),
+                    'price': float(item.attrib.get('Importe', item.attrib.get('importe', 0))),
+                    'product_unit_price': float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0))),
+                    'product_description': item.attrib.get('Descripcion', item.attrib.get('descripcion', False)),
+                    'invoice_line_tax_ids': [(6, 0, tax_ids)],
+                }
 
-        self.line_ids = lines
-        self.amount_tax = amount_tax
+                lines.append((0, 0, line))
+
+            self.line_ids = lines
+
         return True

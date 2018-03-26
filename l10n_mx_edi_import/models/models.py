@@ -11,5 +11,5 @@ class AccountInvoice(models.Model):
         result = super().l10n_mx_edi_is_required()
 
         attachment_id = self.l10n_mx_edi_retrieve_last_attachment()
-        return result
+        return result and not attachment_id
 

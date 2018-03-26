@@ -252,7 +252,7 @@ class EdiImport(models.TransientModel):
                 'type': 'out_invoice',
                 'state': 'draft',
                 'reference': False,
-                'move_name': self.name,
+                'move_name': "F-/{name}".format(name=self.name),
                 'date_invoice': self.date_invoice,
                 'partner_shipping_id': self.partner_shipping_id.id,
                 'l10n_mx_edi_usage': self.l10n_mx_edi_usage,

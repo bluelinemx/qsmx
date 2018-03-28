@@ -40,6 +40,8 @@ class EdiImportLine(models.TransientModel):
 
             return product
 
+        return False
+
     @api.model
     def create(self, values):
         item = super().create(values)

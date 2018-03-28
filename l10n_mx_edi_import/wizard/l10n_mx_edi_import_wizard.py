@@ -216,79 +216,91 @@ class EdiImport(models.TransientModel):
 
         return True
 
+    def get_invoice_line_values_from_line(self, line):
+        ir_property_obj = self.env['ir.property']
+
+        account_id = False
+        if line.product_id.id:
+            account_id = line.product_id.property_account_income_id.id
+        if not account_id:
+            inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
+            account_id = self.fiscal_position_id.map_account(inc_acc).id if inc_acc else False
+        if not account_id:
+            raise UserError(
+                _(
+                    'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                (line.product_id.name,))
+
+        return {
+            'name': line.product_description,
+            'price_unit': line.product_unit_price,
+            'quantity': line.amount,
+            'product_id': line.product_id.id,
+            'uom_id': line.product_id.uom_id.id,
+            'account_id': account_id,
+            'invoice_line_tax_ids': [(6, 0, [tax.id for tax in line.invoice_line_tax_ids])],
+        }
+
+    def get_invoice_creation_values(self):
+        invoice_lines = []
+        for line in self.line_ids:
+            invoice_lines.append((0, 0, self.get_invoice_line_values_from_line(line)))
+
+        return {
+            'type': 'out_invoice',
+            'state': 'draft',
+            'reference': False,
+            'move_name': "F-/{name}".format(name=self.name),
+            'number': "F-/{name}".format(name=self.name),
+            'date_invoice': self.date_invoice,
+            'partner_shipping_id': self.partner_shipping_id.id,
+            'l10n_mx_edi_usage': self.l10n_mx_edi_usage,
+            'l10n_mx_edi_pac_status': self.l10n_mx_edi_pac_status,
+            'l10n_mx_edi_sat_status': self.l10n_mx_edi_sat_status,
+            'l10n_mx_edi_cfdi_supplier_rfc': self.l10n_mx_edi_cfdi_supplier_rfc,
+            'l10n_mx_edi_cfdi_customer_rfc': self.l10n_mx_edi_cfdi_customer_rfc,
+            'account_id': self.partner_id.property_account_receivable_id.id,
+            'partner_id': self.partner_id.id,
+            'invoice_line_ids': invoice_lines,
+            'currency_id': self.currency_id.id,
+            'payment_term_id': self.payment_term_id.id,
+            'fiscal_position_id': self.fiscal_position_id.id if self.fiscal_position_id else self.partner_id.property_account_position_id.id,
+            'user_id': self.env.user.id,
+            'comment': '',
+        }
+
+    def create_invoice(self):
+        inv_obj = self.env['account.invoice']
+        invoice = inv_obj.create(self.get_invoice_creation_values())
+
+        filename = ('%s-%s-MX-Invoice-%s.xml' % (
+            invoice.journal_id.code, invoice.number, self.version.replace('.', '-'))).replace('/', '')
+        ctx = self.env.context.copy()
+        ctx.pop('default_type', False)
+        invoice.l10n_mx_edi_cfdi_name = filename
+
+        attachment_id = self.env['ir.attachment'].with_context(ctx).create({
+            'name': filename,
+            'res_id': invoice.id,
+            'res_model': invoice._name,
+            'datas': self.xml_file,
+            'datas_fname': filename,
+            'description': 'Mexican invoice',
+        })
+
+        self.invoice_id = invoice.id
+
+        invoice.action_invoice_open()
+
+        return invoice
+
     @api.multi
     def action_import(self):
         # create invoice here
 
         if self.validate_import():
-            inv_obj = self.env['account.invoice']
-            ir_property_obj = self.env['ir.property']
 
-            invoice_lines = []
-            for line in self.line_ids:
-                account_id = False
-                if line.product_id.id:
-                    account_id = line.product_id.property_account_income_id.id
-                if not account_id:
-                    inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
-                    account_id = self.fiscal_position_id.map_account(inc_acc).id if inc_acc else False
-                if not account_id:
-                    raise UserError(
-                        _(
-                            'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
-                        (line.product_id.name,))
-
-                invoice_lines.append((0, 0, {
-                    'name': line.product_description,
-                    'price_unit': line.product_unit_price,
-                    'quantity': line.amount,
-                    'product_id': line.product_id.id,
-                    'uom_id': line.product_id.uom_id.id,
-                    'account_id': account_id,
-                    'invoice_line_tax_ids': [(6, 0, [tax.id for tax in line.invoice_line_tax_ids])],
-                }))
-
-            invoice = inv_obj.create({
-                'type': 'out_invoice',
-                'state': 'draft',
-                'reference': False,
-                'move_name': "F-/{name}".format(name=self.name),
-                'number': "F-/{name}".format(name=self.name),
-                'date_invoice': self.date_invoice,
-                'partner_shipping_id': self.partner_shipping_id.id,
-                'l10n_mx_edi_usage': self.l10n_mx_edi_usage,
-                'l10n_mx_edi_pac_status': self.l10n_mx_edi_pac_status,
-                'l10n_mx_edi_sat_status': self.l10n_mx_edi_sat_status,
-                'l10n_mx_edi_cfdi_supplier_rfc': self.l10n_mx_edi_cfdi_supplier_rfc,
-                'l10n_mx_edi_cfdi_customer_rfc': self.l10n_mx_edi_cfdi_customer_rfc,
-                'account_id': self.partner_id.property_account_receivable_id.id,
-                'partner_id': self.partner_id.id,
-                'invoice_line_ids': invoice_lines,
-                'currency_id': self.currency_id.id,
-                'payment_term_id': self.payment_term_id.id,
-                'fiscal_position_id': self.fiscal_position_id.id if self.fiscal_position_id else self.partner_id.property_account_position_id.id,
-                'user_id': self.env.user.id,
-                'comment': '',
-            })
-
-            filename = ('%s-%s-MX-Invoice-%s.xml' % (
-                invoice.journal_id.code, invoice.number, self.version.replace('.', '-'))).replace('/', '')
-            ctx = self.env.context.copy()
-            ctx.pop('default_type', False)
-            invoice.l10n_mx_edi_cfdi_name = filename
-
-            attachment_id = self.env['ir.attachment'].with_context(ctx).create({
-                'name': filename,
-                'res_id': invoice.id,
-                'res_model': invoice._name,
-                'datas': self.xml_file,
-                'datas_fname': filename,
-                'description': 'Mexican invoice',
-            })
-
-            self.invoice_id = invoice.id
-
-            invoice.action_invoice_open()
+            self.create_invoice()
 
             return self.do_finish_action()
 

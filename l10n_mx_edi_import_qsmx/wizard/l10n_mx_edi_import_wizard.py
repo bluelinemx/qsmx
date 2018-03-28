@@ -9,3 +9,4 @@ class EdiImport(models.TransientModel):
     def get_invoice_line_values_from_line(self, line):
         vals = super(EdiImport, self).get_invoice_line_values_from_line(line)
         vals['client_identification_number'] = line.product_code
+        return vals

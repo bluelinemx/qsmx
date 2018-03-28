@@ -28,7 +28,6 @@ class EdiImportLine(models.TransientModel):
     product_description = fields.Char('Description')
     product_unit_price = fields.Float('Unit Price', digits=(19, 2))
     price = fields.Float('Price', digits=(19, 2))
-    client_identification_number = fields.Char('No. Identification')
     amount = fields.Integer('Amount')
 
     invoice_line_tax_ids = fields.Many2many('account.tax',
@@ -240,7 +239,6 @@ class EdiImport(models.TransientModel):
                 invoice_lines.append((0, 0, {
                     'name': line.product_description,
                     'price_unit': line.product_unit_price,
-                    'client_identification_number': line.client_identification_number,
                     'quantity': line.amount,
                     'product_id': line.product_id.id,
                     'uom_id': line.product_id.uom_id.id,
@@ -384,8 +382,7 @@ class EdiImport(models.TransientModel):
                     'import_id': self.id,
                     'uom_code': item.attrib.get('ClaveUnidad', item.attrib.get('Unidad')),
                     'l10n_mx_edi_code_sat': item.attrib.get('ClaveProdServ'),
-                    'product_code': item.attrib['NoIdentificacion'],
-                    'client_identification_number': item.attrib['NoIdentificacion'],
+                    'product_code': item.attrib.get('NoIdentificacion'),
                     'amount': float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0))),
                     'price': float(item.attrib.get('Importe', item.attrib.get('importe', 0))),
                     'product_unit_price': float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0))),

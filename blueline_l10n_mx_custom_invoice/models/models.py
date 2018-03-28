@@ -8,7 +8,7 @@ from functools import partial
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
-    client_identification_number = fields.Char('No. Identification', required=True)
+    client_identification_number = fields.Char('No. Identification')
 
 
 class Invoice(models.Model):

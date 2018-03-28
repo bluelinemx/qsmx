@@ -253,6 +253,7 @@ class EdiImport(models.TransientModel):
                 'state': 'draft',
                 'reference': False,
                 'move_name': "F-/{name}".format(name=self.name),
+                'number': "F-/{name}".format(name=self.name),
                 'date_invoice': self.date_invoice,
                 'partner_shipping_id': self.partner_shipping_id.id,
                 'l10n_mx_edi_usage': self.l10n_mx_edi_usage,
@@ -340,6 +341,11 @@ class EdiImport(models.TransientModel):
                 _('Unable to process XML from company other than %s with RFC %s') % (
                 self.env.user.partner_id.company_id.name, self.env.user.partner_id.company_id.vat))
 
+        if not self.partner_id:
+            raise UserError(
+                _('Unable to find client %s with RFC %s') % (
+                    self.l10n_mx_edi_cfdi_customer_name, self.l10n_mx_edi_cfdi_customer_rfc))
+
         complemento_section = getattr(xml, 'Complemento', False)
 
         timbre = complemento_section.find('tfd:TimbreFiscalDigital', EDI_NAMESPACES) if complemento_section else False
@@ -359,18 +365,20 @@ class EdiImport(models.TransientModel):
                 item = concepts_section.Concepto[i]
                 AccountTax = self.env['account.tax']
                 tax_ids = []
-                for tIndex in range(item.Impuestos.Traslados.countchildren()):
 
-                    concept_tax_section = getattr(item, 'Impuestos')
+                if self.version == '3.3':
+                    for tIndex in range(item.Impuestos.Traslados.countchildren()):
 
-                    if concept_tax_section:
-                        tax = concept_tax_section.Traslados.Traslado[0]
-                        tasa = float(tax.attrib['TasaOCuota']) * 100
+                        concept_tax_section = getattr(item, 'Impuestos')
 
-                        tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
+                        if concept_tax_section:
+                            tax = concept_tax_section.Traslados.Traslado[0]
+                            tasa = float(tax.attrib['TasaOCuota']) * 100
 
-                        if tax_item.id:
-                            tax_ids.append(tax_item.id)
+                            tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
+
+                            if tax_item.id:
+                                tax_ids.append(tax_item.id)
 
                 line = {
                     'import_id': self.id,

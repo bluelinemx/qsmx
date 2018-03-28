@@ -50,10 +50,10 @@ class EdiImportLine(models.TransientModel):
     def _compute_product(self):
         product = self.product_lookup()
 
-        if product.id:
-            self.product_id = product.id
-        self.has_product = product.id is not False
+        self.has_product = product and product.id is not False
 
+        if self.has_product:
+            self.product_id = product.id
 
 
 def get_xml_value(xml, selector, key):

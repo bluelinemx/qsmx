@@ -24,11 +24,18 @@ class EdiImportLine(models.TransientModel):
     product_code = fields.Char('Product Code')
     l10n_mx_edi_code_sat = fields.Char('SAT Code')
     has_product = fields.Boolean()
+
     product_id = fields.Many2one('product.product', 'Product', compute='_compute_product', store=True)
     product_description = fields.Char('Description')
-    product_unit_price = fields.Float('Unit Price', digits=(19, 2))
-    price = fields.Float('Price', digits=(19, 2))
-    amount = fields.Integer('Amount')
+
+    currency_id = fields.Many2one('res.currency', 'Currency')
+
+    price_unit = fields.Float('Unit Price', digits=(19, 2))
+    price_subtotal = fields.Float('Price', digits=(19, 2))
+    price_total = fields.Float('Price', digits=(19, 2))
+    total_taxes = fields.Float('Total Taxes', digits=(19, 2))
+    quantity = fields.Integer('Quantity')
+    discount = fields.Float('Discount', digits=(19, 2))
 
     invoice_line_tax_ids = fields.Many2many('account.tax',
                                             'l10n_mx_edi_import_wizard_line_tax_rel', 'invoice_line_id', 'tax_id',
@@ -233,8 +240,12 @@ class EdiImport(models.TransientModel):
 
         return {
             'name': line.product_description,
-            'price_unit': line.product_unit_price,
-            'quantity': line.amount,
+            'price_unit': line.price_unit,
+            'price_subtotal': line.price_subtotal,
+            'price_subtotal_signed': line.price_subtotal,
+            'price_total': line.price_total,
+            'discount': line.discount,
+            'quantity': line.quantity,
             'product_id': line.product_id.id,
             'uom_id': line.product_id.uom_id.id,
             'account_id': account_id,
@@ -243,8 +254,23 @@ class EdiImport(models.TransientModel):
 
     def get_invoice_creation_values(self):
         invoice_lines = []
+
+        amount_untaxed = 0
+        amount_untaxed_signed = 0
+        amount_tax= 0
+        amount_total = 0
+        amount_total_signed = 0
+        amount_total_company_signed = 0
+
         for line in self.line_ids:
             invoice_lines.append((0, 0, self.get_invoice_line_values_from_line(line)))
+
+            amount_untaxed += line.price_subtotal
+            amount_untaxed_signed += line.price_subtotal
+            amount_tax += line.total_taxes
+            amount_total += line.price_subtotal + line.total_taxes
+            amount_total_signed += line.price_subtotal + line.total_taxes
+            amount_total_company_signed += line.price_subtotal + line.total_taxes
 
         return {
             'type': 'out_invoice',
@@ -267,6 +293,13 @@ class EdiImport(models.TransientModel):
             'fiscal_position_id': self.fiscal_position_id.id if self.fiscal_position_id else self.partner_id.property_account_position_id.id,
             'user_id': self.env.user.id,
             'comment': '',
+
+            'amount_untaxed': amount_untaxed,
+            'amount_untaxed_signed': amount_untaxed_signed,
+            'amount_tax': amount_tax,
+            'amount_total': amount_total,
+            'amount_total_signed': amount_total_signed,
+            'amount_total_company_signed': amount_total_company_signed,
         }
 
     def create_invoice(self):
@@ -377,6 +410,7 @@ class EdiImport(models.TransientModel):
                 item = concepts_section.Concepto[i]
                 AccountTax = self.env['account.tax']
                 tax_ids = []
+                total_taxes = 0
 
                 if self.version == '3.3':
                     for tIndex in range(item.Impuestos.Traslados.countchildren()):
@@ -386,20 +420,29 @@ class EdiImport(models.TransientModel):
                         if concept_tax_section:
                             tax = concept_tax_section.Traslados.Traslado[0]
                             tasa = float(tax.attrib['TasaOCuota']) * 100
+                            total_taxes += float(tax.attrib.get('Importe', 0))
 
                             tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
 
                             if tax_item.id:
                                 tax_ids.append(tax_item.id)
 
+                price_subtotal = float(item.attrib.get('Importe', item.attrib.get('importe', 0)))
+                quantity = float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0)))
+                price_unit = float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0)))
+
                 line = {
                     'import_id': self.id,
                     'uom_code': item.attrib.get('ClaveUnidad', item.attrib.get('Unidad')),
                     'l10n_mx_edi_code_sat': item.attrib.get('ClaveProdServ'),
                     'product_code': item.attrib.get('NoIdentificacion'),
-                    'amount': float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0))),
-                    'price': float(item.attrib.get('Importe', item.attrib.get('importe', 0))),
-                    'product_unit_price': float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0))),
+                    'quantity': quantity,
+                    'price_unit': price_unit,
+                    'price_subtotal': price_subtotal,
+                    'price_total': price_subtotal + total_taxes,
+                    'total_taxes': total_taxes,
+                    'currency_id': self.currency_id,
+                    'discount': 0,
                     'product_description': item.attrib.get('Descripcion', item.attrib.get('descripcion', False)),
                     'invoice_line_tax_ids': [(6, 0, tax_ids)],
                 }

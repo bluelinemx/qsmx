@@ -421,7 +421,7 @@
                                             DATE OF EXCHANGE RATE
                                         </td>
                                         <td>
-                                            <t t-esc="xml.get('Fecha')"/>
+                                            <t t-esc="xml.get('Fecha', '').replace('T', ' ')"/>
                                         </td>
                                     </tr>
                                 </table>

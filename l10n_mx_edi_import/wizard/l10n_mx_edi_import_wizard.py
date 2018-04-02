@@ -8,12 +8,30 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, datetime, DEFAULT_SERVER_DATE
 from xlrd import XLRDError
 import logging
 from lxml.objectify import fromstring
+from odoo.addons import decimal_precision as dp
 
 EDI_NAMESPACES = {
     'xsi': 'http://www.w3.org/2001/XMLSchema-instance',
     'cfdi': 'http://www.sat.gob.mx/cfd/3',
     'tfd': 'http://www.sat.gob.mx/TimbreFiscalDigital',
 }
+
+
+class EdiImportTax(models.TransientModel):
+    _name = 'l10n.mx.edi.import.wizard.tax'
+
+    import_id = fields.Many2one('l10n.mx.edi.import.wizard', required=True)
+
+    name = fields.Char('Name')
+    amount = fields.Float('Amount', digits=(12, 6))
+    amount_rounding = fields.Float('Amount Rounding', digits=(12, 6))
+    base = fields.Float('Amount Rounding', digits=(12, 6))
+    manual = fields.Boolean('Manual')
+
+    tax_id = fields.Many2one('account.tax', 'Tax')
+    account_id = fields.Many2one('account.account', 'Account')
+    company_id = fields.Many2one('res.company', 'Company')
+    currency_id = fields.Many2one('res.currency', 'Currency')
 
 
 class EdiImportLine(models.TransientModel):
@@ -30,12 +48,12 @@ class EdiImportLine(models.TransientModel):
 
     currency_id = fields.Many2one('res.currency', 'Currency')
 
-    price_unit = fields.Float('Unit Price', digits=(19, 2))
-    price_subtotal = fields.Float('Price', digits=(19, 2))
-    price_total = fields.Float('Price', digits=(19, 2))
-    total_taxes = fields.Float('Total Taxes', digits=(19, 2))
-    quantity = fields.Integer('Quantity')
-    discount = fields.Float('Discount', digits=(19, 2))
+    price_unit = fields.Float('Unit Price', digits=(12, 6))
+    price_subtotal = fields.Float('Price', digits=(12, 6))
+    price_total = fields.Float('Price', digits=(12, 6))
+    total_taxes = fields.Float('Total Taxes', digits=(12, 6))
+    quantity = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'), default=1)
+    discount = fields.Float('Discount', digits=(12, 6))
 
     invoice_line_tax_ids = fields.Many2many('account.tax',
                                             'l10n_mx_edi_import_wizard_line_tax_rel', 'invoice_line_id', 'tax_id',
@@ -124,6 +142,7 @@ class EdiImport(models.TransientModel):
     l10n_mx_edi_cfdi_amount = fields.Float('Amount', digits=(10, 2))
     currency_code = fields.Char('Currency Code')
     currency_id = fields.Many2one('res.currency', 'Currency', compute='_compute_edi_values', store=True)
+    exchange_rate = fields.Float(string='Current Rate', digits=(12, 6))
     company_id = fields.Many2one('res.partner', 'Company', compute='_compute_edi_values', store=True)
     partner_id = fields.Many2one('res.partner', 'Client', compute='_compute_edi_values', store=True)
     partner_shipping_id = fields.Many2one('res.partner', string='Delivery Address', compute='_compute_edi_values', store=True)
@@ -137,11 +156,12 @@ class EdiImport(models.TransientModel):
     fiscal_position_code = fields.Char('Fiscal Position Code')
     fiscal_position_id = fields.Many2one('account.fiscal.position', 'Fiscal Position', compute='_compute_edi_values', store=True)
 
-    amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True)
-    amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True)
-    amount_total = fields.Monetary(string='Total', store=True, readonly=True)
+    amount_untaxed = fields.Float(string='Untaxed Amount', store=True, readonly=True, digits=(12, 6))
+    amount_tax = fields.Float(string='Taxes', store=True, readonly=True, digits=(12, 6))
+    amount_total = fields.Float(string='Total', store=True, readonly=True, digits=(12, 6))
 
     line_ids = fields.One2many('l10n.mx.edi.import.wizard.line', 'import_id', 'Lines')
+    tax_line_ids = fields.One2many('l10n.mx.edi.import.wizard.tax', 'import_id', 'Tax Lines')
 
     @api.multi
     @api.depends('currency_code', 'payment_term_name', 'fiscal_position_code', 'l10n_mx_edi_cfdi_supplier_rfc', 'l10n_mx_edi_cfdi_customer_rfc')
@@ -223,6 +243,21 @@ class EdiImport(models.TransientModel):
 
         return True
 
+    def get_invoice_tax_line_values_from_tax_line(self, line):
+
+        return {
+            'name': line.name,
+            'tax_id': line.tax_id.id,
+            'account_id': line.account_id.id,
+            'company_id': line.company_id.id,
+            'currency_id': line.currency_id.id,
+            'amount': line.amount,
+            'amount_rounding': line.amount_rounding,
+            'base': line.base,
+            'manual': line.manual,
+        }
+
+
     def get_invoice_line_values_from_line(self, line):
         ir_property_obj = self.env['ir.property']
 
@@ -257,7 +292,7 @@ class EdiImport(models.TransientModel):
 
         amount_untaxed = 0
         amount_untaxed_signed = 0
-        amount_tax= 0
+        amount_tax = 0
         amount_total = 0
         amount_total_signed = 0
         amount_total_company_signed = 0
@@ -268,9 +303,14 @@ class EdiImport(models.TransientModel):
             amount_untaxed += line.price_subtotal
             amount_untaxed_signed += line.price_subtotal
             amount_tax += line.total_taxes
-            amount_total += line.price_subtotal + line.total_taxes
             amount_total_signed += line.price_subtotal + line.total_taxes
             amount_total_company_signed += line.price_subtotal + line.total_taxes
+
+        amount_total = amount_untaxed + self.amount_tax
+
+        tax_lines = []
+        for line in self.tax_line_ids:
+            tax_lines.append((0, 0, self.get_invoice_tax_line_values_from_tax_line(line)))
 
         return {
             'type': 'out_invoice',
@@ -288,6 +328,7 @@ class EdiImport(models.TransientModel):
             'account_id': self.partner_id.property_account_receivable_id.id,
             'partner_id': self.partner_id.id,
             'invoice_line_ids': invoice_lines,
+            'tax_line_ids': tax_lines,
             'currency_id': self.currency_id.id,
             'payment_term_id': self.payment_term_id.id,
             'fiscal_position_id': self.fiscal_position_id.id if self.fiscal_position_id else self.partner_id.property_account_position_id.id,
@@ -296,7 +337,7 @@ class EdiImport(models.TransientModel):
 
             'amount_untaxed': amount_untaxed,
             'amount_untaxed_signed': amount_untaxed_signed,
-            'amount_tax': amount_tax,
+            'amount_tax': self.amount_tax or amount_tax,
             'amount_total': amount_total,
             'amount_total_signed': amount_total_signed,
             'amount_total_company_signed': amount_total_company_signed,
@@ -359,6 +400,7 @@ class EdiImport(models.TransientModel):
         self.name = xml.attrib.get('Folio')
         self.date_invoice = datetime.strptime(xml.attrib.get('Fecha'), '%Y-%m-%dT%H:%M:%S') if xml.attrib.get('Fecha') else False
         self.currency_code = xml.attrib.get('Moneda')
+        self.exchange_rate = xml.attrib.get('TipoCambio', 1)
         self.l10n_mx_edi_cfdi_amount = float(xml.attrib.get('Total', xml.attrib.get('total', 0)))
 
         self.amount_untaxed = float(xml.attrib.get('SubTotal', xml.attrib.get('subTotal', 0)))
@@ -402,13 +444,14 @@ class EdiImport(models.TransientModel):
                 self.l10n_mx_edi_pac_status = 'signed'
                 self.l10n_mx_edi_sat_status = 'valid'
 
+        AccountTax = self.env['account.tax']
+
         concepts_section = getattr(xml, 'Conceptos', False)
 
         if concepts_section:
             lines = []
             for i in range(concepts_section.countchildren()):
                 item = concepts_section.Concepto[i]
-                AccountTax = self.env['account.tax']
                 tax_ids = []
                 total_taxes = 0
 
@@ -450,5 +493,37 @@ class EdiImport(models.TransientModel):
                 lines.append((0, 0, line))
 
             self.line_ids = lines
+
+            if taxes_section:
+                tax_lines = []
+                transfers_section = getattr(taxes_section, 'Traslados', False)
+                if transfers_section:
+                    ir_property_obj = self.env['ir.property']
+
+                    inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
+                    account_id = self.fiscal_position_id.map_account(inc_acc).id if inc_acc else False
+
+                    for i in range(transfers_section.countchildren()):
+                        item = transfers_section.Traslado[i]
+                        importe = float(item.attrib.get('Importe', item.attrib.get('importe', 0)))
+                        impuesto = item.attrib.get('Impuesto', item.attrib.get('impuesto', False))
+                        tasa = float(item.attrib.get('TasaOCuota', item.attrib.get('tasa', 0))) * 100
+                        tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
+
+                        if tax_item.id:
+                            line = {
+                                'name': tax_item.name,
+                                'tax_id': tax_item.id,
+                                'account_id': account_id,
+                                'currency_id': self.currency_id,
+                                'company_id': self.env.user.partner_id.company_id.id,
+                                'amount': importe,
+                                'base': self.amount_untaxed,
+                                'manual': True,
+                            }
+
+                            tax_lines.append((0, 0, line))
+
+                    self.tax_line_ids = tax_lines
 
         return True

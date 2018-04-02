@@ -162,7 +162,7 @@
                             <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
                                 <div class="attribute-name">SERIAL EMITTER CERTIFICATE</div>
                                 <div class="attribute-value">
-                                    <t t-esc="xml.get('NoCertificado')"/>
+                                    <t t-esc="xml.get('RfcProvCertif')"/>
                                 </div>
                             </div>
 
@@ -176,7 +176,7 @@
                             <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
                                 <div class="attribute-name">RFC OF CERTIFICATION PROVIDER</div>
                                 <div class="attribute-value">
-                                    <t t-esc="tfd.get('RfcProvCertif')"/>
+                                    <t t-esc="tfd.get('NoCertificado')"/>
                                 </div>
                             </div>
 

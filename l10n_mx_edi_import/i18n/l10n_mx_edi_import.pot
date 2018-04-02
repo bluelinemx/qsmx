@@ -1,0 +1,425 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_mx_edi_import
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20180302\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-23 00:35+0000\n"
+"PO-Revision-Date: 2018-03-23 00:35+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Acquisition of merchandise"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi_amount
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_amount
+msgid "Amount"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi
+msgid "CFDI"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.ui.view,arch_db:l10n_mx_edi_import.l10n_mx_edi_import_wizard_form
+#: model:ir.ui.view,arch_db:l10n_mx_edi_import.l10n_mx_edi_import_wizard_preview_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_partner_id
+msgid "Client"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Computer equipment and accessories"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Constructions"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_create_uid
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_create_date
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_currency_code
+msgid "Currency Code"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.ui.view,arch_db:l10n_mx_edi_import.l10n_mx_edi_import_wizard_preview_form
+msgid "Customer"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_date_invoice
+msgid "Date Invoice"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_partner_shipping_id
+msgid "Delivery Address"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Deposits in savings accounts, premiums based on pension plans."
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_product_description
+msgid "Description"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Dices, dies, molds, matrices and tooling"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_display_name
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Donations"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_fiscal_position_id
+msgid "Fiscal Position"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_fiscal_position_code
+msgid "Fiscal Position Code"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Funeral expenses"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "General expenses"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_has_product
+msgid "Has Product"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_id
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_import_id
+#: model:ir.ui.view,arch_db:l10n_mx_edi_import.l10n_mx_edi_import_wizard_preview_form
+msgid "Import"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.actions.act_window,name:l10n_mx_edi_import.l10n_mx_edi_xml_import_wizard_menu
+#: model:ir.ui.menu,name:l10n_mx_edi_import.l10n_mx_edi_xml_import_wizard_action
+msgid "Import EDI XML"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model,name:l10n_mx_edi_import.model_account_invoice
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_invoice_id
+msgid "Invoice"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi_certificate_id
+msgid "L10N Mx Edi Cfdi Certificate"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi_name
+msgid "L10N Mx Edi Cfdi Name"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_pac_status
+msgid "L10N Mx Edi Pac Status"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_sat_status
+msgid "L10N Mx Edi Sat Status"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard___last_update
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_write_uid
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_write_date
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_ids
+#: model:ir.ui.view,arch_db:l10n_mx_edi_import.l10n_mx_edi_import_wizard_preview_form
+msgid "Lines"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Mandatory School Transportation Expenses"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Medical expenses for disability"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Medical insurance premiums"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Medical, dental and hospital expenses."
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi_customer_name
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi_supplier_name
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_client_identification_number
+msgid "No. Identification"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Office furniture and equipment investment"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Other machinery and equipment"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_payment_term_name
+msgid "Payement Term"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_payment_term_id
+msgid "Payment Term"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Payments for educational services (Colegiatura)"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: code:addons/l10n_mx_edi_import/wizard/l10n_mx_edi_import_wizard.py:164
+#: code:addons/l10n_mx_edi_import/wizard/l10n_mx_edi_import_wizard.py:180
+#, python-format
+msgid "Preview Data"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_price
+msgid "Price"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_product_id
+msgid "Product"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_product_code
+msgid "Product Code"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi_customer_rfc
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi_supplier_rfc
+msgid "RFC"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Real interest effectively paid for mortgage loans (room house)"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Returns, discounts or bonuses"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Satellite communications"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: code:addons/l10n_mx_edi_import/wizard/l10n_mx_edi_import_wizard.py:195
+#, python-format
+msgid "Some invoice lines doesnt have a valid product. Please update or upload another XML file."
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_state
+msgid "State"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.ui.view,arch_db:l10n_mx_edi_import.l10n_mx_edi_import_wizard_preview_form
+msgid "Supplier"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_invoice_line_tax_ids
+msgid "Taxes"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Telephone communications"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: code:addons/l10n_mx_edi_import/wizard/l10n_mx_edi_import_wizard.py:217
+#, python-format
+msgid "There is no income account defined for this product: \"%s\". You may have to install a chart of account from Accounting app, settings menu."
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "To define"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Transportation equipment"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_cfdi_uuid
+msgid "UUID"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: code:addons/l10n_mx_edi_import/wizard/l10n_mx_edi_import_wizard.py:302
+#, python-format
+msgid "Unable to find company %s with RFC %s"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: code:addons/l10n_mx_edi_import/wizard/l10n_mx_edi_import_wizard.py:307
+#, python-format
+msgid "Unable to process XML from company other than %s with RFC %s"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_product_unit_price
+msgid "Unit Price"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_line_uom_code
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.ui.view,arch_db:l10n_mx_edi_import.l10n_mx_edi_import_wizard_preview_form
+msgid "Upload XML"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_usage
+msgid "Usage"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,help:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_l10n_mx_edi_usage
+msgid "Used in CFDI 3.3 to express the key to the usage that will gives the receiver to this invoice. This value is defined by the customer. \n"
+"Note: It is not cause for cancellation if the key set is not the usage that will give the receiver of the document."
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.ui.view,arch_db:l10n_mx_edi_import.l10n_mx_edi_import_wizard_form
+msgid "Validate"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: selection:l10n.mx.edi.import.wizard,l10n_mx_edi_usage:0
+msgid "Voluntary contributions to SAR"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model.fields,field_description:l10n_mx_edi_import.field_l10n_mx_edi_import_wizard_xml_file
+msgid "Xml File"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model,name:l10n_mx_edi_import.model_l10n_mx_edi_import_wizard
+msgid "l10n.mx.edi.import.wizard"
+msgstr ""
+
+#. module: l10n_mx_edi_import
+#: model:ir.model,name:l10n_mx_edi_import.model_l10n_mx_edi_import_wizard_line
+msgid "l10n.mx.edi.import.wizard.line"
+msgstr ""
+

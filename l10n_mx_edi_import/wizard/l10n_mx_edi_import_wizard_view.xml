@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="l10n_mx_edi_import_wizard_form" model="ir.ui.view">
+            <field name="name">l10n.mx.edi.import.wizard.xml.import.form</field>
+            <field name="model">l10n.mx.edi.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="xml_file" filename="name"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Validate" type="object" class="oe_highlight" name="action_validate"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="l10n_mx_edi_import_wizard_preview_form" model="ir.ui.view">
+            <field name="name">l10n.mx.edi.import.wizard.preview.form</field>
+            <field name="model">l10n.mx.edi.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="currency_id" readonly="1"/>
+                                <field name="exchange_rate" readonly="1"/>
+                                <field name="l10n_mx_edi_cfdi_amount" readonly="1"/>
+                                <field name="company_id" readonly="1"/>
+                                <field name="partner_id" readonly="1"
+                                       context="{'default_vat': l10n_mx_edi_cfdi_customer_rfc}"/>
+                            </group>
+                            <group>
+                                <field name="date_invoice" readonly="1"/>
+                                <field name="has_payment_term" invisible="1"/>
+                                <field name="payment_term_id" readonly="1"/>
+                                <!--<field name="payment_term_id" readonly="1" attrs="{'readonly': [('has_payment_term', '=', True)]}"/>-->
+                                <field name="l10n_mx_edi_usage" readonly="1"/>
+                                <field name="l10n_mx_edi_cfdi_uuid" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <group invisible="1">
+                            <group string="Supplier">
+                                <field name="company_id" readonly="1"/>
+                                <field name="l10n_mx_edi_cfdi_supplier_name" readonly="1"/>
+                                <field name="l10n_mx_edi_cfdi_supplier_rfc" readonly="1"/>
+                            </group>
+                            <group string="Customer">
+                                <field name="partner_id" readonly="1"
+                                       context="{'default_vat': l10n_mx_edi_cfdi_customer_rfc}"/>
+                                <field name="l10n_mx_edi_cfdi_customer_name" readonly="1"/>
+                                <field name="l10n_mx_edi_cfdi_customer_rfc" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Lines">
+                                <field name="line_ids" mode="tree" nolabel="1" widget="one2many_list">
+                                    <tree create="false" delete="false" editable="bottom">
+                                        <!--<field name="uom_code" readonly="1"/>-->
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="product_code" readonly="1"/>
+                                        <field name="has_product" invisible="1"/>
+                                        <field name="product_id" attrs="{'readonly': [('has_product', '=', True)]}"
+                                               context="{'default_default_code': product_code, 'default_l10n_mx_edi_code_sat_id': product_code, 'default_name': product_description, 'default_lst_price': price_unit}"/>
+                                        <field name="product_description" readonly="1"/>
+                                        <field name="quantity" readonly="1"/>
+                                        <field name="price_unit" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                        <field name="price_subtotal" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                    </tree>
+                                </field>
+
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </page>
+                            <page string="XML">
+                                <field name="xml_content" widget="ace" options="{'mode': 'xml'}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button string="Import" type="object" class="oe_highlight" name="action_import"/>
+                        <button string="Upload XML" class="btn btn-default" type="object" name="action_upload"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

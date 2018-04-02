@@ -162,7 +162,7 @@
                             <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
                                 <div class="attribute-name">SERIAL EMITTER CERTIFICATE</div>
                                 <div class="attribute-value">
-                                    <t t-esc="tfd.get('RfcProvCertif')"/>
+                                    <t t-esc="xml.get('NoCertificado')"/>
                                 </div>
                             </div>
 
@@ -176,7 +176,7 @@
                             <div t-if="o.l10n_mx_edi_cfdi_uuid" class="invoice-attribute">
                                 <div class="attribute-name">RFC OF CERTIFICATION PROVIDER</div>
                                 <div class="attribute-value">
-                                    <t t-raw="o.l10n_mx_edi_cfdi_supplier_rfc"/>
+                                    <t t-esc="tfd.get('RfcProvCertif')"/>
                                 </div>
                             </div>
 
@@ -408,20 +408,20 @@
                                             <span t-field="o.currency_id.currency_unit_label" t-lang="o.partner_id.lang"/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr t-if="xml.get('TipoCambio')">
                                         <td width="200">
                                             EXCHANGE RATE
                                         </td>
                                         <td>
-                                            <span t-raw="'%.*f' % (6, 1.0/o.currency_id.rate)"/>
+                                            <span t-esc="xml.get('TipoCambio')"/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr t-if="xml.get('TipoCambio')">
                                         <td width="200">
                                             DATE OF EXCHANGE RATE
                                         </td>
                                         <td>
-                                            <t t-esc="datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"/>
+                                            <t t-esc="xml.get('Fecha', '').replace('T', ' ')"/>
                                         </td>
                                     </tr>
                                 </table>

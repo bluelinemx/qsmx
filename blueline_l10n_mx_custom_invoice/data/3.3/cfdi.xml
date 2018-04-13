@@ -8,8 +8,8 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 Version="3.3"
                 t-att-Fecha="date"
-                t-att-Folio="record._get_string_cfdi(folio, 25)"
-                t-att-Serie="record._get_string_cfdi(serie, 40)"
+                t-att-Folio="record._get_string_cfdi(folio or '', 25)"
+                t-att-Serie="record._get_string_cfdi(serie or '', 40)"
                 Sello=""
                 t-att-FormaPago="(payment_method or '').replace('NA', '99')"
                 t-att-NoCertificado="certificate_number"
@@ -55,7 +55,7 @@
                             t-att-ValorUnitario="'%.*f' % (decimal_precision, line.price_unit)"
                             t-att-Importe="'%.*f' % (decimal_precision, subtotal_wo_discount(line))"
                             t-att-Descuento="total_discount(line, decimal_precision)">
-                            <t t-set="taxes_line" t-value="line.invoice_line_tax_ids"/>
+                            <t t-set="taxes_line" t-value="line.filtered('price_subtotal').invoice_line_tax_ids"/>
                             <t t-if="taxes_line">
                                 <t t-set="transferred" t-value="taxes_line.filtered(lambda r: r.amount &gt;= 0)"/>
                                 <t t-set="withholding" t-value="taxes_line.filtered(lambda r: r.amount &lt; 0)"/>
@@ -90,10 +90,10 @@
                         </cfdi:Concepto>
                     </t>
                 </cfdi:Conceptos>
-                <t t-if="taxes['total_transferred'] or taxes['total_withhold']">
+                <t t-if="taxes['transferred'] is not None or taxes['withholding'] is not None">
                     <cfdi:Impuestos
-                        t-att-TotalImpuestosTrasladados="'%.*f' % (decimal_precision, taxes['total_transferred'])"
-                        t-att-TotalImpuestosRetenidos="'%.*f' % (decimal_precision, taxes['total_withhold'])">
+                        t-att-TotalImpuestosTrasladados="'%.*f' % (decimal_precision, taxes['total_transferred']) if taxes['transferred'] else None"
+                        t-att-TotalImpuestosRetenidos="'%.*f' % (decimal_precision, taxes['total_withhold']) if taxes['withholding'] else None">
                         <t t-if="taxes['withholding']">
                             <cfdi:Retenciones>
                                 <t t-foreach="taxes['withholding']" t-as="withhold">

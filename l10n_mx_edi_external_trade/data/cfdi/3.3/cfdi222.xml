@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="cfdiv33_external_trade_namespace" inherit_id="l10n_mx_edi.cfdiv33">
+            <xpath expr="//*[local-name() = 'Comprobante']" position="attributes">
+                <attribute name="xmlns:cce11">http://www.sat.gob.mx/ComercioExterior11</attribute>
+            </xpath>
+
+            <xpath expr="//*[local-name() = 'Comprobante']" position="attributes">
+                <attribute name="{http://www.w3.org/2001/XMLSchema-instance}schemaLocation">http://www.sat.gob.mx/cfd/3
+                    http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/ComercioExterior11
+                    http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd
+                </attribute>
+            </xpath>
+        </template>
+
+        <template id="cfdiv33_external_trade">
+            <root xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+                  xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/ComercioExterior11 http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd"
+            >
+                <cfdi:Complemento>
+                    <cce11:ComercioExterior Version="1.1" TipoOperacion="2" ClaveDePedimento="A1" CertificadoOrigen="0"
+                                            t-att-Incoterm="incoterm_code" Subdivision="0" t-att-TipoCambioUSD="rate"
+                                            t-att-TotalUSD="amount_total_usd">
+                        <cce11:Emisor>
+                            <cce11:Domicilio t-att-Calle="supplier.street"
+                                             t-att-NumeroExterior="supplier.street_number"
+                                             t-att-Colonia="supplier.country_id.l10n_mx_edi_colony_id.code"
+                                             t-att-Localidad="supplier.country_id.l10n_mx_edi_locality_id.code"
+                                             Municipio="027"
+                                             t-att-Estado="supplier.state_id.code"
+                                             t-att-Pais="supplier.country_id.l10n_mx_edi_code"
+                                             t-att-CodigoPostal="supplier.zip"/>
+                        </cce11:Emisor>
+                        <cce11:Receptor>
+                            <cce11:Domicilio t-att-Calle="customer.street"
+                                             t-att-NumeroExterior="customer.street_number"
+                                             t-att-Colonia="customer.country_id.l10n_mx_edi_colony"
+                                             t-att-Localidad="customer.country_id.l10n_mx_edi_locality"
+                                             t-att-Estado="customer.state_id.name"
+                                             t-att-Pais="customer.country_id.l10n_mx_edi_code"
+                                             t-att-CodigoPostal="customer.zip"/>
+                        </cce11:Receptor>
+                        <cce11:Mercancias>
+                            <t t-foreach="record.invoice_line_ids" t-as="line">
+                                <cce11:Mercancia t-att-NoIdentificacion="record._get_string_cfdi(line.product_id.default_code or '')"
+                                                 t-att-FraccionArancelaria="line.product_id.l10n_mx_customs_tax_fraction_id.code if line.product_id.l10n_mx_customs_tax_fraction_id else False"
+                                                 t-att-CantidadAduana="line.l10n_mx_edi_customs_quantity"
+                                                 t-att-UnidadAduana="line.product_id.l10n_mx_customs_uom_id.code if line.product_id.l10n_mx_customs_uom_id else False"
+                                                 t-att-ValorUnitarioAduana="'%.*f' % (decimal_precision, line.l10n_mx_edi_customs_price_unit)"
+                                                 t-att-ValorDolares="'%.*f' % (decimal_precision, subtotal_wo_discount(line))">
+                                </cce11:Mercancia>
+                            </t>
+                        </cce11:Mercancias>
+                    </cce11:ComercioExterior>
+                </cfdi:Complemento>
+
+            </root>
+
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,665 @@
+state_code|code|name|active
+AGU|01|Aguascalientes|true
+BCN|01|Ensenada|true
+BCS|01|Ciudad Constitución|true
+CAM|01|San Francisco de Campeche|true
+COA|01|Ciudad Acuña|true
+COL|01|Colima|true
+CHH|01|Santa Rosalía de Camargo|true
+CHP|01|Comitán de Domínguez|true
+DIF|01|Ciudad de México|true
+DUR|01|Victoria de Durango|true
+GRO|01|Acapulco de Juárez|true
+GUA|01|Acámbaro|true
+HID|01|Actopan|true
+JAL|01|Ameca|true
+MEX|01|Ciudad Adolfo López Mateos|true
+MIC|01|Apatzingán de la Constitución|true
+MOR|01|Cuautla (Cuautla de Morelos)|true
+NAY|01|Santiago Ixcuintla|true
+NLE|01|Ciudad Apodaca|true
+OAX|01|Juchitán (Juchitán de Zaragoza)|true
+PUE|01|Atlixco|true
+QUE|01|Querétaro|true
+ROO|01|Cancún|true
+SIN|01|Los Mochis|true
+SLP|01|Ciudad Valles|true
+SON|01|San Luis Río Colorado|true
+TAB|01|Cárdenas|true
+TAM|01|Altamira|true
+TLA|01|Apizaco|true
+VER|01|Acayucan|true
+YUC|01|Mérida|true
+ZAC|01|Fresnillo|true
+AGU|02|Calvillo|true
+BCN|02|Mexicali|true
+BCS|02|La Paz|true
+CAM|02|Ciudad del Carmen|true
+COA|02|Frontera|true
+COL|02|Manzanillo|true
+CHH|02|Chihuahua|true
+CHP|02|San Cristóbal de las Casas|true
+DIF|02|Ciudad de México|true
+DUR|02|Gómez Palacio|true
+GRO|02|Chilpancingo de los Bravo|true
+GUA|02|San miguel de Allende|true
+HID|02|Apan|true
+JAL|02|Ciudad Guzmán|true
+MEX|02|Chimalhuacán|true
+MIC|02|Los Reyes de Salgado|true
+MOR|02|Cuernavaca|true
+NAY|02|Tepic|true
+NLE|02|San Pedro Garza García|true
+OAX|02|Oaxaca de Juárez|true
+PUE|02|Izúcar de Matamoros|true
+QUE|02|San Juan del Rio|true
+ROO|02|Cozumel|true
+SIN|02|Culiacán Rosales|true
+SLP|02|Ébano|true
+SON|02|Agua Prieta|true
+TAB|02|Villahermosa|true
+TAM|02|Ciudad Camargo|true
+TLA|02|Villa Vicente Guerrero|true
+VER|02|Naranjos|true
+YUC|02|Tizimín|true
+ZAC|02|Jerez de García Salinas|true
+AGU|03|San Francisco de los Romo|true
+BCN|03|Tecate|true
+BCS|03|Cabo San Lucas|true
+CAM|03|Calkini|true
+COA|03|Matamoros|true
+COL|03|Tecoman|true
+CHH|03|Cuauhtémoc|true
+CHP|03|Tapachula de Córdova y Ordóñez|true
+DIF|03|Ciudad de México|true
+DUR|03|Ciudad Lerdo|true
+GRO|03|Iguala de la Independencia|true
+GUA|03|Celaya|true
+HID|03|Pachuca de Soto|true
+JAL|03|Guadalajara|true
+MEX|03|Coacalco de Berriozabal|true
+MIC|03|Ciudad Hidalgo|true
+MOR|03|Galeana|true
+NAY|03|Tuxpan|true
+NLE|03|Ciudad General Escobedo|true
+OAX|03|Salina Cruz|true
+PUE|03|Puebla (Heroica Puebla)|true
+ROO|03|Felipe Carrillo Puerto|true
+SIN|03|Escuinapa de Hidalgo|true
+SLP|03|Matehuala|true
+SON|03|Heroica Caborca|true
+TAB|03|Comalcalco|true
+TAM|03|Ciudad Madero|true
+TLA|03|Tlaxcala (Tlaxcala de Xicotencatl)|true
+VER|03|Boca del RÍo|true
+YUC|03|Ticul|true
+ZAC|03|Zacatecas|true
+AGU|04|Jesús María|true
+BCN|04|Tijuana|true
+BCS|04|San José del Cabo|true
+CAM|04|Candelaria|true
+COA|04|Monclova|true
+COL|04|Ciudad de Villa de Álvarez|true
+CHH|04|Delicias|true
+CHP|04|Tuxtla Gutiérrez|true
+DIF|04|Ciudad de México|true
+DUR|04|Santiago Papasquiaro|true
+GRO|04|Taxco de Alarcón|true
+GUA|04|Cortazar|true
+HID|04|Cd. de Fray Bernardino de Sahagún|true
+JAL|04|Lagos de Moreno|true
+MEX|04|Cuautitlán Izcalli|true
+MIC|04|Jacona de Plancarte|true
+MOR|04|Jojutla|true
+NAY|04|Acaponeta|true
+NLE|04|Guadalupe|true
+OAX|04|San Juan Bautista Tuxtepec|true
+PUE|04|San Martín Texmelucan de Labastida|true
+QUE|04|El Pueblito|true
+ROO|04|Chetumal|true
+SIN|04|Guasave|true
+SLP|04|Rioverde|true
+SON|04|Ciudad Obregón|true
+TAB|04|Emiliano Zapata|true
+TAM|04|Ciudad Mante|true
+TLA|04|Huamantla|true
+VER|04|Coatepec|true
+YUC|04|Motul de Carrillo Puerto|true
+ZAC|04|Guadalupe|true
+AGU|05|Pabellón de Arteaga|true
+BCN|05|Playas de Rosarito|true
+BCS|05|Loreto|true
+CAM|05|Escárcega|true
+COA|05|Parras de la Fuente|true
+COL|05|Ciudad de Armería|true
+CHH|05|Hidalgo del Parral|true
+CHP|05|Venustiano Carranza|true
+DIF|05|Ciudad de México|true
+DUR|05|Canatlán|true
+GRO|05|Arcelia|true
+GUA|05|Guanajuato|true
+HID|05|Tula de Allende|true
+JAL|05|Ocotlán|true
+MEX|05|Ecatepec de Morelos|true
+MIC|05|La piedad de Cabadas|true
+MOR|05|Puente de Ixtla|true
+NAY|05|Tecuala|true
+NLE|05|Linares|true
+OAX|05|Matías Romero Avendaño|true
+PUE|05|Tehuacan|true
+ROO|05|Playa del Carmen|true
+SIN|05|Mazatlán|true
+SLP|05|San Luis Potosí|true
+SON|05|Empalme|true
+TAB|05|Jalpa de Méndez|true
+TAM|05|Heroica Matamoros|true
+TLA|05|Calpulalpan|true
+VER|05|Agua dulce|true
+YUC|05|Valladolid|true
+ZAC|05|Río Grande|true
+AGU|06|Rincón de Romos|true
+BCN|06|Rodolfo Sánchez T. (Maneadero)|true
+BCS|06|Puerto Adolfo López Mateos|true
+CAM|06|Sabancuy|true
+COA|06|Piedras Negras|true
+CHH|06|Juárez|true
+CHP|06|Jiquipilas|true
+DIF|06|Ciudad de México|true
+DUR|06|San Juan del Río del Centauro del Norte|true
+GRO|06|Ayutla de los Libres|true
+GUA|06|Irapuato|true
+HID|06|Tulancingo|true
+JAL|06|Puerto Vallarta|true
+MEX|06|Huixquilucan de Degollado|true
+MIC|06|Morelia|true
+MOR|06|Santa Rosa Treinta|true
+NAY|06|Compostela|true
+NLE|06|Montemorelos|true
+OAX|06|Heroica Ciudad de Huajuapan de León|true
+PUE|06|Teziutlan|true
+ROO|06|Kantunilkín|true
+SIN|06|Guamúchil|true
+SLP|06|Soledad de Graciano Sánchez|true
+SON|06|Heroica Guaymas|true
+TAM|06|Nuevo Laredo|true
+TLA|06|Chiautempan|true
+VER|06|Coatzacoalcos|true
+YUC|06|Kanasín|true
+ZAC|06|Ciudad Cuauhtémoc|true
+AGU|07|Asientos|true
+BCN|07|San Felipe|true
+BCS|07|Todos Santos|true
+CAM|07|Hopelchén|true
+COA|07|Sabinas|true
+CHH|07|Nuevo Casas Grandes|true
+CHP|07|Villaflores|true
+DIF|07|Ciudad de México|true
+DUR|07|Peñón Blanco|true
+GRO|07|Atoyac de Álvarez|true
+GUA|07|León de los Aldama|true
+HID|07|Zimapan|true
+JAL|07|San Juan de los Lagos|true
+MEX|07|Los Reyes Acaquilpan (La Paz)|true
+MIC|07|Pátzcuaro|true
+MOR|07|Zacatepec de Hidalgo|true
+NAY|07|Francisco I. Madero (Puga)|true
+NLE|07|Monterrey|true
+OAX|07|Loma Bonita|true
+PUE|07|San Andrés Cholula|true
+ROO|07|Isla Mujeres|true
+SIN|07|Navolato|true
+SLP|07|Charcas|true
+SON|07|Hermosillo|true
+TAB|07|Macuspana|true
+TAM|07|Reynosa|true
+VER|07|Córdoba|true
+ZAC|07|Ojocaliente|true
+AGU|08|Tepezalá|true
+BCS|08|Heroica Mulegé|true
+CAM|08|Champotón|true
+COA|08|Saltillo|true
+CHP|08|Las Margaritas|true
+DIF|08|Ciudad de México|true
+DUR|08|Francisco I. Madero|true
+GUA|08|Moroleón|true
+HID|08|Huejutla de Reyes|true
+JAL|08|Tepatitlán de Morelos|true
+MEX|08|Metepec|true
+MIC|08|Sahuayo de Morelos|true
+MOR|08|Tlaquiltenango|true
+NAY|08|Villa Hidalgo (El Nuevo)|true
+NLE|08|Ciudad Sabinas Hidalgo|true
+OAX|08|Puerto Escondido|true
+PUE|08|San Pedro Cholula|true
+ROO|08|Bacalar|true
+SIN|08|Quila|true
+SLP|08|Salinas de Hidalgo|true
+SON|08|Huatabampo|true
+TAB|08|Tenosique de Pino Suárez|true
+TAM|08|Ciudad Río Bravo|true
+VER|08|Tres Valles|true
+ZAC|08|Villa Hidalgo|true
+AGU|09|Cosío|true
+BCS|09|Villa Alberto Andrés Alvarado Arámburo|true
+CAM|09|Hecelchakán|true
+COA|09|Nueva Rosita|true
+CHH|09|Madera|true
+CHP|09|Arriaga|true
+DIF|09|Ciudad de México|true
+DUR|09|Nombre de Dios|true
+GRO|09|San Jerónimo de Juárez|true
+GUA|09|Salamanca|true
+HID|09|Tlaxcoapan|true
+JAL|09|Tlaquepaque|true
+MEX|09|Naucalpan de Juárez|true
+MIC|09|Uruapan|true
+NAY|09|Ruiz|true
+NLE|09|San Nicolás de los Garza|true
+OAX|09|Río Grande o Piedra Parada|true
+PUE|09|Huauchinango|true
+SIN|09|Ahome|true
+SLP|09|Cárdenas|true
+SON|09|Navojoa|true
+TAB|09|Teapa|true
+TAM|09|San Fernando|true
+VER|09|Jáltipan de Morelos|true
+ZAC|09|Villanueva|true
+BCS|10|San Ignacio|true
+COA|10|San Pedro|true
+CHH|10|Colonia Anáhuac|true
+CHP|10|Palenque|true
+DIF|10|Ciudad de México|true
+DUR|10|Vicente Guerrero|true
+GRO|10|Ciudad Apaxtla de Castrejón|true
+GUA|10|San Francisco del Rincón|true
+HID|10|Tizayuca|true
+JAL|10|Zapopan|true
+MEX|10|Ciudad Nezahualcoyotl|true
+MIC|10|Zacapu|true
+NAY|10|San Blas|true
+NLE|10|Ciudad Santa Catarina|true
+PUE|10|Acatlán de Osorio|true
+SIN|10|Higuera de Zaragoza|true
+SLP|10|Cerritos|true
+SON|10|Heroica Nogales|true
+TAB|10|Paraíso|true
+TAM|10|Tampico|true
+VER|10|Xalapa-Enríquez|true
+ZAC|10|Villa de Cos|true
+BCS|11|Guerrero Negro|true
+CAM|11|Pomuch|true
+COA|11|Torreón|true
+CHH|11|Juan Aldama|true
+CHP|11|Ocosingo|true
+DIF|11|Ciudad de México|true
+DUR|11|El Salto|true
+GRO|11|Ciudad Altamirano|true
+GUA|11|Silao|true
+HID|11|Santiago Tulantepec|true
+JAL|11|Tlajomulco de Zúñiga|true
+MEX|11|Villa Nicolás Romero|true
+MIC|11|Zamora de Hidalgo|true
+NAY|11|Ixtlán del Río|true
+NLE|11|Doctor Arroyo|true
+OAX|11|Santiago Suchilquitongo|true
+PUE|11|Cuautlancingo|true
+SIN|11|Choix|true
+SLP|11|Tamuin|true
+SON|11|Puerto Peñasco|true
+TAB|11|Frontera|true
+TAM|11|Ciudad Victoria|true
+VER|11|Minatitlán|true
+ZAC|11|Nochistlán de Mejía|true
+BCS|12|Santa Rosalía|true
+COA|12|Castaños|true
+CHH|12|José Mariano Jiménez|true
+CHP|12|Tonalá|true
+DIF|12|Ciudad de México|true
+DUR|12|Santa María del Oro|true
+GRO|12|Buenavista de Cuellar|true
+GUA|12|Jerécuaro|true
+HID|12|Ixmiquilpan|true
+JAL|12|Tonalá|true
+MEX|12|Tecamac de Felipe Villanueva|true
+MIC|12|Heroica Zitácuaro|true
+NAY|12|Bucerías|true
+NLE|12|Ciénega de Flores|true
+OAX|12|San Felipe Jalapa de Díaz|true
+PUE|12|Tepeaca|true
+SIN|12|Villa Unión|true
+SLP|12|Tamasopo|true
+SON|12|Heroica Ciudad de Cananea|true
+TAB|12|Cunduacán|true
+TAM|12|González|true
+VER|12|Orizaba|true
+ZAC|12|Víctor Rosales|true
+COA|13|Francisco I. Madero (Chávez)|true
+CHH|13|Manuel Ojinaga|true
+CHP|13|Mapastepec|true
+DIF|13|Ciudad de México|true
+GRO|13|Cutzamala de Pinzón|true
+GUA|13|Santiago Maravatío|true
+HID|13|Tepeji del Rio|true
+JAL|13|Tuxpan|true
+MEX|13|Tepotzotlán|true
+MIC|13|Paracho de Verduzco|true
+NAY|13|Las Varas|true
+NLE|13|Hualahuises|true
+OAX|13|Bahias de Huatulco|true
+PUE|13|Tecamachalco|true
+SIN|13|Sinaloa de Leyva|true
+SLP|13|Ciudad del Maíz|true
+SON|13|Sonoita|true
+TAB|13|Huimanguillo|true
+TAM|13|Jaumave|true
+VER|13|Papantla de Olarte|true
+ZAC|13|Valparaíso|true
+COA|14|Cuatro Ciénegas de Carranza|true
+CHH|14|Bachíniva|true
+CHP|14|Las Rosas|true
+DIF|14|Ciudad de México|true
+GRO|14|Coyuca de Catalán|true
+GUA|14|Romita|true
+HID|14|Cruz Azul|true
+JAL|14|Tototlán|true
+MEX|14|Tlalnepantla de Baz|true
+MIC|14|Tangancícuaro de Arista|true
+NAY|14|Xalisco|true
+OAX|14|Putla Villa de Guerrero|true
+PUE|14|Zacatlán|true
+SIN|14|Mocorito|true
+SLP|14|Cedral|true
+SON|14|Magdalena de Kino|true
+TAM|14|Ciudad Gustavo Díaz Ordaz|true
+VER|14|Poza Rica de Hidalgo|true
+ZAC|14|Luis Moya|true
+COA|15|Nadadores|true
+CHH|15|Saucillo|true
+CHP|15|Chiapa de Corzo|true
+DIF|15|Ciudad de México|true
+GRO|15|Tierra Colorada|true
+GUA|15|Tarandacuao|true
+HID|15|Tepeapulco|true
+JAL|15|San Diego de Alejandría|true
+MEX|15|Santa Maria Tultepec|true
+MIC|15|Maravatío de Ocampo|true
+NAY|15|San pedro Lagunillas|true
+NLE|15|Cadereyta Jiménez|true
+OAX|15|Cosolapa|true
+PUE|15|Xicotepec|true
+SIN|15|Angostura|true
+SLP|15|Tierra Nueva|true
+TAM|15|Estación Manuel (Úrsulo Galván)|true
+VER|15|San Andrés Tuxtla|true
+ZAC|15|Moyahua de Estrada|true
+COA|16|Ramos Arizpe|true
+CHP|16|Cacahoatán|true
+DIF|16|Ciudad de México|true
+GRO|16|Coyuca de Benítez|true
+GUA|16|Huanímaro|true
+JAL|16|La Resolana|true
+MEX|16|Tultitlán de Mariano Escobedo|true
+MIC|16|Zinapécuaro de Figueroa|true
+NAY|16|La peñita de Jaltemba|true
+OAX|16|Tlacolula de Matamoros|true
+PUE|16|Ciudad Serdán|true
+SIN|16|San Blas|true
+SLP|16|Villa de Reyes|true
+TAM|16|Xicoténcatl|true
+VER|16|Túxpam de Rodríguez Cano|true
+ZAC|16|Sombrerete|true
+COA|17|Nava|true
+CHP|17|Ocozocoautla de Espinosa|true
+GRO|17|Olinalá|true
+GUA|17|Comonfort|true
+JAL|17|Atotonilco el Alto|true
+MEX|17|Cuautitlán|true
+MIC|17|Puruándiro|true
+NAY|17|Jala|true
+NLE|17|Santiago|true
+OAX|17|San Pablo Villa de Mitla|true
+PUE|17|Amozoc|true
+SIN|17|La Cruz|true
+SLP|17|Fracción el Refugio|true
+TAM|17|Ciudad Miguel Alemán|true
+VER|17|Veracruz|true
+ZAC|17|Jalpa|true
+COA|18|Zaragoza|true
+CHP|18|Cintalapa de Figueroa|true
+GRO|18|Marquelia|true
+GUA|18|Uriangato|true
+JAL|18|Jalostotitlán|true
+MEX|18|Ixtapaluca|true
+MIC|18|Yurécuaro|true
+NAY|18|Ahuacatlán|true
+NLE|18|El cercado|true
+OAX|18|Natividad|true
+SIN|18|El rosario|true
+SLP|18|Tamazunchale|true
+TAM|18|Soto la Marina|true
+VER|18|Tierra Blanca|true
+ZAC|18|Loreto|true
+COA|19|San Buenaventura|true
+CHP|19|Pichucalco|true
+GRO|19|Zumpango del Río|true
+GUA|19|Pénjamo|true
+JAL|19|Poncitlán|true
+MEX|19|Texcoco de Mora|true
+MIC|19|Huetamo de Núñez|true
+OAX|19|Teotitlán de Flores Magón|true
+SIN|19|Estación Naranjo|true
+SLP|19|Santa María del Río|true
+TAM|19|Ciudad Tula|true
+VER|19|Cosamaloapan|true
+ZAC|19|Juan Aldama|true
+COA|20|Ciudad Melchor Múzquiz|true
+CHP|20|Puerto Madero (San Benito)|true
+GRO|20|San Luis de la Loma|true
+GUA|20|Cuerámaro|true
+JAL|20|Arandas|true
+MEX|20|Toluca de Lerdo|true
+MIC|20|Tacámbaro de Codallos|true
+NLE|20|Anáhuac|true
+OAX|20|Santa María Huatulco|true
+SIN|20|Aguaruto|true
+SLP|20|El Naranjo|true
+TAM|20|Nueva Ciudad Guerrero|true
+VER|20|Carlos A. Carrillo|true
+COA|21|Viesca|true
+CHP|21|Pijijiapan|true
+GRO|21|Petatlán|true
+GUA|21|Empalme Escobedo (Escobedo)|true
+JAL|21|Talpa de Allende|true
+MEX|21|Valle de Chalco Solidaridad|true
+MIC|21|Ciudad Lázaro Cárdenas|true
+NLE|21|García|true
+OAX|21|San Juan Bautista Cuicatlán|true
+SIN|21|Cosalá|true
+TAM|21|Valle Hermoso|true
+VER|21|Pánuco|true
+COA|22|Morelos|true
+CHP|22|Reforma|true
+GRO|22|La Unión|true
+GUA|22|San Luis de la Paz|true
+JAL|22|Etzatlán|true
+MEX|22|Tejupilco de Hidalgo|true
+MIC|22|Las Guacamayas|true
+NLE|22|Ciudad Benito Juárez|true
+OAX|22|Villa Sola de Vega|true
+SIN|22|San Ignacio|true
+VER|22|Tampico Alto|true
+COA|23|Arteaga|true
+CHP|23|Huixtla|true
+GRO|23|San Luis San Pedro|true
+GUA|23|Valle de Santiago|true
+JAL|23|Sayula|true
+MEX|23|Chalco de Díaz Covarrubias|true
+MIC|23|Jiquilpan de Juárez|true
+OAX|23|Ocotlán de Morelos|true
+SIN|23|Topolobampo|true
+VER|23|Tempoal de Sánchez|true
+COA|24|Allende|true
+CHP|24|Motozintla de Mendoza|true
+GRO|24|Teloloapan|true
+GUA|24|Abasolo|true
+JAL|24|Ahualulco de Mercado|true
+MEX|24|Amatepec|true
+MIC|24|Tuxpan|true
+OAX|24|Villa de Zaachila|true
+SIN|24|Lic. Benito Juárez (Campo Gobierno)|true
+VER|24|Tantoyuca|true
+CHP|25|Acala|true
+GRO|25|Técpan de Galeana|true
+GUA|25|Rincón de Tamayo|true
+JAL|25|Autlán de Navarro|true
+MIC|25|Cotija de la Paz|true
+OAX|25|Miahuatlán de Porfirio Díaz|true
+VER|25|Gutiérrez Zamora|true
+GRO|26|Huitzuco|true
+GUA|26|Villagrán|true
+JAL|26|Magdalena|true
+MEX|26|Melchor Ocampo|true
+MIC|26|Nueva Italia de Ruiz|true
+OAX|26|Unión Hidalgo|true
+VER|26|Platón Sánchez|true
+GRO|27|Tixtla de Guerrero|true
+GUA|27|Yuriria|true
+JAL|27|San Julián|true
+MEX|27|San Vicente Chicoloapan de Juárez|true
+MIC|27|Cuitzeo del Porvenir|true
+OAX|27|El Camarón|true
+VER|27|Juan Rodríguez Clara|true
+GRO|28|Tepecoacuilco de Trujano|true
+GUA|28|Apaseo el Grande|true
+JAL|28|Cocula|true
+MEX|28|Capulhuac|true
+OAX|28|San Pedro Mixtepec -Dto. 22-|true
+VER|28|Huatusco de Chicuellar|true
+GRO|29|San Marcos|true
+GUA|29|Purísima de Bustos|true
+JAL|29|El Grullo|true
+MEX|29|Juchitepec de Mariano Riva Palacio|true
+OAX|29|Santa Cruz Itundujia|true
+VER|29|Ixtaczoquitlán|true
+GRO|30|Azoyú|true
+GUA|30|Salvatierra|true
+JAL|30|San Miguel el Alto|true
+MEX|30|Tequixquiac|true
+OAX|30|Chahuites|true
+VER|30|Río Blanco|true
+GRO|31|Tlapehuala|true
+GUA|31|Marfil|true
+JAL|31|Tala|true
+MEX|31|Xonacatlán|true
+OAX|31|Heroica Ciudad de Ejutla de Crespo|true
+VER|31|Isla|true
+GRO|32|San Luis Acatlán|true
+GUA|32|San José Iturbide|true
+JAL|32|La Barca|true
+MEX|32|San Mateo Atenco|true
+OAX|32|San Pedro Tapanatepec|true
+VER|32|Cuitláhuac|true
+GRO|33|Chilapa de Álvarez|true
+GUA|33|Apaseo el Alto|true
+JAL|33|Jamay|true
+OAX|33|Vicente Camalote|true
+VER|33|Fortín de las Flores|true
+GRO|34|Tlapa de Comonfort|true
+GUA|34|Ciudad Manuel Doblado|true
+JAL|34|Yahualica de González Gallo|true
+OAX|34|Villa de Tamazulápam del Progreso|true
+VER|34|Alvarado|true
+GRO|35|Tlalixtaquilla|true
+GUA|35|Jaral del Progreso|true
+JAL|35|Colotlán|true
+OAX|35|San Juan Bautista lo de Soto|true
+VER|35|José Cardel|true
+GRO|36|Cuajinicuilapa|true
+GUA|36|San Diego de la Unión|true
+JAL|36|Cihuatlán|true
+MEX|36|Chiconcuac|true
+OAX|36|San Juan Cacahuatepec|true
+VER|36|Banderilla|true
+GRO|37|Huamuxtitlan|true
+GUA|37|Santa Cruz Juventino Rosas|true
+JAL|37|Zapotiltic|true
+OAX|37|San Pedro Totolapa|true
+VER|37|Paraje Nuevo|true
+GRO|38|Cruz Grande|true
+GUA|38|Doctor Mora|true
+JAL|38|Villa Corona|true
+OAX|38|San Miguel el Grande|true
+VER|38|Playa Vicente|true
+GRO|39|Ocotito|true
+GUA|39|Dolores Hgo. Cuna de la Indep. Nal.|true
+JAL|39|Teocaltiche|true
+MEX|39|Almoloya de Juárez|true
+OAX|39|Zimatlán de Álvarez|true
+VER|39|Altotonga|true
+GRO|40|Copala|true
+MEX|40|Ocoyoacac|true
+OAX|40|San Pablo Huitzo|true
+VER|40|Juan Díaz Covarrubias|true
+GRO|41|Zihuatanejo|true
+JAL|41|Tequila|true
+MEX|41|Zumpango|true
+OAX|41|San Francisco Telixtlahuaca|true
+VER|41|Cuichapa|true
+JAL|42|El Quince (San José el Quince)|true
+OAX|42|Mariscala de Juárez|true
+VER|42|Santiago Tuxtla|true
+JAL|43|San José el Verde (El Verde)|true
+OAX|43|Santiago Pinotepa Nacional|true
+VER|43|Huayacocotla|true
+JAL|44|Jocotepec|true
+OAX|44|Santiago Jamiltepec|true
+VER|44|Paso de Ovejas|true
+JAL|45|Tecalitlán|true
+OAX|45|San Pedro Pochutla|true
+VER|45|Catemaco|true
+JAL|46|Chapala|true
+OAX|46|Heroica Ciudad de Tlaxiaco|true
+VER|46|Nogales|true
+JAL|47|Ajijic|true
+OAX|47|San Juan Bautista Valle Nacional|true
+VER|47|Las Choapas|true
+JAL|48|San Ignacio Cerro Gordo|true
+OAX|48|Lagunas|true
+VER|48|General Miguel Alemán (Potrero Nuevo)|true
+JAL|49|Zacoalco de Torres|true
+OAX|49|Ciudad Ixtepec|true
+VER|49|Coatzintla|true
+JAL|50|Huejuquilla el Alto|true
+OAX|50|Santiago Juxtlahuaca|true
+VER|50|Ángel R. Cabada|true
+JAL|51|Villa Hidalgo|true
+OAX|51|San Sebastián Tecomaxtlahuaca|true
+VER|51|San Rafael|true
+JAL|52|Unión de San Antonio|true
+OAX|52|Asunción Nochixtlán|true
+VER|52|Tlacojalpan|true
+JAL|53|Las Pintitas|true
+OAX|53|San Francisco Ixhuatán|true
+VER|53|Cosoleacaque|true
+JAL|54|Tamazula de Gordiano|true
+OAX|54|San Blas Atempa|true
+VER|54|Lerdo de Tejada|true
+JAL|55|Acatlán de Juárez|true
+OAX|55|Santo Domingo Tehuantepec|true
+VER|55|Tihuatlán|true
+JAL|56|Valle de Guadalupe|true
+OAX|56|Cuilápam de Guerrero|true
+VER|56|Atoyac|true
+OAX|57|El Rosario|true
+VER|57|Huiloapan de Cuauhtémoc|true
+OAX|58|Santa Lucia del Camino|true
+VER|58|Cazones de Herrera|true
+OAX|59|San Antonio de la Cal|true
+VER|59|Yecuatla|true
+VER|60|Soledad de Doblado|true
+VER|61|Cerro Azul|true
+VER|62|Tezonapa|true
+VER|66|Sihuapan|true
+VER|67|El Higo|true
+VER|68|Paso del Macho|true
+VER|69|Tlapacoyan|true

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--<template id="cfdiv33_external_trade_namespace" inherit_id="l10n_mx_edi.cfdiv33">-->
+        <!--<xpath expr="//*[local-name() = 'Comprobante']" position="attributes">-->
+        <!--<attribute name="xmlns:cce11">http://www.sat.gob.mx/ComercioExterior11</attribute>-->
+        <!--</xpath>-->
+
+        <!--<xpath expr="//*[local-name() = 'Comprobante']" position="attributes">-->
+        <!--<attribute name="{http://www.w3.org/2001/XMLSchema-instance}schemaLocation">http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd  http://www.sat.gob.mx/ComercioExterior11 http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd</attribute>-->
+        <!--</xpath>-->
+        <!--</template>-->
+
+        <template id="cfdiv33_external_trade" inherit_id="l10n_mx_edi.cfdiv33">
+            <xpath expr="//*[local-name() = 'Comprobante']" position="inside" xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+                   xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd  http://www.sat.gob.mx/ComercioExterior11 http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd"
+            >
+                <cfdi:Complemento>
+                    <cce11:ComercioExterior Version="1.1" TipoOperacion="2" ClaveDePedimento="A1" CertificadoOrigen="0"
+                                            Incoterm="DAP" Subdivision="0" TipoCambioUSD="18.602500"
+                                            TotalUSD="23629.64">
+                    </cce11:ComercioExterior>
+                </cfdi:Complemento>
+            </xpath>
+        </template>
+    </data>
+</odoo>

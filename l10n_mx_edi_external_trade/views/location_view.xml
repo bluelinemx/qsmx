@@ -37,7 +37,7 @@
            <field name="model">res.country.state.locality</field>
             <field name="arch" type="xml">
                 <search string="Locality">
-                   <field name="name" string="Locality" domain="['|', ('name', 'ilike', self), ('code', '=', self))]"/>
+                   <field name="name" string="Locality" domain="['|', ('name', 'ilike', self), ('code', '=', self)]"/>
                 </search>
            </field>
         </record>
@@ -95,7 +95,7 @@
            <field name="model">res.country.state.municipality</field>
             <field name="arch" type="xml">
                 <search string="Municipality">
-                   <field name="name" string="Municipality" domain="['|', ('name', 'ilike', self), ('code', '=', self))]"/>
+                   <field name="name" string="Municipality" domain="['|', ('name', 'ilike', self), ('code', '=', self)]"/>
                 </search>
            </field>
         </record>
@@ -157,7 +157,7 @@
            <field name="model">res.country.colony</field>
             <field name="arch" type="xml">
                 <search string="Colony">
-                   <field name="name" string="Colony" domain="['|', ('name', 'ilike', self), ('code', '=', self))]"/>
+                   <field name="name" string="Colony" domain="['|', ('name', 'ilike', self), ('code', '=', self)]"/>
                 </search>
            </field>
         </record>

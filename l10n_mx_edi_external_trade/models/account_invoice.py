@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
+from odoo.addons.l10n_mx_edi.models.account_invoice import CFDI_XSLT_CADENA
 from odoo.exceptions import ValidationError
 from lxml import etree
 from lxml.builder import E
@@ -53,6 +54,31 @@ class Invoice(models.Model):
             if record.l10n_mx_edi_is_origin_certificate and not (
                     6 < len(record.l10n_mx_edi_origin_certificate_number) < 40):
                 raise ValidationError(_('The origin certificate number must be between 6 and 40 characters in length.'))
+
+    @api.multi
+    def _l10n_mx_edi_create_cfdi_values(self):
+        '''Create the values to fill the CFDI template.
+        '''
+        self.ensure_one()
+
+        values = super()._l10n_mx_edi_create_cfdi_values()
+
+        precision_digits = self.env['decimal.precision'].precision_get('Account')
+
+        ctx = dict(company_id=self.company_id.id, date=self.date_invoice)
+        mxn = self.env.ref('base.MXN').with_context(ctx)
+        usd = self.env.ref('base.USD').with_context(ctx)
+        invoice_currency = self.currency_id.with_context(ctx)
+
+        values.update({
+            'usd_rate': '%0.*f' % (precision_digits, usd.compute(1, mxn)),
+            'incoterm_code': self.l10n_mx_edi_incoterm_id.code if self.l10n_mx_edi_incoterm_id.id else False,
+            'is_origin_certificate': 1 if self.l10n_mx_edi_is_origin_certificate else 0,
+            'origin_certificate_number': self.l10n_mx_edi_origin_certificate_number if self.l10n_mx_edi_is_origin_certificate else False,
+            'amount_total_usd': '%0.*f' % (precision_digits, self.amount_total),
+        })
+
+        return values
 
     @api.multi
     def _l10n_mx_edi_create_cfdi_external_trade_values(self):
@@ -126,6 +152,10 @@ class Invoice(models.Model):
         if cfdi.get('cfdi') and version == '3.3' and self.partner_id.l10n_mx_edi_international_trade:
             qweb = self.env['ir.qweb']
 
+            company_id = self.company_id
+            certificate_ids = company_id.l10n_mx_edi_certificate_ids
+            certificate_id = certificate_ids.sudo().get_valid_certificate()
+
             tree = etree.fromstring(cfdi.get('cfdi'))
 
             root = tree.xpath("//*[local-name() = 'Comprobante']")[0]
@@ -141,6 +171,10 @@ class Invoice(models.Model):
                 complement_node.append(external_complement[0])
 
             root.append(complement_node)
+
+            tree.attrib['Sello'] = ''
+            cadena = self.l10n_mx_edi_generate_cadena(CFDI_XSLT_CADENA % version, tree)
+            tree.attrib['Sello'] = certificate_id.sudo().get_encrypted_cadena(cadena)
 
             return {'cfdi': etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8')}
 

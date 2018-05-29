@@ -18,7 +18,7 @@
     'depends': ['account', 'l10n_mx_edi'],
 
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
 
@@ -38,7 +38,6 @@
         'views/menu.xml',
 
         'data/cfdi/3.3/cfdi.xml',
-        # 'data/cfdi/3.3/cfdi_extra.xml',
     ],
 
     'post_init_hook': 'post_init_hook',

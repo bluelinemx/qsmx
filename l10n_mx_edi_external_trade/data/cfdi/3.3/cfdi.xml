@@ -105,7 +105,7 @@
                                                  t-att-FraccionArancelaria="line.product_id.l10n_mx_customs_tax_fraction_id.code if line.product_id.l10n_mx_customs_tax_fraction_id else False"
                                                  t-att-CantidadAduana="line.l10n_mx_edi_customs_quantity"
                                                  t-att-UnidadAduana="line.product_id.l10n_mx_customs_uom_id.code if line.product_id.l10n_mx_customs_uom_id else False"
-                                                 t-att-ValorUnitarioAduana="'%.3f' % line.l10n_mx_edi_customs_price_unit"
+                                                 t-att-ValorUnitarioAduana="'%.2f' % line.l10n_mx_edi_customs_price_unit"
                                                  t-att-ValorDolares="'%.2f' % line.l10n_mx_edi_customs_price_usd">
                                 </cce11:Mercancia>
                             </t>

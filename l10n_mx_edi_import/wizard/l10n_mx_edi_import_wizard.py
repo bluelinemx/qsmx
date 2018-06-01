@@ -498,10 +498,6 @@ class EdiImport(models.TransientModel):
                 tax_lines = []
                 transfers_section = getattr(taxes_section, 'Traslados', False)
                 if transfers_section:
-                    ir_property_obj = self.env['ir.property']
-
-                    inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
-                    account_id = self.fiscal_position_id.map_account(inc_acc).id if inc_acc else False
 
                     for i in range(transfers_section.countchildren()):
                         item = transfers_section.Traslado[i]
@@ -514,7 +510,7 @@ class EdiImport(models.TransientModel):
                             line = {
                                 'name': tax_item.name,
                                 'tax_id': tax_item.id,
-                                'account_id': account_id,
+                                'account_id': tax_item.account_id.id,
                                 'currency_id': self.currency_id,
                                 'company_id': self.env.user.partner_id.company_id.id,
                                 'amount': importe,

@@ -423,14 +423,14 @@ class EdiImport(models.TransientModel):
                 _('Unable to find company %s with RFC %s') % (
                     self.l10n_mx_edi_cfdi_supplier_name, self.l10n_mx_edi_cfdi_supplier_rfc))
 
-        if self.company_id and self.company_id.id != self.env.user.partner_id.company_id.id:
+        if self.company_id.id != self.env.user.partner_id.company_id.id:
             raise UserError(
-                _('Unable to process XML from company other than %s with RFC %s') % (
-                self.env.user.partner_id.company_id.name, self.env.user.partner_id.company_id.vat))
+                _('Unable to process XML from company other than "%s" with RFC "%s". Expected RFC: "%s".') % (
+                self.env.user.partner_id.company_id.name, self.env.user.partner_id.company_id.vat, self.company_id.vat))
 
         if not self.partner_id:
             raise UserError(
-                _('Unable to find client %s with RFC %s') % (
+                _('Unable to find client "%s" with RFC "%s".') % (
                     self.l10n_mx_edi_cfdi_customer_name, self.l10n_mx_edi_cfdi_customer_rfc))
 
         complemento_section = getattr(xml, 'Complemento', False)

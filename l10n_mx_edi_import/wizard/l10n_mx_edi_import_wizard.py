@@ -425,7 +425,7 @@ class EdiImport(models.TransientModel):
 
         if self.company_id.id != self.env.user.partner_id.company_id.id:
             raise UserError(
-                _('Unable to process XML from company other than "%s" with RFC "%s". Expected RFC: "%s".') % (
+                _('Unable to process XML from company other than "%s" with RFC "%s". Invoice RFC: "%s".') % (
                 self.env.user.partner_id.company_id.name, self.env.user.partner_id.company_id.vat, self.company_id.vat))
 
         if not self.partner_id:

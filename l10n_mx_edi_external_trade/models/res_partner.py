@@ -23,6 +23,9 @@ class ResPartner(models.Model):
     def onchange_l10n_mx_edi_locality_id(self):
         self.l10n_mx_edi_colony = self.l10n_mx_edi_colony_id.name if self.l10n_mx_edi_colony_id.id else None
 
+        if self.l10n_mx_edi_colony_id.id:
+            self.zip = self.l10n_mx_edi_colony_id.zip
+
     @api.one
     @api.depends('country_id')
     def _compute_show_extra_location_fields(self):

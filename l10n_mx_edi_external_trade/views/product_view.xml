@@ -11,22 +11,23 @@
                     <field name="l10n_mx_edi_code_sat_id" position="after">
                         <field name="l10n_mx_customs_tax_fraction_id" options='{"no_create": True}'/>
                     </field>
+
+                    <xpath expr="//page[@name='invoicing']" position="inside">
+                        <group>
+                            <group>
+                                <field name="l10n_mx_brand_required" invisible="1"/>
+                                <field name="l10n_mx_brand"
+                                       attrs="{'required': [('l10n_mx_brand_required', '=', True)]}"/>
+                                <field name="l10n_mx_model"/>
+                                <field name="l10n_mx_sub_model"/>
+                                <field name="l10n_mx_serial_no"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </xpath>
                 </data>
             </field>
         </record>
-
-        <!--<record model="ir.ui.view" id="view_product_uom_form_inh_l10n_mx_edi_external">-->
-            <!--<field name="name">view.product.uom.form.inh.l10n.mx</field>-->
-            <!--<field name="model">product.uom</field>-->
-            <!--<field name="inherit_id" ref="product.product_uom_form_view"/>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<data>-->
-                    <!--<field name="l10n_mx_edi_code_sat_id" position="after">-->
-                        <!--<field name="l10n_mx_customs_uom_id" options='{"no_create": True}'/>-->
-                    <!--</field>-->
-                <!--</data>-->
-            <!--</field>-->
-        <!--</record>-->
 
     </data>
 </odoo>

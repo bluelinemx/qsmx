@@ -74,12 +74,12 @@ class Colony(models.Model):
     def name_get(self):
         result = []
         for prod in self:
-            result.append((prod.id, "%s %s" % (prod.code, prod.name or '')))
+            result.append((prod.id, "%s %s (CP %s)" % (prod.code, prod.name or '', prod.zip)))
         return result
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
         args = args or []
-        domain_name = ['|', ('name', 'ilike', name), ('code', 'ilike', name)]
+        domain_name = ['|', ('zip', '=', name), '|', ('name', 'ilike', name), ('code', 'ilike', name)]
         recs = self.search(domain_name + args, limit=limit)
         return recs.name_get()

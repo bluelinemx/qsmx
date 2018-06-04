@@ -157,7 +157,7 @@
            <field name="model">res.country.colony</field>
             <field name="arch" type="xml">
                 <search string="Colony">
-                   <field name="name" string="Colony" domain="['|', ('name', 'ilike', self), ('code', '=', self)]"/>
+                   <field name="name" string="Colony"/>
                 </search>
            </field>
         </record>

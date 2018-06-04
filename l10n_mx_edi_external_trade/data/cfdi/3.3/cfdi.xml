@@ -18,7 +18,10 @@
                    xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd  http://www.sat.gob.mx/ComercioExterior11 http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd"
             >
                 <cfdi:Complemento t-if="False and record.partner_id.l10n_mx_edi_international_trade">
-                    <cce11:ComercioExterior Version="1.1" TipoOperacion="2" ClaveDePedimento="A1" Subdivision="0"
+                    <cce11:ComercioExterior xsi:schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd"
+                                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                            xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11"
+                                            Version="1.1" TipoOperacion="2" ClaveDePedimento="A1" Subdivision="0"
                                             t-att-NumeroExportadorConfiable="record.company_id.l10n_mx_trusted_exporter_number"
                                             t-att-CertificadoOrigen="is_origin_certificate"
                                             t-att-NumCertificadoOrigen="origin_certificate_number"
@@ -71,7 +74,10 @@
                   xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/ComercioExterior11 http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd"
             >
                 <cfdi:Complemento>
-                    <cce11:ComercioExterior Version="1.1" TipoOperacion="2" ClaveDePedimento="A1"
+                    <cce11:ComercioExterior xsi:schemaLocation="http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd"
+                                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                            xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11"
+                            Version="1.1" TipoOperacion="2" ClaveDePedimento="A1"
                                             t-att-NumeroExportadorConfiable="record.company_id.l10n_mx_trusted_exporter_number"
                                             t-att-CertificadoOrigen="is_origin_certificate"
                                             t-att-NumCertificadoOrigen="origin_certificate_number"
@@ -107,6 +113,12 @@
                                                  t-att-UnidadAduana="line.product_id.l10n_mx_customs_uom_id.code if line.product_id.l10n_mx_customs_uom_id else False"
                                                  t-att-ValorUnitarioAduana="'%.2f' % line.l10n_mx_edi_customs_price_unit"
                                                  t-att-ValorDolares="'%.2f' % line.l10n_mx_edi_customs_price_usd">
+                                    <cce11:DescripcionesEspecificas t-if="line.product_id.l10n_mx_brand"
+                                                                    t-att-Marca="line.product_id.l10n_mx_brand or False"
+                                                                    t-att-Modelo="line.product_id.l10n_mx_model or False"
+                                                                    t-att-SubModelo="line.product_id.l10n_mx_sub_model or False"
+                                                                    t-att-NumeroSerie="line.product_id.l10n_mx_serial_no or False"
+                                    />
                                 </cce11:Mercancia>
                             </t>
                         </cce11:Mercancias>

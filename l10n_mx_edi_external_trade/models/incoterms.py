@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class Incoterms(models.Model):
@@ -16,3 +16,17 @@ class Incoterms(models.Model):
     active = fields.Boolean(
         'Active', default=True,
         help="By unchecking the active field, you may hide an INCOTERM you will not use.")
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for prod in self:
+            result.append((prod.id, "%s - %s" % (prod.code, prod.name or '')))
+        return result
+
+    @api.model
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
+        args = args or []
+        domain_name = ['|', ('name', 'ilike', name), ('code', 'ilike', name)]
+        recs = self.search(domain_name + args, limit=limit)
+        return recs.name_get()

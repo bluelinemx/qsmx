@@ -189,7 +189,6 @@ class InvoiceLine(models.Model):
     l10n_mx_edi_customs_quantity = fields.Float(string='Customs Quantity', digits=dp.get_precision('Product Unit of Measure'), compute='_compute_customs_fields', store=True)
     l10n_mx_edi_customs_price_unit = fields.Float(string='Customs Unit Price', digits=dp.get_precision('Product Price'), compute='_compute_customs_fields', store=True)
     l10n_mx_edi_customs_price_usd = fields.Float(string='Customs Price USD', digits=dp.get_precision('Product Price'), compute='_compute_customs_price_usd', store=True)
-    l10n_mx_edi_po = fields.Char(string='PO')
 
     @api.one
     @api.depends('l10n_mx_edi_international_trade', 'product_id', 'product_id.l10n_mx_customs_uom_id', 'product_id.l10n_mx_customs_uom_id.uom_id', 'price_unit', 'quantity', 'uom_id')

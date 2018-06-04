@@ -18,7 +18,6 @@
 
                 <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='uom_id']" position="after">
                     <field name="l10n_mx_edi_international_trade" invisible="1"/>
-                    <field name="l10n_mx_edi_po" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}" />
                     <!--<field name="l10n_mx_edi_customs_quantity" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>-->
                     <!--<field name="l10n_mx_edi_customs_price_unit" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>-->
                     <!--<field name="l10n_mx_edi_customs_price_usd" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>-->
@@ -32,7 +31,6 @@
             <field name="inherit_id" ref="account.view_invoice_line_form"/>
             <field name="arch" type="xml">
                 <field name="uom_id" position="after">
-                    <field name="l10n_mx_edi_po" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}" />
                     <field name="invoice_id" invisible="1"/>
                     <field name="l10n_mx_edi_international_trade" invisible="1"/>
                     <field name="l10n_mx_edi_customs_quantity" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>

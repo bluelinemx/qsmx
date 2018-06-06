@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="res_partner_form_inherit_l10n_mx_edi_external_trade" model="ir.ui.view">
+        <record id="res_partner_form_inherit_l10n_mx_edi_external_trade_bluemix" model="ir.ui.view">
             <field name="name">res.partner.form.inherit</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>

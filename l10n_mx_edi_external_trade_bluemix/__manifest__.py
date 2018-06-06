@@ -3,10 +3,10 @@
     'name': "Mexico EDI External Trading",
 
     'summary': """
-    Mexico EDI External Trading""",
+    Bluemix Mexico EDI External Trading""",
 
     'description': """
-        Mexico EDI External Trading
+        Bluemix Mexico EDI External Trading
     """,
 
     'author': "Yusnel Rojas Garcia",

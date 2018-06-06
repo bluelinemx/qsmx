@@ -171,7 +171,7 @@ class Invoice(models.Model):
 
         values = self._l10n_mx_edi_create_cfdi_external_trade_values()
 
-        content = qweb.render('l10n_mx_edi_external_trade.cfdiv33_external_trade', values=values)
+        content = qweb.render('l10n_mx_edi_external_trade_bluemix.cfdiv33_external_trade', values=values)
         complement = etree.fromstring(content)
         external_complement = complement.xpath("//*[local-name() = 'ComercioExterior']")
 

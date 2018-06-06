@@ -11,7 +11,7 @@
             </xpath>
 
             <xpath expr="//*[local-name() = 'Receptor']" position="attributes">
-                <attribute name="t-att-NumRegIdTrib">customer.vat.strip() if record.l10n_mx_edi_international_trade and customer.vat.strip() else None</attribute>
+                <attribute name="t-att-NumRegIdTrib">customer.vat.strip() if record.l10n_mx_edi_international_trade and customer.vat and customer.vat.strip() else None</attribute>
             </xpath>
         </template>
 

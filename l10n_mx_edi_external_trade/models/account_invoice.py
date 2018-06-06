@@ -61,7 +61,10 @@ class Invoice(models.Model):
         '''
         self.ensure_one()
 
-        values = super()._l10n_mx_edi_create_cfdi_values()
+        values = super(Invoice, self)._l10n_mx_edi_create_cfdi_values()
+
+        if not self.l10n_mx_edi_international_trade:
+            return values
 
         precision_digits = self.env['decimal.precision'].precision_get('Account')
 
@@ -71,6 +74,7 @@ class Invoice(models.Model):
         invoice_currency = self.currency_id.with_context(ctx)
 
         values.update({
+            'receiver_reg_trib': values.get('customer').vat,
             'usd_rate': '%0.*f' % (precision_digits, usd.compute(1, mxn)),
             'incoterm_code': self.l10n_mx_edi_incoterm_id.code if self.l10n_mx_edi_incoterm_id.id else False,
             'is_origin_certificate': 1 if self.l10n_mx_edi_is_origin_certificate else 0,
@@ -85,6 +89,7 @@ class Invoice(models.Model):
         '''Create the values to fill the CFDI External Trade Complement template.
         '''
         self.ensure_one()
+
         precision_digits = self.env['decimal.precision'].precision_get('Account')
         amount_untaxed = sum(self.invoice_line_ids.mapped(lambda l: l.quantity * l.price_unit))
         amount_discount = sum(self.invoice_line_ids.mapped(lambda l: l.quantity * l.price_unit * l.discount / 100.0))
@@ -145,40 +150,41 @@ class Invoice(models.Model):
     def _l10n_mx_edi_create_cfdi(self):
         self.ensure_one()
 
-        cfdi = super()._l10n_mx_edi_create_cfdi()
+        cfdi = super(Invoice, self)._l10n_mx_edi_create_cfdi()
 
         version = self.l10n_mx_edi_get_pac_version()
 
-        if cfdi.get('cfdi') and version == '3.3' and self.partner_id.l10n_mx_edi_international_trade:
-            qweb = self.env['ir.qweb']
+#       only generate external trade complement for cfdi version 3.3 and international trade is enabled in invoice
+        if not cfdi.get('cfdi') or version != '3.3' or not self.l10n_mx_edi_international_trade:
+            return cfdi
 
-            company_id = self.company_id
-            certificate_ids = company_id.l10n_mx_edi_certificate_ids
-            certificate_id = certificate_ids.sudo().get_valid_certificate()
+        qweb = self.env['ir.qweb']
 
-            tree = etree.fromstring(cfdi.get('cfdi'))
+        company_id = self.company_id
+        certificate_ids = company_id.l10n_mx_edi_certificate_ids
+        certificate_id = certificate_ids.sudo().get_valid_certificate()
 
-            root = tree.xpath("//*[local-name() = 'Comprobante']")[0]
-            complement_node = etree.Element('{http://www.sat.gob.mx/cfd/3}Complemento', nsmap=tree.nsmap)
+        tree = etree.fromstring(cfdi.get('cfdi'))
 
-            values = self._l10n_mx_edi_create_cfdi_external_trade_values()
+        root = tree.xpath("//*[local-name() = 'Comprobante']")[0]
+        complement_node = etree.Element('{http://www.sat.gob.mx/cfd/3}Complemento', nsmap=tree.nsmap)
 
-            content = qweb.render('l10n_mx_edi_external_trade.cfdiv33_external_trade', values=values)
-            complement = etree.fromstring(content)
-            external_complement = complement.xpath("//*[local-name() = 'ComercioExterior']")
+        values = self._l10n_mx_edi_create_cfdi_external_trade_values()
 
-            if external_complement:
-                complement_node.append(external_complement[0])
+        content = qweb.render('l10n_mx_edi_external_trade.cfdiv33_external_trade', values=values)
+        complement = etree.fromstring(content)
+        external_complement = complement.xpath("//*[local-name() = 'ComercioExterior']")
 
-            root.append(complement_node)
+        if external_complement:
+            complement_node.append(external_complement[0])
 
-            tree.attrib['Sello'] = ''
-            cadena = self.l10n_mx_edi_generate_cadena(CFDI_XSLT_CADENA % version, tree)
-            tree.attrib['Sello'] = certificate_id.sudo().get_encrypted_cadena(cadena)
+        root.append(complement_node)
 
-            return {'cfdi': etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8')}
+        tree.attrib['Sello'] = ''
+        cadena = self.l10n_mx_edi_generate_cadena(CFDI_XSLT_CADENA % version, tree)
+        tree.attrib['Sello'] = certificate_id.sudo().get_encrypted_cadena(cadena)
 
-        return cfdi
+        return {'cfdi': etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8')}
 
 
 class InvoiceLine(models.Model):

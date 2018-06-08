@@ -38,6 +38,7 @@
             <field name="arch" type="xml">
                 <search string="Locality">
                    <field name="name" string="Locality" domain="['|', ('name', 'ilike', self), ('code', '=', self)]"/>
+                   <field name="code" string="ZIP" domain="[('code', '=', self)]"/>
                 </search>
            </field>
         </record>
@@ -95,7 +96,8 @@
            <field name="model">res.country.state.municipality</field>
             <field name="arch" type="xml">
                 <search string="Municipality">
-                   <field name="name" string="Municipality" domain="['|', ('name', 'ilike', self), ('code', '=', self)]"/>
+                    <field name="name" string="Municipality" filter_domain="['|', ('name', 'ilike', self), ('code', '=', self)]"/>
+                    <field name="code" string="Code" filter_domain="[('code', '=', self)]"/>
                 </search>
            </field>
         </record>
@@ -157,7 +159,9 @@
            <field name="model">res.country.colony</field>
             <field name="arch" type="xml">
                 <search string="Colony">
-                   <field name="name" string="Colony"/>
+                   <field name="name" string="Colony" filter_domain="[('name', 'ilike', self)]"/>
+                   <field name="code" string="Code" filter_domain="[('code', '=', self)]"/>
+                   <field name="zip" string="ZIP" filter_domain="[('zip', '=', self)]"/>
                 </search>
            </field>
         </record>

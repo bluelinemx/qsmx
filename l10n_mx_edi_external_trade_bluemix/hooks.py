@@ -18,6 +18,7 @@ def post_init_hook(cr, registry):
     _load_customs_tax_fraction_sat_catalog(cr, registry)
     _load_mx_municipality_data(cr, registry)
     _load_mx_locality_data(cr, registry)
+    _load_mx_zipcode_data(cr, registry)
 
 
 def _load_colony_sat_catalog(cr, registry):
@@ -84,6 +85,41 @@ def _load_mx_locality_data(cr, registry):
         FROM locality_temp
         """)
     cr.execute('DROP TABLE locality_temp')
+
+
+def _load_mx_zipcode_data(cr, registry):
+    csv_path = join(dirname(realpath(__file__)), 'data/csv', 'c_CodigoPostal.csv')
+
+    csv_file = open(csv_path, 'rb')
+    cr.execute(
+        'CREATE TEMP TABLE zipcode_temp(zipcode VARCHAR, state_code VARCHAR, municipality_code VARCHAR, locality_code VARCHAR)')
+    cr.copy_expert(
+        """COPY zipcode_temp(zipcode, state_code, municipality_code, locality_code) FROM STDIN WITH CSV HEADER DELIMITER '|'""",
+        csv_file)
+    cr.execute(
+        """
+    INSERT INTO l10n_mx_edi_country_state_zipcode(country_id, country_state_id, code, municipality_id, locality_id)
+        SELECT
+  (SELECT res_country_state.country_id
+   FROM res_country_state
+     INNER JOIN res_country ON (res_country.id = res_country_state.country_id)
+   WHERE res_country.code = 'MX' AND res_country_state.code = state_code),
+  (SELECT res_country_state.id
+   FROM res_country_state
+     INNER JOIN res_country ON (res_country.id = res_country_state.country_id)
+   WHERE res_country.code = 'MX' AND res_country_state.code = state_code),
+  zipcode,
+  (SELECT res_country_state_municipality.id
+   FROM res_country_state_municipality
+   INNER JOIN res_country_state ON (res_country_state.id = res_country_state_municipality.country_state_id)
+   WHERE  res_country_state.code=state_code AND res_country_state_municipality.code = municipality_code),
+  (SELECT res_country_state_locality.id
+   FROM res_country_state_locality
+   INNER JOIN res_country_state ON (res_country_state.id = res_country_state_locality.country_state_id)
+   WHERE res_country_state.code=state_code AND res_country_state_locality.code = locality_code)
+FROM zipcode_temp
+        """)
+    cr.execute('DROP TABLE zipcode_temp')
 
 
 # Create xml_id, to allow make reference to this data

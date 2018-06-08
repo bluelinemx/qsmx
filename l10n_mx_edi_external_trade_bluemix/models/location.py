@@ -3,6 +3,23 @@
 from odoo import models, fields, api
 
 
+class CountryStateZipCode(models.Model):
+    _name = 'l10n.mx.edi.country.state.zipcode'
+    _description = 'Country State ZipCodes'
+
+    code = fields.Char('Zip', required=True)
+    country_id = fields.Many2one('res.country', related='country_state_id.country_id', string='Country', store=True)
+    country_state_id = fields.Many2one('res.country.state', string='Country State', required=True)
+    municipality_id = fields.Many2one('res.country.state.municipality', string='Municipality')
+    locality_id = fields.Many2one('res.country.state.locality', string='Locality')
+
+
+class CountryState(models.Model):
+    _inherit = 'res.country.state'
+
+    l10n_mx_edi_zip_ids = fields.One2many('l10n.mx.edi.country.state.zipcode', 'country_state_id', string='Zip Codes')
+
+
 class Locality(models.Model):
     _name = 'res.country.state.locality'
     _description = 'Locality'

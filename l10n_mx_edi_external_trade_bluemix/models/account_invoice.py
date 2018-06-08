@@ -16,7 +16,7 @@ class Invoice(models.Model):
                                        "used in international transactions.", readonly=True,
                                   states={'draft': [('readonly', False)]})
 
-    l10n_mx_edi_international_trade = fields.Boolean('International Trade', related='partner_id.l10n_mx_edi_international_trade', store=True, change_default=True)
+    l10n_mx_edi_international_trade = fields.Boolean('International Trade', change_default=True)
 
     l10n_mx_edi_is_origin_certificate = fields.Boolean('Is Origin Certificate', readonly=True,
                                                        states={'draft': [('readonly', False)]})
@@ -24,6 +24,11 @@ class Invoice(models.Model):
                                                         states={'draft': [('readonly', False)]})
 
     l10n_mx_edi_customs_amount_total_usd = fields.Monetary(string="Amount USD", compute='_compute_customs_amount_total_usd')
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id_international_trade(self):
+        self.l10n_mx_edi_international_trade = self.partner_id.l10n_mx_edi_international_trade
+
 
     @api.one
     @api.depends('amount_total')

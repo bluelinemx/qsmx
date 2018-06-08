@@ -27,7 +27,7 @@
                                             xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11"
                                             Version="1.1" TipoOperacion="2" ClaveDePedimento="A1" Subdivision="0"
                                             t-att-NumeroExportadorConfiable="record.company_id.l10n_mx_trusted_exporter_number"
-                                            t-att-CertificadoOrigen="is_origin_certificate"
+                                            t-att-CertificadoOrigen="'1' if is_origin_certificate else '0'"
                                             t-att-NumCertificadoOrigen="origin_certificate_number"
                                             t-att-Incoterm="incoterm_code"
                                             t-att-TipoCambioUSD="usd_rate"
@@ -49,7 +49,7 @@
                                              t-att-NumeroInterior="customer.street_number2 if customer.street_number2 else False"
                                              t-att-Colonia="customer.l10n_mx_edi_colony if customer.l10n_mx_edi_colony else False"
                                              t-att-Localidad="customer.l10n_mx_edi_locality if customer.l10n_mx_edi_locality else False"
-                                             t-att-Estado="customer.state_id.name if customer.state_id.name else False"
+                                             t-att-Estado="customer.state_id.code if customer.state_id.id else False"
                                              t-att-Pais="customer.country_id.l10n_mx_edi_code if customer.country_id.l10n_mx_edi_code else False"
                                              t-att-CodigoPostal="customer.zip if customer.zip else False"/>
                         </cce11:Receptor>
@@ -83,7 +83,7 @@
                                             xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11"
                             Version="1.1" TipoOperacion="2" ClaveDePedimento="A1"
                                             t-att-NumeroExportadorConfiable="record.company_id.l10n_mx_trusted_exporter_number"
-                                            t-att-CertificadoOrigen="is_origin_certificate"
+                                            t-att-CertificadoOrigen="'1' if is_origin_certificate else '0'"
                                             t-att-NumCertificadoOrigen="origin_certificate_number"
                                             t-att-Incoterm="incoterm_code" Subdivision="0"
                                             t-att-TipoCambioUSD="rate"
@@ -105,7 +105,7 @@
                                              t-att-NumeroInterior="customer.street_number2 if customer.street_number2 else False"
                                              t-att-Colonia="customer.l10n_mx_edi_colony if customer.l10n_mx_edi_colony else False"
                                              t-att-Localidad="customer.l10n_mx_edi_locality if customer.l10n_mx_edi_locality else False"
-                                             t-att-Estado="customer.state_id.name if customer.state_id.name else False"
+                                             t-att-Estado="customer.state_id.code if customer.state_id.id else False"
                                              t-att-Pais="customer.country_id.l10n_mx_edi_code if customer.country_id.l10n_mx_edi_code else False"
                                              t-att-CodigoPostal="customer.zip if customer.zip else False"/>
                         </cce11:Receptor>

@@ -9,10 +9,10 @@ class ResPartner(models.Model):
     state_id = fields.Many2one("res.country.state", string='State', ondelete='restrict', domain="[('country_id', '=', country_id)]", change_default=True)
     l10n_mx_edi_international_trade = fields.Boolean('International Trade')
     l10n_mx_edi_curp = fields.Char(string='CURP')
+
     l10n_mx_edi_locality_id = fields.Many2one('res.country.state.locality', string='Location', domain="[('country_state_id', '=', state_id)]", change_default=True)
     l10n_mx_edi_colony_id = fields.Many2one('res.country.colony', string='Colony', domain="[('country_id', '=', country_id)]", change_default=True)
     l10n_mx_edi_municipality_id = fields.Many2one('res.country.state.municipality', string='Municipality', domain="[('country_state_id', '=', state_id)]", change_default=True)
-
     l10n_mx_edi_extra_location_fields = fields.Boolean(compute='_compute_show_extra_location_fields')
 
     @api.onchange('l10n_mx_edi_locality_id')

@@ -7,7 +7,7 @@
             </xpath>
         </template>
 
-        <template id="report_invoice_document" inherit_id="account.report_invoice_document" priority="1">
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
 
             <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
                 <attribute name="t-call">web.basic_layout</attribute>
@@ -408,22 +408,24 @@
                                             <span t-field="o.currency_id.currency_unit_label" t-lang="o.partner_id.lang"/>
                                         </td>
                                     </tr>
-                                    <tr t-if="xml.get('TipoCambio')">
-                                        <td width="200">
-                                            EXCHANGE RATE
-                                        </td>
-                                        <td>
-                                            <span t-esc="xml.get('TipoCambio')"/>
-                                        </td>
-                                    </tr>
-                                    <tr t-if="xml.get('TipoCambio')">
-                                        <td width="200">
-                                            DATE OF EXCHANGE RATE
-                                        </td>
-                                        <td>
-                                            <t t-esc="xml.get('Fecha', '').replace('T', ' ')"/>
-                                        </td>
-                                    </tr>
+                                    <t t-if="o.l10n_mx_edi_cfdi_uuid">
+                                        <tr t-if="xml.get('TipoCambio')">
+                                            <td width="200">
+                                                EXCHANGE RATE
+                                            </td>
+                                            <td>
+                                                <span t-esc="xml.get('TipoCambio')"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="xml.get('TipoCambio')">
+                                            <td width="200">
+                                                DATE OF EXCHANGE RATE
+                                            </td>
+                                            <td>
+                                                <t t-esc="xml.get('Fecha', '').replace('T', ' ')"/>
+                                            </td>
+                                        </tr>
+                                    </t>
                                 </table>
                             </div>
                         </div>
@@ -482,9 +484,8 @@
 
 
         <!-- REMOVE l10n_mx_edi REPORT MODIFICATIONS -->
-        <template id="l10n_mx_edi.report_invoice_document_mx" inherit_id="account.report_invoice_document">
-
-        </template>
+        <!--<template id="l10n_mx_edi.report_invoice_document_mx" inherit_id="account.report_invoice_document">-->
+        <!--</template>-->
 
     </data>
 </odoo>

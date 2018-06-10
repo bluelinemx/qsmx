@@ -37,12 +37,8 @@
 
         'views/menu.xml',
 
-        'data/cfdi/3.3/cfdi.xml',
+        'data/cfdi/1.1/cfdi_external_trade.xml',
     ],
 
     'post_init_hook': 'post_init_hook',
-
-    'demo': [
-        'demo/demo.xml',
-    ],
 }

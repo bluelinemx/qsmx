@@ -5,6 +5,7 @@ from odoo import models, fields, api, _
 import logging
 
 from odoo.exceptions import ValidationError
+from ..hooks import _load_xsd_complement
 
 _logger = logging.getLogger(__name__)
 
@@ -198,3 +199,14 @@ class ResCompany(models.Model):
     @api.depends('country_id')
     def _compute_show_extra_location_fields(self):
         self.l10n_mx_edi_extra_location_fields = self.country_id == self.env.ref('base.mx')
+
+    @api.model
+    def _load_xsd_attachments(self):
+        res = super(ResCompany, self)._load_xsd_attachments()
+        url = 'http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd'  # noqa
+        xsd = self.env.ref(
+            'l10n_mx_edi.xsd_cached_ComercioExterior11_xsd', False)
+        if xsd:
+            xsd.unlink()
+        _load_xsd_complement(self._cr, None, url)
+        return res

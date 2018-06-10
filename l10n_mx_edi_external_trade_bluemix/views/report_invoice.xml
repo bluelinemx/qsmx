@@ -42,12 +42,28 @@
                             <table class="table table-condensed table-bordered">
                                 <tbody>
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="7">
                                             <span>Customs Tax Fraction:</span>
                                             <t t-esc="l.product_id.l10n_mx_customs_tax_fraction_id.code"/>
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td t-if="l.product_id.l10n_mx_brand">
+                                            <span>Brand of the merchandise:</span>
+                                            <t t-esc="l.product_id.l10n_mx_brand"/>
+                                        </td>
+                                        <td t-if="l.product_id.l10n_mx_model">
+                                            <span>Model of the merchandise:</span>
+                                            <t t-esc="l.product_id.l10n_mx_model"/>
+                                        </td>
+                                        <td t-if="l.product_id.l10n_mx_sub_model">
+                                            <span>Submodel of the merchandise:</span>
+                                            <t t-esc="l.product_id.l10n_mx_sub_model"/>
+                                        </td>
+                                        <td t-if="l.product_id.l10n_mx_serial_no">
+                                            <span>Serial No. of the merchandise:</span>
+                                            <t t-esc="l.product_id.l10n_mx_serial_no"/>
+                                        </td>
                                         <td>
                                             <span>Customs Unit of Measure:</span>
                                             <t t-esc="l.product_id.l10n_mx_customs_uom_id.code"/>

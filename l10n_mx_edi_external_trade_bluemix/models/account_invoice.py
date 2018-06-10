@@ -29,7 +29,6 @@ class Invoice(models.Model):
     def _onchange_partner_id_international_trade(self):
         self.l10n_mx_edi_international_trade = self.partner_id.l10n_mx_edi_international_trade
 
-
     @api.one
     @api.depends('amount_total')
     def _compute_customs_amount_total_usd(self):
@@ -85,6 +84,7 @@ class Invoice(models.Model):
             'is_origin_certificate': 1 if self.l10n_mx_edi_is_origin_certificate else 0,
             'origin_certificate_number': self.l10n_mx_edi_origin_certificate_number if self.l10n_mx_edi_is_origin_certificate else False,
             'amount_total_usd': '%0.*f' % (precision_digits, self.amount_total),
+            'europe_group': self.env.ref('base.europe'),
         })
 
         return values
@@ -115,6 +115,7 @@ class Invoice(models.Model):
             'amount_total': '%0.*f' % (precision_digits, self.amount_total),
             'amount_untaxed': '%0.*f' % (precision_digits, amount_untaxed),
             'amount_discount': '%0.*f' % (precision_digits, amount_discount) if amount_discount else None,
+            'europe_group': self.env.ref('base.europe'),
         }
 
         values.update(self._l10n_mx_get_serie_and_folio(self.number))
@@ -123,7 +124,7 @@ class Invoice(models.Model):
         usd = self.env.ref('base.USD').with_context(ctx)
         invoice_currency = self.currency_id.with_context(ctx)
 
-        values['rate'] = '%0.*f' % (precision_digits, usd.compute(1, mxn))
+        values['usd_rate'] = '%0.*f' % (precision_digits, usd.compute(1, mxn))
 
         domicile = self.journal_id.l10n_mx_address_issued_id or self.company_id
         values['domicile'] = '%s %s, %s' % (
@@ -152,7 +153,7 @@ class Invoice(models.Model):
         return values
 
     @api.multi
-    def _l10n_mx_edi_create_cfdi(self):
+    def disabled_l10n_mx_edi_create_cfdi(self):
         self.ensure_one()
 
         cfdi = super(Invoice, self)._l10n_mx_edi_create_cfdi()

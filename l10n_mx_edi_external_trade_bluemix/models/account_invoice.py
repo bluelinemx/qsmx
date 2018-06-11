@@ -3,9 +3,11 @@
 from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
 from odoo.addons.l10n_mx_edi.models.account_invoice import CFDI_XSLT_CADENA
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from lxml import etree
 from lxml.builder import E
+
+from l10n_mx_edi.models.account_invoice import create_list_html
 
 
 class Invoice(models.Model):
@@ -60,6 +62,24 @@ class Invoice(models.Model):
                 raise ValidationError(_('The origin certificate number must be between 6 and 40 characters in length.'))
 
     @api.multi
+    def _l10n_mx_edi_create_cfdi(self):
+        if not self.l10n_mx_edi_international_trade:
+            return super(Invoice, self)._l10n_mx_edi_create_cfdi()
+
+        bad_line = self.invoice_line_ids.filtered(
+            lambda l: not (l.product_id.self.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.id if l.product_id.self.product_id.l10n_mx_customs_tax_fraction_id else False) or not l.product_id.l10n_mx_customs_tax_fraction_id.id or
+                      not l.l10n_mx_edi_customs_quantity)
+        if bad_line:
+            line_name = bad_line.mapped('product_id.name')
+            return {'error': _(
+                'Please verify that Qty UMT has a value in the line, '
+                'and that the product has set a value in Tariff Fraction and '
+                'in UMT Aduana.<br/><br/>This for the products:'
+            ) + create_list_html(line_name)}
+
+        return super(Invoice, self)._l10n_mx_edi_create_cfdi()
+
+    @api.multi
     def _l10n_mx_edi_create_cfdi_values(self):
         '''Create the values to fill the CFDI template.
         '''
@@ -89,109 +109,6 @@ class Invoice(models.Model):
 
         return values
 
-    @api.multi
-    def _l10n_mx_edi_create_cfdi_external_trade_values(self):
-        '''Create the values to fill the CFDI External Trade Complement template.
-        '''
-        self.ensure_one()
-
-        precision_digits = self.env['decimal.precision'].precision_get('Account')
-        amount_untaxed = sum(self.invoice_line_ids.mapped(lambda l: l.quantity * l.price_unit))
-        amount_discount = sum(self.invoice_line_ids.mapped(lambda l: l.quantity * l.price_unit * l.discount / 100.0))
-        partner_id = self.partner_id
-
-        if self.partner_id.type != 'invoice':
-            partner_id = self.partner_id.commercial_partner_id
-
-        values = {
-            'record': self,
-            'incoterm_code': self.l10n_mx_edi_incoterm_id.code if self.l10n_mx_edi_incoterm_id.id else False,
-            'is_origin_certificate': 1 if self.l10n_mx_edi_is_origin_certificate else 0,
-            'origin_certificate_number': self.l10n_mx_edi_origin_certificate_number if self.l10n_mx_edi_is_origin_certificate else False,
-            'currency_name': self.currency_id.name,
-            'supplier': self.company_id.partner_id.commercial_partner_id,
-            'customer': partner_id,
-            'amount_total_usd': '%0.*f' % (precision_digits, self.amount_total),
-            'amount_total': '%0.*f' % (precision_digits, self.amount_total),
-            'amount_untaxed': '%0.*f' % (precision_digits, amount_untaxed),
-            'amount_discount': '%0.*f' % (precision_digits, amount_discount) if amount_discount else None,
-            'europe_group': self.env.ref('base.europe'),
-        }
-
-        values.update(self._l10n_mx_get_serie_and_folio(self.number))
-        ctx = dict(company_id=self.company_id.id, date=self.date_invoice)
-        mxn = self.env.ref('base.MXN').with_context(ctx)
-        usd = self.env.ref('base.USD').with_context(ctx)
-        invoice_currency = self.currency_id.with_context(ctx)
-
-        values['usd_rate'] = '%0.*f' % (precision_digits, usd.compute(1, mxn))
-
-        domicile = self.journal_id.l10n_mx_address_issued_id or self.company_id
-        values['domicile'] = '%s %s, %s' % (
-            domicile.city,
-            domicile.state_id.name,
-            domicile.country_id.name,
-        )
-
-        values['decimal_precision'] = precision_digits
-        values['subtotal_wo_discount'] = lambda l: l.quantity * l.price_unit
-        values['total_discount'] = lambda l, d: ('%.*f' % (
-            int(d), l.quantity * l.price_unit * l.discount / 100)) if l.discount else False
-
-        values['taxes'] = self._l10n_mx_edi_create_taxes_cfdi_values()
-
-        values['tax_name'] = lambda t: {'ISR': '001', 'IVA': '002', 'IEPS': '003'}.get(
-            t, False)
-
-        if self.l10n_mx_edi_partner_bank_id:
-            digits = [s for s in self.l10n_mx_edi_partner_bank_id.acc_number if s.isdigit()]
-            acc_4number = ''.join(digits)[-4:]
-            values['account_4num'] = acc_4number if len(acc_4number) == 4 else None
-        else:
-            values['account_4num'] = None
-
-        return values
-
-    @api.multi
-    def disabled_l10n_mx_edi_create_cfdi(self):
-        self.ensure_one()
-
-        cfdi = super(Invoice, self)._l10n_mx_edi_create_cfdi()
-
-        version = self.l10n_mx_edi_get_pac_version()
-
-#       only generate external trade complement for cfdi version 3.3 and international trade is enabled in invoice
-        if not cfdi.get('cfdi') or version != '3.3' or not self.l10n_mx_edi_international_trade:
-            return cfdi
-
-        qweb = self.env['ir.qweb']
-
-        company_id = self.company_id
-        certificate_ids = company_id.l10n_mx_edi_certificate_ids
-        certificate_id = certificate_ids.sudo().get_valid_certificate()
-
-        tree = etree.fromstring(cfdi.get('cfdi'))
-
-        root = tree.xpath("//*[local-name() = 'Comprobante']")[0]
-        complement_node = etree.Element('{http://www.sat.gob.mx/cfd/3}Complemento', nsmap=tree.nsmap)
-
-        values = self._l10n_mx_edi_create_cfdi_external_trade_values()
-
-        content = qweb.render('l10n_mx_edi_external_trade_bluemix.cfdiv33_external_trade', values=values)
-        complement = etree.fromstring(content)
-        external_complement = complement.xpath("//*[local-name() = 'ComercioExterior']")
-
-        if external_complement:
-            complement_node.append(external_complement[0])
-
-        root.append(complement_node)
-
-        tree.attrib['Sello'] = ''
-        cadena = self.l10n_mx_edi_generate_cadena(CFDI_XSLT_CADENA % version, tree)
-        tree.attrib['Sello'] = certificate_id.sudo().get_encrypted_cadena(cadena)
-
-        return {'cfdi': etree.tostring(tree, pretty_print=True, xml_declaration=True, encoding='UTF-8')}
-
 
 class InvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
@@ -203,22 +120,22 @@ class InvoiceLine(models.Model):
     l10n_mx_edi_customs_price_usd = fields.Float(string='Customs Price USD', digits=dp.get_precision('Product Price'), compute='_compute_customs_price_usd', store=True)
 
     @api.one
-    @api.depends('l10n_mx_edi_international_trade', 'product_id', 'product_id.l10n_mx_customs_uom_id', 'product_id.l10n_mx_customs_uom_id.uom_id', 'price_unit', 'quantity', 'uom_id')
+    @api.depends('l10n_mx_edi_international_trade', 'product_id', 'price_unit', 'quantity', 'uom_id')
     def _compute_customs_fields(self):
 
-        if self.product_id.l10n_mx_customs_uom_id and self.l10n_mx_edi_international_trade:
-            product_uom_factor = self.uom_id._compute_quantity(self.quantity, self.product_id.l10n_mx_customs_uom_id.uom_id)
+        if self.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id and self.l10n_mx_edi_international_trade:
+            product_uom_factor = self.uom_id._compute_quantity(self.quantity, self.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.uom_id)
 
             self.l10n_mx_edi_customs_quantity = product_uom_factor
 
             # if self.product_id.l10n_mx_customs_tax_fraction_id:
-            self.l10n_mx_edi_customs_price_unit = self.uom_id._compute_price(self.price_unit, self.product_id.l10n_mx_customs_uom_id.uom_id)
+            self.l10n_mx_edi_customs_price_unit = self.uom_id._compute_price(self.price_unit, self.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.uom_id)
         else:
             self.l10n_mx_edi_customs_quantity = 0
             self.l10n_mx_edi_customs_price_unit = 0
 
     @api.one
-    @api.depends('l10n_mx_edi_international_trade', 'product_id', 'product_id.l10n_mx_customs_uom_id', 'product_id.l10n_mx_customs_uom_id.uom_id', 'price_unit', 'quantity', 'uom_id')
+    @api.depends('l10n_mx_edi_international_trade', 'product_id', 'price_unit', 'quantity', 'uom_id')
     def _compute_customs_price_usd(self):
         if self.l10n_mx_edi_international_trade:
             ctx = dict(company_id=self.invoice_id.company_id.id, date=self.invoice_id.date_invoice)

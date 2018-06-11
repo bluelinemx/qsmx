@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <template id="custom_report_assets_pdf" inherit_id="web.report_assets_common">
+            <xpath expr="." position="inside">
+                <link href="blueline_l10n_mx_custom_invoice_external_trade/static/src/less/report.less" rel="stylesheet"
+                      type="text/less"/>
+            </xpath>
+        </template>
+
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+
+        </template>
+
+    </data>
+</odoo>

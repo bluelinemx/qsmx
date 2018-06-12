@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError, UserError
 from lxml import etree
 from lxml.builder import E
 
-from l10n_mx_edi.models.account_invoice import create_list_html
+from odoo.addons.l10n_mx_edi.models.account_invoice import create_list_html
 
 
 class Invoice(models.Model):

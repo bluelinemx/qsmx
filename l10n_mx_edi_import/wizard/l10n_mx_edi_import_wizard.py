@@ -495,19 +495,20 @@ class EdiImport(models.TransientModel):
         tax_ids = []
         total_taxes = 0
         if self.version == '3.3':
-            for tIndex in range(item.Impuestos.Traslados.countchildren()):
+            if hasattr(item, 'Impuestos') and hasattr(item.Impuestos, 'Traslados'):
+                for tIndex in range(item.Impuestos.Traslados.countchildren()):
 
-                concept_tax_section = getattr(item, 'Impuestos')
+                    concept_tax_section = getattr(item, 'Impuestos')
 
-                if concept_tax_section:
-                    tax = concept_tax_section.Traslados.Traslado[0]
-                    tasa = float(tax.attrib['TasaOCuota']) * 100
-                    total_taxes += float(tax.attrib.get('Importe', 0))
+                    if concept_tax_section:
+                        tax = concept_tax_section.Traslados.Traslado[0]
+                        tasa = float(tax.attrib['TasaOCuota']) * 100
+                        total_taxes += float(tax.attrib.get('Importe', 0))
 
-                    tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
+                        tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
 
-                    if tax_item.id:
-                        tax_ids.append(tax_item.id)
+                        if tax_item.id:
+                            tax_ids.append(tax_item.id)
 
         price_subtotal = float(item.attrib.get('Importe', item.attrib.get('importe', 0)))
         quantity = float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0)))

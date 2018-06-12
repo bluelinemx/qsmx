@@ -223,77 +223,79 @@
                             </tr>
                         </thead>
                         <tbody class="invoice_tbody">
-                            <tr t-foreach="o.invoice_line_ids" t-as="l">
+                            <t t-foreach="o.invoice_line_ids" t-as="l">
+                                <tr class="invoice_line_table_row">
 
-                                <td class="text-center">
-                                    <span t-field="l.quantity"/>
-                                </td>
+                                    <td class="text-center">
+                                        <span t-field="l.quantity"/>
+                                    </td>
 
-                                <td class="text-center">
-                                    <span t-field="l.uom_id"/>
-                                </td>
+                                    <td class="text-center">
+                                        <span t-field="l.uom_id"/>
+                                    </td>
 
-                                <td class="text-center">
-                                    <span t-esc="l.client_identification_number" />
-                                </td>
+                                    <td class="text-center">
+                                        <span t-esc="l.client_identification_number" />
+                                    </td>
 
-                                <td>
-                                    <div class="invoice-product-name">
-                                        <span t-esc="l.name or l.product_id.product_tmpl_id.name"/>
-                                    </div>
+                                    <td>
+                                        <div class="invoice-product-name">
+                                            <span t-esc="l.name or l.product_id.product_tmpl_id.name"/>
+                                        </div>
 
-                                    <span t-if="l.product_id.l10n_mx_edi_code_sat_id"><span>Code Prod Serv.</span> -
-                                        <span t-esc="l.product_id.l10n_mx_edi_code_sat_id.code"/>
-                                        <span t-esc="l.product_id.l10n_mx_edi_code_sat_id.name"/>
-                                    </span>
+                                        <span t-if="l.product_id.l10n_mx_edi_code_sat_id"><span>Code Prod Serv.</span> -
+                                            <span t-esc="l.product_id.l10n_mx_edi_code_sat_id.code"/>
+                                            <span t-esc="l.product_id.l10n_mx_edi_code_sat_id.name"/>
+                                        </span>
 
-                                    <t t-set="taxes_line" t-value="l.invoice_line_tax_ids"/>
+                                        <t t-set="taxes_line" t-value="l.invoice_line_tax_ids"/>
 
-                                    <div t-if="taxes_line">
-                                        <t t-set="transferred" t-value="taxes_line.filtered(lambda r: r.amount &gt;= 0)"/>
-                                        <t t-set="withholding" t-value="taxes_line.filtered(lambda r: r.amount &lt; 0)"/>
-                                        <t t-set="tax_name" t-value="lambda t: {'ISR': '001', 'IVA': '002', 'IEPS': '003'}.get(t, False)"/>
+                                        <div t-if="taxes_line">
+                                            <t t-set="transferred" t-value="taxes_line.filtered(lambda r: r.amount &gt;= 0)"/>
+                                            <t t-set="withholding" t-value="taxes_line.filtered(lambda r: r.amount &lt; 0)"/>
+                                            <t t-set="tax_name" t-value="lambda t: {'ISR': '001', 'IVA': '002', 'IEPS': '003'}.get(t, False)"/>
 
-                                        <div>Taxes:</div>
+                                            <div>Taxes:</div>
 
-                                        <t t-if="transferred">
-                                            <div><span t-translation="off">&amp;nbsp;&amp;nbsp;</span><span>Transfers:</span></div>
-                                            <div t-foreach="transferred" t-as="tax">
-                                                <span>
-                                                    <span t-translation="off">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
-                                                    <span t-raw="tax_name(tax.tag_ids[0].name if tax.tag_ids else '')"/>
-                                                    <t t-raw="tax.tag_ids[0].name" /> Base - <t t-raw="'%.*f' % (decimal_precision, l.price_subtotal)"/>
-                                                </span>
+                                            <t t-if="transferred">
+                                                <div><span t-translation="off">&amp;nbsp;&amp;nbsp;</span><span>Transfers:</span></div>
+                                                <div t-foreach="transferred" t-as="tax">
+                                                    <span>
+                                                        <span t-translation="off">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                                        <span t-raw="tax_name(tax.tag_ids[0].name if tax.tag_ids else '')"/>
+                                                        <t t-raw="tax.tag_ids[0].name" /> Base - <t t-raw="'%.*f' % (decimal_precision, l.price_subtotal)"/>
+                                                    </span>
 
-                                                <span>Tax - <t t-raw="'%.6f' % abs(tax.amount / 100.0) if tax.l10n_mx_cfdi_tax_type != 'Exento' else False" /> </span>
-                                                <span>Import - <t t-raw="'%.2f' % abs(tax.amount / 100.0 * l.price_subtotal) if tax.l10n_mx_cfdi_tax_type != 'Exento' else False"/> </span>
-                                            </div>
-                                        </t>
+                                                    <span>Tax - <t t-raw="'%.6f' % abs(tax.amount / 100.0) if tax.l10n_mx_cfdi_tax_type != 'Exento' else False" /> </span>
+                                                    <span>Import - <t t-raw="'%.2f' % abs(tax.amount / 100.0 * l.price_subtotal) if tax.l10n_mx_cfdi_tax_type != 'Exento' else False"/> </span>
+                                                </div>
+                                            </t>
 
-                                        <t t-if="withholding">
-                                            <div><span t-translation="off">&amp;nbsp;&amp;nbsp;</span><span>Withholdings:</span></div>
-                                            <div t-foreach="withholding" t-as="tax">
-                                                <span><span t-translation="off">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><span t-raw="tax_name(tax.tag_ids[0].name if tax.tag_ids else '')"/> <t t-raw="tax.tag_ids[0].name" /> Base - <t t-raw="'%.*f' % (decimal_precision, l.price_subtotal)"/> </span>
-                                                <span>Tax - <t t-raw="'%.6f' % abs(tax.amount / 100.0)" /> </span>
-                                                <span>Import - <t t-raw="'%.2f' % abs(tax.amount / 100.0 * l.price_subtotal)"/> </span>
-                                            </div>
-                                        </t>
+                                            <t t-if="withholding">
+                                                <div><span t-translation="off">&amp;nbsp;&amp;nbsp;</span><span>Withholdings:</span></div>
+                                                <div t-foreach="withholding" t-as="tax">
+                                                    <span><span t-translation="off">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span><span t-raw="tax_name(tax.tag_ids[0].name if tax.tag_ids else '')"/> <t t-raw="tax.tag_ids[0].name" /> Base - <t t-raw="'%.*f' % (decimal_precision, l.price_subtotal)"/> </span>
+                                                    <span>Tax - <t t-raw="'%.6f' % abs(tax.amount / 100.0)" /> </span>
+                                                    <span>Import - <t t-raw="'%.2f' % abs(tax.amount / 100.0 * l.price_subtotal)"/> </span>
+                                                </div>
+                                            </t>
 
-                                    </div>
-                                </td>
-
-
-                                <td class="text-right">
-                                    <span t-field="l.price_unit"
-                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </td>
+                                        </div>
+                                    </td>
 
 
-                                <td class="text-right" id="subtotal">
-                                    <span t-field="l.price_subtotal"
-                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                                </td>
-                            </tr>
+                                    <td class="text-right">
+                                        <span t-field="l.price_unit"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+
+
+                                    <td class="text-right" id="subtotal">
+                                        <span t-field="l.price_subtotal"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </t>
                         </tbody>
                     </table>
 

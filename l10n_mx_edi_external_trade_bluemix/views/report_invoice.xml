@@ -35,8 +35,14 @@
                         </td>
                     </tr>
 
+                    <t t-set="complement_cols" t-value="3" />
+                    <t t-if="l.product_id.l10n_mx_brand"><t t-set="complement_cols" t-value="complement_cols + 1" /></t>
+                    <t t-if="l.product_id.l10n_mx_model"><t t-set="complement_cols" t-value="complement_cols + 1" /></t>
+                    <t t-if="l.product_id.l10n_mx_sub_model"><t t-set="complement_cols" t-value="complement_cols + 1" /></t>
+                    <t t-if="l.product_id.l10n_mx_serial_no"><t t-set="complement_cols" t-value="complement_cols + 1" /></t>
+
                     <tr class="invoice_line_external_trade">
-                        <td colspan="7" align="center">
+                        <td t-att-colspan="complement_cols" align="center">
                             <span style="font-weight:bold;font-size:16px;">Complement Details</span>
 
                             <table class="table table-condensed table-bordered">
@@ -48,19 +54,19 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td t-if="l.product_id.l10n_mx_brand">
+                                        <td>
                                             <span>Brand of the merchandise:</span>
                                             <t t-esc="l.product_id.l10n_mx_brand"/>
                                         </td>
-                                        <td t-if="l.product_id.l10n_mx_model">
+                                        <td>
                                             <span>Model of the merchandise:</span>
                                             <t t-esc="l.product_id.l10n_mx_model"/>
                                         </td>
-                                        <td t-if="l.product_id.l10n_mx_sub_model">
+                                        <td>
                                             <span>Submodel of the merchandise:</span>
                                             <t t-esc="l.product_id.l10n_mx_sub_model"/>
                                         </td>
-                                        <td t-if="l.product_id.l10n_mx_serial_no">
+                                        <td>
                                             <span>Serial No. of the merchandise:</span>
                                             <t t-esc="l.product_id.l10n_mx_serial_no"/>
                                         </td>

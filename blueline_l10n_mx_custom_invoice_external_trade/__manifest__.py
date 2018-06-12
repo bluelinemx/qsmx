@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['blueline_l10n_mx_custom_invoice_external_trade', 'blueline_l10n_mx_custom_invoice'],
+    'depends': ['l10n_mx_edi_external_trade_bluemix', 'blueline_l10n_mx_custom_invoice'],
 
     # always loaded
     'data': [

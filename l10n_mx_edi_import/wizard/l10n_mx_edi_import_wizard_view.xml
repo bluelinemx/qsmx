@@ -71,6 +71,7 @@
                                         <field name="product_id" attrs="{'readonly': [('has_product', '=', True)]}"
                                                context="{'default_default_code': product_code, 'default_l10n_mx_edi_code_sat_id': product_code, 'default_name': product_description, 'default_lst_price': price_unit}"/>
                                         <field name="product_description" readonly="1"/>
+                                        <field name="account_analytic_id" />
                                         <field name="quantity" readonly="1"/>
                                         <field name="price_unit" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
                                         <field name="price_subtotal" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>

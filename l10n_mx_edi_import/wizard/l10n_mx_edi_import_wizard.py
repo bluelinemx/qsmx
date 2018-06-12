@@ -38,6 +38,7 @@ class EdiImportLine(models.TransientModel):
     _name = 'l10n.mx.edi.import.wizard.line'
 
     import_id = fields.Many2one('l10n.mx.edi.import.wizard', required=True)
+    account_analytic_id = fields.Many2one('account.analytic.account', 'Analytic Account')
     uom_code = fields.Char('Unit of Measure')
     product_code = fields.Char('Product Code')
     l10n_mx_edi_code_sat = fields.Char('SAT Code')
@@ -283,6 +284,7 @@ class EdiImport(models.TransientModel):
             'product_id': line.product_id.id,
             'uom_id': line.product_id.uom_id.id,
             'account_id': account_id,
+            'account_analytic_id': line.account_analytic_id.id,
             'invoice_line_tax_ids': [(6, 0, [tax.id for tax in line.invoice_line_tax_ids])],
         }
 

@@ -67,7 +67,7 @@ class Invoice(models.Model):
             return super(Invoice, self)._l10n_mx_edi_create_cfdi()
 
         bad_line = self.invoice_line_ids.filtered(
-            lambda l: not (l.product_id.self.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.id if l.product_id.self.product_id.l10n_mx_customs_tax_fraction_id else False) or not l.product_id.l10n_mx_customs_tax_fraction_id.id or
+            lambda l: not (l.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.id if l.product_id.l10n_mx_customs_tax_fraction_id else False) or not l.product_id.l10n_mx_customs_tax_fraction_id.id or
                       not l.l10n_mx_edi_customs_quantity)
         if bad_line:
             line_name = bad_line.mapped('product_id.name')

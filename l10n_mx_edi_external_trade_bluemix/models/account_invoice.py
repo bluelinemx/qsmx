@@ -32,13 +32,9 @@ class Invoice(models.Model):
         self.l10n_mx_edi_international_trade = self.partner_id.l10n_mx_edi_international_trade
 
     @api.one
-    @api.depends('amount_total')
+    @api.depends('invoice_line_ids.l10n_mx_edi_customs_price_usd')
     def _compute_customs_amount_total_usd(self):
-        ctx = dict(company_id=self.company_id.id, date=self.date_invoice)
-        usd = self.env.ref('base.USD').with_context(ctx)
-        invoice_currency = self.currency_id.with_context(ctx)
-
-        self.l10n_mx_edi_customs_amount_total_usd = invoice_currency.compute(self.amount_total, usd)
+        self.l10n_mx_edi_customs_amount_total_usd = sum([l.l10n_mx_edi_customs_price_usd for l in self.invoice_line_ids])
 
     # @api.onchange('partner_id')
     # def _onchange_international_trade(self):
@@ -114,6 +110,12 @@ class InvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     l10n_mx_edi_international_trade = fields.Boolean('International Trade', related='invoice_id.l10n_mx_edi_international_trade')
+    l10n_mx_edi_tax_fraction_id = fields.Many2one(
+        'l10n.mx.edi.external.customs.tax.fraction', 'Tariff Fraction', store=True,
+        related='product_id.l10n_mx_customs_tax_fraction_id',
+        help='It is used to express the key of the tariff fraction '
+             'corresponding to the description of the product to export. Node '
+             '"FraccionArancelaria" to the concept.')
 
     l10n_mx_edi_customs_quantity = fields.Float(string='Customs Quantity', digits=dp.get_precision('Product Unit of Measure'), compute='_compute_customs_fields', store=True)
     l10n_mx_edi_customs_price_unit = fields.Float(string='Customs Unit Price', digits=dp.get_precision('Product Price'), compute='_compute_customs_fields', store=True)

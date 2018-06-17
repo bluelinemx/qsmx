@@ -130,8 +130,14 @@ class InvoiceLine(models.Model):
 
             self.l10n_mx_edi_customs_quantity = product_uom_factor
 
+            ctx = dict(company_id=self.invoice_id.company_id.id, date=self.invoice_id.date_invoice)
+            usd = self.env.ref('base.USD').with_context(ctx)
+            invoice_currency = self.invoice_id.currency_id.with_context(ctx)
+
+            price_unit = self.uom_id._compute_price(self.price_unit, self.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.uom_id)
+
             # if self.product_id.l10n_mx_customs_tax_fraction_id:
-            self.l10n_mx_edi_customs_price_unit = self.uom_id._compute_price(self.price_unit, self.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.uom_id)
+            self.l10n_mx_edi_customs_price_unit = invoice_currency.compute(price_unit, usd)
         else:
             self.l10n_mx_edi_customs_quantity = 0
             self.l10n_mx_edi_customs_price_unit = 0

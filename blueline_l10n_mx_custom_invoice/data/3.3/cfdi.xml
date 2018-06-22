@@ -3,7 +3,7 @@
     <data>
         <template id="cfdiv33" inherit_id="l10n_mx_edi.cfdiv33">
             <xpath expr="//*[local-name() = 'Concepto']" position="attributes">
-                <attribute name="t-att-NoIdentificacion">record._get_string_cfdi('{=}'.join([line.product_id.default_code, line.client_identification_number]) or '', 100)</attribute>
+                <attribute name="t-att-NoIdentificacion">record._get_string_cfdi('{=}'.join([line.product_id.default_code or '', line.client_identification_number or '']) or '', 100)</attribute>
             </xpath>
         </template>
     </data>

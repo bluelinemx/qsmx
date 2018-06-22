@@ -57,23 +57,23 @@ class Invoice(models.Model):
                     6 < len(record.l10n_mx_edi_origin_certificate_number) < 40):
                 raise ValidationError(_('The origin certificate number must be between 6 and 40 characters in length.'))
 
-    @api.multi
-    def _l10n_mx_edi_create_cfdi(self):
-        if not self.l10n_mx_edi_international_trade:
-            return super(Invoice, self)._l10n_mx_edi_create_cfdi()
-
-        bad_line = self.invoice_line_ids.filtered(
-            lambda l: not (l.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.id if l.product_id.l10n_mx_customs_tax_fraction_id else False) or not l.product_id.l10n_mx_customs_tax_fraction_id.id or
-                      not l.l10n_mx_edi_customs_quantity)
-        if bad_line:
-            line_name = bad_line.mapped('product_id.name')
-            return {'error': _(
-                'Please verify that Qty UMT has a value in the line, '
-                'and that the product has set a value in Tariff Fraction and '
-                'in UMT Aduana.<br/><br/>This for the products:'
-            ) + create_list_html(line_name)}
-
-        return super(Invoice, self)._l10n_mx_edi_create_cfdi()
+    # @api.multi
+    # def _l10n_mx_edi_create_cfdi(self):
+    #     if not self.l10n_mx_edi_international_trade:
+    #         return super(Invoice, self)._l10n_mx_edi_create_cfdi()
+    #
+    #     bad_line = self.invoice_line_ids.filtered(
+    #         lambda l: not (l.product_id.l10n_mx_customs_tax_fraction_id.customs_uom_id.id if l.product_id.l10n_mx_customs_tax_fraction_id else False) or not l.product_id.l10n_mx_customs_tax_fraction_id.id or
+    #                   not l.l10n_mx_edi_customs_quantity)
+    #     if bad_line:
+    #         line_name = bad_line.mapped('product_id.name')
+    #         return {'error': _(
+    #             'Please verify that Qty UMT has a value in the line, '
+    #             'and that the product has set a value in Tariff Fraction and '
+    #             'in UMT Aduana.<br/><br/>This for the products:'
+    #         ) + create_list_html(line_name)}
+    #
+    #     return super(Invoice, self)._l10n_mx_edi_create_cfdi()
 
     @api.multi
     def _l10n_mx_edi_create_cfdi_values(self):
@@ -94,6 +94,9 @@ class Invoice(models.Model):
         invoice_currency = self.currency_id.with_context(ctx)
 
         values.update({
+            'usd': usd,
+            'mxn': mxn,
+
             'receiver_reg_trib': values.get('customer').vat,
             'usd_rate': '%0.*f' % (precision_digits, usd.compute(1, mxn)),
             'incoterm_code': self.l10n_mx_edi_incoterm_id.code if self.l10n_mx_edi_incoterm_id.id else False,
@@ -102,6 +105,17 @@ class Invoice(models.Model):
             'amount_total_usd': '%0.*f' % (precision_digits, self.amount_total),
             'europe_group': self.env.ref('base.europe'),
         })
+
+        values['quantity_aduana'] = lambda p, i: sum([
+            l.l10n_mx_edi_customs_quantity for l in i.invoice_line_ids
+            if l.product_id == p])
+        values['unit_value_usd'] = lambda l, c, u: c.compute(
+            l.l10n_mx_edi_customs_price_unit, u)
+        values['amount_usd'] = lambda origin, dest, amount: origin.compute(
+            amount, dest)
+        values['total_usd'] = lambda i, u, c: sum([
+            round(l.l10n_mx_edi_customs_quantity * c.compute(
+                l.l10n_mx_edi_customs_price_unit, u), 2) for l in i])
 
         return values
 
@@ -150,7 +164,7 @@ class InvoiceLine(models.Model):
             usd = self.env.ref('base.USD').with_context(ctx)
             invoice_currency = self.invoice_id.currency_id.with_context(ctx)
 
-            self.l10n_mx_edi_customs_price_usd = invoice_currency.compute(self.price_total, usd)
+            self.l10n_mx_edi_customs_price_usd = invoice_currency.compute(self.price_subtotal, usd)
 
         else:
             self.l10n_mx_edi_customs_price_usd = 0

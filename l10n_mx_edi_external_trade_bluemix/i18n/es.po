@@ -261,7 +261,7 @@ msgstr "Unidad de Medida Aduana"
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_product_template_l10n_mx_customs_uom_id
 #: model:ir.ui.menu,name:l10n_mx_edi_external_trade_bluemix.customs_uom_item
 msgid "Customs UoM"
-msgstr "Customs UoM"
+msgstr "Unidad de Medida Aduana"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:l10n.mx.edi.external.incoterms,name:l10n_mx_edi_external_trade_bluemix.incoterm_DAF

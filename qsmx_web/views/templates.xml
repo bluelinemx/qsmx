@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="qsmx_assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link href="/qsmx_web/static/src/less/styles.less" rel="stylesheet" type="text/less"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

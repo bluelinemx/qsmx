@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<t t-extend="AppSwitcher.Content">
+    <t t-jquery="div.o_application_switcher_footer img" t-operation="replace">
+        <img src="/web/static/src/img/logo.png"/>
+    </t>
+</t>
+
+</templates>

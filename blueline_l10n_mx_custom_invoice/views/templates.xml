@@ -7,7 +7,7 @@
             </xpath>
         </template>
 
-        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document" priority="1">
 
             <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
                 <attribute name="t-call">web.basic_layout</attribute>
@@ -113,7 +113,9 @@
                                 </span>
                             </div>
 
-                            <h4 class="mt4 mb0 font-bold">CLIENT</h4>
+                            <h4 class="mt4 mb0 font-bold" t-if="o.type in ['in_refund', 'in_invoice']">VENDOR</h4>
+                            <h4 class="mt4 mb0 font-bold" t-if="o.type in ['out_refund', 'out_invoice']">CLIENT</h4>
+
                             <h5 class="mt4 mb0" t-field="o.partner_id.name"/>
 
                             <div t-if="o.partner_id.vat">
@@ -137,8 +139,7 @@
                                     Invoice
                                 </span>
                                 <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
-                                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice
-                                </span>
+                                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
                                 <span t-if="o.type == 'out_refund'">Credit Note</span>
                                 <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>
                                 <span t-if="o.type == 'in_invoice'">Vendor Bill</span>

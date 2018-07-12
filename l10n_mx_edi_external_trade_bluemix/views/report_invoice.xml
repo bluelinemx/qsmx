@@ -7,6 +7,18 @@
         </record>
 
         <template id="report_invoice_document_external_trade" inherit_id="account.report_invoice_document">
+            <xpath expr="//table/thead/tr" position="replace">
+                <tr>
+                    <th>Description</th>
+                    <th class="hidden">Source Document</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-right">Unit Price</th>
+                    <th t-if="display_discount" class="text-right">Disc.(%)</th>
+                    <th class="text-right">Taxes</th>
+                    <th class="text-right">Amount</th>
+                </tr>
+            </xpath>
+
             <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="replace">
                 <t t-foreach="o.invoice_line_ids" t-as="l">
                     <tr class="invoice_line_item">
@@ -35,13 +47,9 @@
                         </td>
                     </tr>
 
-                    <t t-set="complement_cols" t-value="3" />
-                    <t t-if="l.product_id.l10n_mx_brand"><t t-set="complement_cols" t-value="complement_cols + 1" /></t>
-                    <t t-if="l.product_id.l10n_mx_model"><t t-set="complement_cols" t-value="complement_cols + 1" /></t>
-                    <t t-if="l.product_id.l10n_mx_sub_model"><t t-set="complement_cols" t-value="complement_cols + 1" /></t>
-                    <t t-if="l.product_id.l10n_mx_serial_no"><t t-set="complement_cols" t-value="complement_cols + 1" /></t>
+                    <t t-set="complement_cols" t-value="7" />
 
-                    <tr class="invoice_line_external_trade">
+                    <tr t-if="o.l10n_mx_edi_international_trade" class="invoice_line_external_trade">
                         <td t-att-colspan="complement_cols" align="center">
                             <span style="font-weight:bold;font-size:16px;">Complement Details</span>
 

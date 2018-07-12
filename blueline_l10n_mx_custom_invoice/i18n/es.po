@@ -119,6 +119,11 @@ msgstr "CLIENTE"
 
 #. module: blueline_l10n_mx_custom_invoice
 #: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
+msgid "VENDOR"
+msgstr "VENDEDOR"
+
+#. module: blueline_l10n_mx_custom_invoice
+#: model:ir.ui.view,arch_db:blueline_l10n_mx_custom_invoice.report_invoice_document
 msgid "CONCEPTS"
 msgstr "CONCEPTOS"
 

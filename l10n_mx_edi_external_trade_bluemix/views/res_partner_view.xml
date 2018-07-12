@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_form_inherit_l10n_mx_edi_external_trade_bluemix" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="before">
+                    <field name="l10n_mx_edi_international_trade" />
+                </field>
+
+                <field name="vat" position="after">
+                    <field name="l10n_mx_edi_curp" attrs="{'invisible': [('is_company', '=', True)]}" />
+                </field>
+            </field>
+        </record>
+
+        <record id="mx_partner_address_form" model="ir.ui.view">
+            <field name="name">mx.partner.form.address.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="l10n_mx_edi.mx_partner_address_form"/>
+            <field name="priority" eval="900"/>
+            <field name="arch" type="xml">
+
+                <field name="l10n_mx_edi_colony" position="after">
+                    <field name="l10n_mx_edi_extra_location_fields" invisible="1"/>
+                    <field name="country_id" invisible="1"/>
+                    <field name="l10n_mx_edi_colony_id" placeholder="Colony..."  domain="[('country_id', '=', country_id)]" attrs="{'invisible': [('l10n_mx_edi_extra_location_fields', '=', False)]}" options='{"no_open": True, "no_create": True}'/>
+                </field>
+
+                <field name="l10n_mx_edi_locality" position="after">
+                    <field name="state_id" invisible="1"/>
+                    <field name="l10n_mx_edi_locality_id" placeholder="Locality..." domain="[('country_state_id', '=', state_id)]" attrs="{'invisible': [('l10n_mx_edi_extra_location_fields', '=', False)]}" options='{"no_open": True, "no_create": True}'/>
+                    <field name="l10n_mx_edi_municipality_id" placeholder="Municipality..." domain="[('country_state_id', '=', state_id)]" attrs="{'invisible': [('l10n_mx_edi_extra_location_fields', '=', False)]}" options='{"no_open": True, "no_create": True}'/>
+                </field>
+
+                <xpath expr="//field[@name='l10n_mx_edi_colony']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('l10n_mx_edi_extra_location_fields', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='l10n_mx_edi_locality']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('l10n_mx_edi_extra_location_fields', '=', True)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

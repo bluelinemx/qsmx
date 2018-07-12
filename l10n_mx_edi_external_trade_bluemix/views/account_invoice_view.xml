@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_invoice_form_view_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="l10n_mx_edi_international_trade" invisible="1"/>
+                </field>
+
+                <field name="l10n_mx_edi_usage" position="after">
+                    <field name="l10n_mx_edi_incoterm_id" options="{'no_open': True, 'no_create': True}" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)], 'required': [('l10n_mx_edi_international_trade', '=', True)]}"/>
+                    <field name="l10n_mx_edi_is_origin_certificate"  attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>
+                    <field name="l10n_mx_edi_origin_certificate_number"  attrs="{'invisible': ['|', ('l10n_mx_edi_international_trade', '=', False), ('l10n_mx_edi_is_origin_certificate', '=', False)], 'required': [('l10n_mx_edi_international_trade', '=', True), ('l10n_mx_edi_is_origin_certificate', '=', True)]}"/>
+                </field>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='uom_id']" position="after">
+                    <field name="l10n_mx_edi_international_trade" invisible="1"/>
+                    <!--<field name="l10n_mx_edi_customs_quantity" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>-->
+                    <!--<field name="l10n_mx_edi_customs_price_unit" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>-->
+                    <!--<field name="l10n_mx_edi_customs_price_usd" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>-->
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_invoice_line_form_view_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.line.form.inherit</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <field name="uom_id" position="after">
+                    <field name="invoice_id" invisible="1"/>
+                    <field name="l10n_mx_edi_international_trade" invisible="1"/>
+                    <field name="l10n_mx_edi_customs_quantity" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>
+                    <field name="l10n_mx_edi_customs_price_unit" attrs="{'invisible': [('l10n_mx_edi_international_trade', '=', False)]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

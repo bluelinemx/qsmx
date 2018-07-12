@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_company_form_inherit_l10n_mx_edi_external" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="l10n_mx_trusted_exporter_number"/>
+                </field>
+
+                <field name="l10n_mx_edi_colony" position="after">
+                    <field name="country_id" invisible="1"/>
+                    <field name="l10n_mx_edi_extra_location_fields" invisible="1"/>
+                    <field name="l10n_mx_edi_colony_id" placeholder="Colony..." domain="[('country_id', '=', country_id)]" attrs="{'invisible': [('l10n_mx_edi_extra_location_fields', '=', False)]}" options='{"no_open": True, "no_create": True}'/>
+                </field>
+
+                <field name="l10n_mx_edi_locality" position="after">
+                    <field name="state_id" invisible="1"/>
+                    <field name="l10n_mx_edi_locality_id" placeholder="Locality..." domain="[('country_state_id', '=', state_id)]" attrs="{'invisible': [('l10n_mx_edi_extra_location_fields', '=', False)]}" options='{"no_open": True, "no_create": True}'/>
+                    <field name="l10n_mx_edi_municipality_id" placeholder="Municipality..." domain="[('country_state_id', '=', state_id)]" attrs="{'invisible': [('l10n_mx_edi_extra_location_fields', '=', False)]}" options='{"no_open": True, "no_create": True}'/>
+                </field>
+
+                <xpath expr="//field[@name='l10n_mx_edi_colony']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('l10n_mx_edi_extra_location_fields', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='l10n_mx_edi_locality']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('l10n_mx_edi_extra_location_fields', '=', True)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

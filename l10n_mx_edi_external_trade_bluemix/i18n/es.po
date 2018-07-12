@@ -1,29 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* l10n_mx_edi_external_trade_bluemix
+#	* l10n_mx_edi_external_trade_bluemix
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e-20171101\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-04 16:42-0400\n"
-"PO-Revision-Date: 2018-07-04 17:12-0400\n"
+"POT-Creation-Date: 2018-07-12 17:55+0000\n"
+"PO-Revision-Date: 2018-07-12 17:55+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7.1\n"
-"Last-Translator: \n"
-"Language: es\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
-msgid ""
-"<span style=\"font-weight:bold;font-size:16px;\">Complement Details</span>"
-msgstr ""
-"<span style=\"font-weight:bold;font-size:16px;\">Detalles del Complemento</"
-"span>"
+msgid "<span style=\"font-weight:bold;font-size:16px;\">Complement Details</span>"
+msgstr "<span style=\"font-weight:bold;font-size:16px;\">Detalles del Complemento</span>"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
@@ -76,6 +71,11 @@ msgid "Active"
 msgstr "Activo"
 
 #. module: l10n_mx_edi_external_trade_bluemix
+#: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
+msgid "Amount"
+msgstr "Monto"
+
+#. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_account_invoice_l10n_mx_edi_customs_amount_total_usd
 msgid "Amount USD"
 msgstr "Total USD"
@@ -99,8 +99,7 @@ msgstr "Marca requerida"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,help:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_incoterms_active
-msgid ""
-"By unchecking the active field, you may hide an INCOTERM you will not use."
+msgid "By unchecking the active field, you may hide an INCOTERM you will not use."
 msgstr "Desmarcando el campo activo, puedes ocultar un INCOTERM que no uses."
 
 #. module: l10n_mx_edi_external_trade_bluemix
@@ -190,7 +189,7 @@ msgstr "Códigos Postales del Estado"
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model,name:l10n_mx_edi_external_trade_bluemix.model_res_country_state
 msgid "Country state"
-msgstr "Estado"
+msgstr "Provincia"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_country_state_zipcode_create_uid
@@ -212,7 +211,7 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_locality_create_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_municipality_create_date
 msgid "Created on"
-msgstr "Creado el"
+msgstr "Creado en"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:product.uom,name:l10n_mx_edi_external_trade_bluemix.product_uom_cubic_meter
@@ -299,6 +298,16 @@ msgid "DELIVERED EX SHIP"
 msgstr "ENTREGADA SOBRE BUQUE (PUERTO DE DESTINO CONVENIDO)"
 
 #. module: l10n_mx_edi_external_trade_bluemix
+#: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
+msgid "Description"
+msgstr "Descripción"
+
+#. module: l10n_mx_edi_external_trade_bluemix
+#: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
+msgid "Disc.(%)"
+msgstr "Desc.(%)"
+
+#. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_country_state_zipcode_display_name
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_customs_tax_fraction_display_name
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_customs_uom_display_name
@@ -307,7 +316,7 @@ msgstr "ENTREGADA SOBRE BUQUE (PUERTO DE DESTINO CONVENIDO)"
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_locality_display_name
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_municipality_display_name
 msgid "Display Name"
-msgstr "Nombre a Mostrar"
+msgstr "Nombre mostrado"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:l10n.mx.edi.external.incoterms,name:l10n_mx_edi_external_trade_bluemix.incoterm_EXW
@@ -318,12 +327,12 @@ msgstr "EN FABRICA (LUGAR CONVENIDO)"
 #: code:addons/l10n_mx_edi_external_trade_bluemix/models/ir_ui_view.py:110
 #, python-format
 msgid "Element '%s' cannot be located in parent view"
-msgstr ""
+msgstr "Element '%s' cannot be located in parent view"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_customs_tax_fraction_availability_end_date
 msgid "End Date"
-msgstr "Fecha Fin"
+msgstr "Fecha final"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:product.uom.categ,name:l10n_mx_edi_external_trade_bluemix.product_uom_categ_energy
@@ -353,7 +362,7 @@ msgstr "FRANCO A BORDO (PUERTO DE CARGA CONVENIDO)"
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.customs_tax_fraction_search_view
 msgid "Group By"
-msgstr "Agrupar Por"
+msgstr "Agrupar por"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:product.uom,name:l10n_mx_edi_external_trade_bluemix.product_uom_hundred
@@ -369,7 +378,7 @@ msgstr "Ciento(s)"
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_locality_id
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_municipality_id
 msgid "ID"
-msgstr "ID"
+msgstr "ID (identificación)"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,help:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_customs_tax_fraction_active
@@ -397,23 +406,13 @@ msgstr "Incoterms"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,help:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_incoterms_name
-msgid ""
-"Incoterms are series of sales terms. They are used to divide transaction "
-"costs and responsibilities between buyer and seller and reflect state-of-the-"
-"art transportation practices."
-msgstr ""
-"Los incoterms son una serie de términos de venta. Se usan para dividir los "
-"costes de la transacción y las responsabilidades entre el comprador y el "
-"vendedor y reflejan las últimas prácticas en el transporte."
+msgid "Incoterms are series of sales terms. They are used to divide transaction costs and responsibilities between buyer and seller and reflect state-of-the-art transportation practices."
+msgstr "Los incoterms son una serie de términos de venta. Se usan para dividir los costes de la transacción y las responsabilidades entre el comprador y el vendedor y reflejan las últimas prácticas en el transporte."
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,help:l10n_mx_edi_external_trade_bluemix.field_account_invoice_l10n_mx_edi_incoterm_id
-msgid ""
-"International Commercial Terms are a series of predefined commercial terms "
-"used in international transactions."
-msgstr ""
-"Los términos de comercio internacional son una serie de condiciones "
-"comerciales usadas en las transacciones internacionales."
+msgid "International Commercial Terms are a series of predefined commercial terms used in international transactions."
+msgstr "Los términos de comercio internacional son una serie de condiciones comerciales usadas en las transacciones internacionales."
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_account_invoice_l10n_mx_edi_international_trade
@@ -427,7 +426,7 @@ msgstr "Comercio Exterior"
 #: code:addons/l10n_mx_edi_external_trade_bluemix/models/ir_ui_view.py:101
 #, python-format
 msgid "Invalid position attribute: '%s'"
-msgstr ""
+msgstr "Invalid position attribute: '%s'"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model,name:l10n_mx_edi_external_trade_bluemix.model_account_invoice
@@ -437,7 +436,7 @@ msgstr "Factura"
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model,name:l10n_mx_edi_external_trade_bluemix.model_account_invoice_line
 msgid "Invoice Line"
-msgstr "Líne de Factura"
+msgstr "Linea de Factura"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_account_invoice_l10n_mx_edi_is_origin_certificate
@@ -446,19 +445,13 @@ msgstr "Es Certificado de Origen"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,help:l10n_mx_edi_external_trade_bluemix.field_account_invoice_line_l10n_mx_edi_tax_fraction_id
-msgid ""
-"It is used to express the key of the tariff fraction corresponding to the "
-"description of the product to export. Node \"FraccionArancelaria\" to the "
-"concept."
-msgstr ""
-"Is utilizado para expresar la clave de la fracción arancelaria que "
-"corresponde a la descripción del producto exportado. Nodo "
-"\"FraccionArancelaria\" del concepto."
+msgid "It is used to express the key of the tariff fraction corresponding to the description of the product to export. Node \"FraccionArancelaria\" to the concept."
+msgstr "Is utilizado para expresar la clave de la fracción arancelaria que corresponde a la descripción del producto exportado. Nodo \"FraccionArancelaria\" del concepto."
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:product.uom,name:l10n_mx_edi_external_trade_bluemix.product_uom_kilowatt
 msgid "KiloWatt(s)"
-msgstr ""
+msgstr "KiloWatt(s)"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:product.uom,name:l10n_mx_edi_external_trade_bluemix.product_uom_kilowatt_hour
@@ -470,7 +463,7 @@ msgstr "KiloWatt/Hora(s)"
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_partner_l10n_mx_edi_extra_location_fields
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_users_l10n_mx_edi_extra_location_fields
 msgid "L10N Mx Edi Extra Location Fields"
-msgstr ""
+msgstr "L10N Mx Edi Extra Location Fields"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_country_state_zipcode___last_update
@@ -481,7 +474,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_locality___last_update
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_municipality___last_update
 msgid "Last Modified on"
-msgstr "Última Modificacion en"
+msgstr "Última modificación en"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_country_state_zipcode_write_uid
@@ -491,9 +484,8 @@ msgstr "Última Modificacion en"
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_colony_write_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_locality_write_uid
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_municipality_write_uid
-#, fuzzy
 msgid "Last Updated by"
-msgstr "Última Actualización por"
+msgstr "Última actualización de"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_country_state_zipcode_write_date
@@ -504,7 +496,7 @@ msgstr "Última Actualización por"
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_locality_write_date
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_country_state_municipality_write_date
 msgid "Last Updated on"
-msgstr "Última Actualización en"
+msgstr "Última actualización en"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.actions.act_window,name:l10n_mx_edi_external_trade_bluemix.locality_action
@@ -577,7 +569,7 @@ msgstr "Par(es)"
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model,name:l10n_mx_edi_external_trade_bluemix.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Plantilla de producto"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_customs_uom_uom_id
@@ -590,6 +582,11 @@ msgid "Purchase Tax (Import)"
 msgstr "Impuesto de Compra (Importación)"
 
 #. module: l10n_mx_edi_external_trade_bluemix
+#: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_customs_tax_fraction_sale_tax_id
 msgid "Sale Tax (Export)"
 msgstr "Impuesto de Venta (Exportación)"
@@ -597,13 +594,18 @@ msgstr "Impuesto de Venta (Exportación)"
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.customs_tax_fraction_search_view
 msgid "Search"
-msgstr "Buscar"
+msgstr "Búsqueda"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_product_product_l10n_mx_serial_no
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_product_template_l10n_mx_serial_no
 msgid "Serial No"
 msgstr "No. de Serie"
+
+#. module: l10n_mx_edi_external_trade_bluemix
+#: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
+msgid "Source Document"
+msgstr "Documento origen"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:product.uom,name:l10n_mx_edi_external_trade_bluemix.product_uom_square_meter
@@ -613,7 +615,7 @@ msgstr "Métro(s) Cuadrado(s)"
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_l10n_mx_edi_external_customs_tax_fraction_availability_start_date
 msgid "Start Date"
-msgstr "Fecha de Inicio"
+msgstr "Fecha de inicio"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_product_product_l10n_mx_sub_model
@@ -625,6 +627,11 @@ msgstr "Sub Modelo"
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_account_invoice_line_l10n_mx_edi_tax_fraction_id
 msgid "Tariff Fraction"
 msgstr "Fracción Arancelaria"
+
+#. module: l10n_mx_edi_external_trade_bluemix
+#: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
+msgid "Taxes"
+msgstr "Impuestos"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:product.uom,name:l10n_mx_edi_external_trade_bluemix.product_uom_tens
@@ -640,11 +647,8 @@ msgstr "La combinación actual de campos de dirección no es válida."
 #. module: l10n_mx_edi_external_trade_bluemix
 #: code:addons/l10n_mx_edi_external_trade_bluemix/models/account_invoice.py:58
 #, python-format
-msgid ""
-"The origin certificate number must be between 6 and 40 characters in length."
-msgstr ""
-"El número de certificado de origen debe tener entre 6 y 40 caracteres de "
-"tamaño."
+msgid "The origin certificate number must be between 6 and 40 characters in length."
+msgstr "El número de certificado de origen debe tener entre 6 y 40 caracteres de tamaño."
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:product.uom,name:l10n_mx_edi_external_trade_bluemix.product_uom_thousand
@@ -653,9 +657,13 @@ msgstr "Mil(es)"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model.fields,field_description:l10n_mx_edi_external_trade_bluemix.field_res_company_l10n_mx_trusted_exporter_number
-#, fuzzy
 msgid "Trusted Exporter Number"
 msgstr "Número de Exportador Confiable"
+
+#. module: l10n_mx_edi_external_trade_bluemix
+#: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.report_invoice_document_external_trade
+msgid "Unit Price"
+msgstr "Precio unitario"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.ui.view,arch_db:l10n_mx_edi_external_trade_bluemix.customs_tax_fraction_search_view
@@ -682,14 +690,15 @@ msgstr "Códigos Postales"
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model,name:l10n_mx_edi_external_trade_bluemix.model_ir_ui_view
 msgid "ir.ui.view"
-msgstr ""
+msgstr "ir.ui.view"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model,name:l10n_mx_edi_external_trade_bluemix.model_l10n_mx_edi_external_customs_tax_fraction
 msgid "l10n.mx.edi.external.customs.tax.fraction"
-msgstr ""
+msgstr "l10n.mx.edi.external.customs.tax.fraction"
 
 #. module: l10n_mx_edi_external_trade_bluemix
 #: model:ir.model,name:l10n_mx_edi_external_trade_bluemix.model_l10n_mx_edi_external_customs_uom
 msgid "l10n.mx.edi.external.customs.uom"
-msgstr ""
+msgstr "l10n.mx.edi.external.customs.uom"
+

@@ -445,52 +445,15 @@ class EdiImport(models.TransientModel):
                 self.l10n_mx_edi_pac_status = 'signed'
                 self.l10n_mx_edi_sat_status = 'valid'
 
-        AccountTax = self.env['account.tax']
-
         concepts_section = getattr(xml, 'Conceptos', False)
 
         if concepts_section:
+            AccountTax = self.env['account.tax']
+
             lines = []
             for i in range(concepts_section.countchildren()):
                 item = concepts_section.Concepto[i]
-                tax_ids = []
-                total_taxes = 0
-
-                if self.version == '3.3':
-                    if hasattr(item, 'Impuestos') and hasattr(item.Impuestos, 'Traslados'):
-                        for tIndex in range(item.Impuestos.Traslados.countchildren()):
-
-                            concept_tax_section = getattr(item, 'Impuestos')
-
-                            if concept_tax_section:
-                                tax = concept_tax_section.Traslados.Traslado[0]
-                                tasa = float(tax.attrib['TasaOCuota']) * 100
-                                total_taxes += float(tax.attrib.get('Importe', 0))
-
-                                tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
-
-                                if tax_item.id:
-                                    tax_ids.append(tax_item.id)
-
-                price_subtotal = float(item.attrib.get('Importe', item.attrib.get('importe', 0)))
-                quantity = float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0)))
-                price_unit = float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0)))
-
-                line = {
-                    'import_id': self.id,
-                    'uom_code': item.attrib.get('ClaveUnidad', item.attrib.get('Unidad')),
-                    'l10n_mx_edi_code_sat': item.attrib.get('ClaveProdServ'),
-                    'product_code': item.attrib.get('NoIdentificacion'),
-                    'quantity': quantity,
-                    'price_unit': price_unit,
-                    'price_subtotal': price_subtotal,
-                    'price_total': price_subtotal + total_taxes,
-                    'total_taxes': total_taxes,
-                    'currency_id': self.currency_id,
-                    'discount': 0,
-                    'product_description': item.attrib.get('Descripcion', item.attrib.get('descripcion', False)),
-                    'invoice_line_tax_ids': [(6, 0, tax_ids)],
-                }
+                line = self._get_invoice_line_from_xml(item)
 
                 lines.append((0, 0, line))
 
@@ -525,3 +488,46 @@ class EdiImport(models.TransientModel):
                     self.tax_line_ids = tax_lines
 
         return True
+
+    def _get_invoice_line_from_xml(self, item):
+        AccountTax = self.env['account.tax']
+
+        tax_ids = []
+        total_taxes = 0
+        if self.version == '3.3':
+            if hasattr(item, 'Impuestos') and hasattr(item.Impuestos, 'Traslados'):
+                for tIndex in range(item.Impuestos.Traslados.countchildren()):
+
+                    concept_tax_section = getattr(item, 'Impuestos')
+
+                    if concept_tax_section:
+                        tax = concept_tax_section.Traslados.Traslado[0]
+                        tasa = float(tax.attrib['TasaOCuota']) * 100
+                        total_taxes += float(tax.attrib.get('Importe', 0))
+
+                        tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
+
+                        if tax_item.id:
+                            tax_ids.append(tax_item.id)
+
+        price_subtotal = float(item.attrib.get('Importe', item.attrib.get('importe', 0)))
+        quantity = float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0)))
+        price_unit = float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0)))
+
+        line = {
+            'import_id': self.id,
+            'uom_code': item.attrib.get('ClaveUnidad', item.attrib.get('Unidad')),
+            'l10n_mx_edi_code_sat': item.attrib.get('ClaveProdServ'),
+            'product_code': item.attrib.get('NoIdentificacion'),
+            'quantity': quantity,
+            'price_unit': price_unit,
+            'price_subtotal': price_subtotal,
+            'price_total': price_subtotal + total_taxes,
+            'total_taxes': total_taxes,
+            'currency_id': self.currency_id,
+            'discount': 0,
+            'product_description': item.attrib.get('Descripcion', item.attrib.get('descripcion', False)),
+            'invoice_line_tax_ids': [(6, 0, tax_ids)],
+        }
+
+        return line

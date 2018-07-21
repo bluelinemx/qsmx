@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account.account_invoices" model="ir.actions.report">
+            <field name="attachment">object.l10n_mx_edi_is_required() and (object.l10n_mx_edi_cfdi_name.replace('.xml', '.pdf') if object.l10n_mx_edi_cfdi_name else False) or (object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')</field>
+        </record>
+
+        <template id="report_invoice_document_external_trade" inherit_id="account.report_invoice_document">
+            <xpath expr="//table/thead/tr" position="replace">
+                <tr>
+                    <th>Description</th>
+                    <th class="hidden">Source Document</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-right">Unit Price</th>
+                    <th t-if="display_discount" class="text-right">Disc.(%)</th>
+                    <th class="text-right">Taxes</th>
+                    <th class="text-right">Amount</th>
+                </tr>
+            </xpath>
+
+            <xpath expr="//tr[@t-foreach='o.invoice_line_ids']" position="replace">
+                <t t-foreach="o.invoice_line_ids" t-as="l">
+                    <tr class="invoice_line_item">
+                        <td>
+                            <span t-field="l.name"/>
+                        </td>
+                        <td class="hidden">
+                            <span t-field="l.origin"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.quantity"/>
+                            <span t-field="l.uom_id" groups="product.group_uom"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.price_unit"/>
+                        </td>
+                        <td t-if="display_discount" class="text-right">
+                            <span t-field="l.discount"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))"/>
+                        </td>
+                        <td class="text-right" id="subtotal">
+                            <span t-field="l.price_subtotal"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+
+                    <t t-set="complement_cols" t-value="7" />
+
+                    <tr t-if="o.l10n_mx_edi_international_trade" class="invoice_line_external_trade">
+                        <td t-att-colspan="complement_cols" align="center">
+                            <span style="font-weight:bold;font-size:16px;">Complement Details</span>
+
+                            <table class="table table-condensed table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="7">
+                                            <span>Customs Tax Fraction:</span>
+                                            <t t-esc="l.product_id.l10n_mx_customs_tax_fraction_id.code"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Brand of the merchandise:</span>
+                                            <t t-esc="l.product_id.l10n_mx_brand"/>
+                                        </td>
+                                        <td>
+                                            <span>Model of the merchandise:</span>
+                                            <t t-esc="l.product_id.l10n_mx_model"/>
+                                        </td>
+                                        <td>
+                                            <span>Submodel of the merchandise:</span>
+                                            <t t-esc="l.product_id.l10n_mx_sub_model"/>
+                                        </td>
+                                        <td>
+                                            <span>Serial No. of the merchandise:</span>
+                                            <t t-esc="l.product_id.l10n_mx_serial_no"/>
+                                        </td>
+                                        <td>
+                                            <span>Customs Unit of Measure:</span>
+                                            <t t-esc="l.product_id.l10n_mx_customs_uom_id.code"/>
+                                        </td>
+                                        <td>
+                                            <span>Customs Unit Price:</span>
+                                            <span t-field="l.l10n_mx_edi_customs_price_unit"
+                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        </td>
+                                        <td>
+                                            <span>Customs Quantity:</span>
+                                            <t t-esc="l.l10n_mx_edi_customs_quantity"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                </t>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

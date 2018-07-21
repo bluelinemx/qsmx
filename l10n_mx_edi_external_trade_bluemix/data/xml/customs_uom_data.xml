@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mx_customs_uom_01" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">01</field>
+            <field name="name">KILO</field>
+            <field name="uom_id" ref="product.product_uom_kgm"/>
+        </record>
+        <record id="mx_customs_uom_02" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">02</field>
+            <field name="name">GRAMO</field>
+            <field name="uom_id" ref="product.product_uom_gram"/>
+        </record>
+        <record id="mx_customs_uom_03" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">03</field>
+            <field name="name">METRO LINEAL</field>
+            <field name="uom_id" ref="product.product_uom_meter"/>
+        </record>
+        <record id="mx_customs_uom_04" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">04</field>
+            <field name="name">METRO CUADRADO</field>
+            <field name="uom_id" ref="product_uom_square_meter"/>
+        </record>
+        <record id="mx_customs_uom_05" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">05</field>
+            <field name="name">METRO CUBICO</field>
+            <field name="uom_id" ref="product_uom_cubic_meter"/>
+        </record>
+        <record id="mx_customs_uom_06" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">06</field>
+            <field name="name">PIEZA</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+        </record>
+        <record id="mx_customs_uom_07" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">07</field>
+            <field name="name">CABEZA</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+        </record>
+        <record id="mx_customs_uom_08" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">08</field>
+            <field name="name">LITRO</field>
+            <field name="uom_id" ref="product.product_uom_litre"/>
+        </record>
+        <record id="mx_customs_uom_09" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">09</field>
+            <field name="name">PAR</field>
+            <field name="uom_id" ref="product_uom_par"/>
+        </record>
+        <record id="mx_customs_uom_10" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">10</field>
+            <field name="name">KILOWATT</field>
+            <field name="uom_id" ref="product_uom_kilowatt"/>
+        </record>
+        <record id="mx_customs_uom_11" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">11</field>
+            <field name="name">MILLAR</field>
+            <field name="uom_id" ref="product_uom_thousand"/>
+        </record>
+        <record id="mx_customs_uom_12" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">12</field>
+            <field name="name">JUEGO</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+        </record>
+        <record id="mx_customs_uom_13" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">13</field>
+            <field name="name">KILOWATT/HORA</field>
+            <field name="uom_id" ref="product_uom_kilowatt_hour"/>
+        </record>
+        <record id="mx_customs_uom_14" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">14</field>
+            <field name="name">TONELADA</field>
+            <field name="uom_id" ref="product.product_uom_ton"/>
+        </record>
+        <record id="mx_customs_uom_15" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">15</field>
+            <field name="name">BARRIL</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+        </record>
+        <record id="mx_customs_uom_16" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">16</field>
+            <field name="name">GRAMO NETO</field>
+            <field name="uom_id" ref="product.product_uom_gram"/>
+        </record>
+        <record id="mx_customs_uom_17" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">17</field>
+            <field name="name">DECENAS</field>
+            <field name="uom_id" ref="product_uom_tens"/>
+        </record>
+        <record id="mx_customs_uom_18" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">18</field>
+            <field name="name">CIENTOS</field>
+            <field name="uom_id" ref="product_uom_hundred"/>
+        </record>
+        <record id="mx_customs_uom_19" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">19</field>
+            <field name="name">DOCENAS</field>
+            <field name="uom_id" ref="product.product_uom_dozen"/>
+        </record>
+        <record id="mx_customs_uom_20" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">20</field>
+            <field name="name">CAJA</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+        </record>
+        <record id="mx_customs_uom_21" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">21</field>
+            <field name="name">BOTELLA</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+        </record>
+        <record id="mx_customs_uom_99" model="l10n.mx.edi.external.customs.uom">
+            <field name="code">99</field>
+            <field name="name">SERVICIO</field>
+            <field name="uom_id" ref="product.product_uom_unit"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,6 @@
+<odoo>
+    <data>
+        <menuitem id="customs_uom_item" name="Customs UoM" parent="account.account_management_menu" action="customs_uom_action" sequence="50"/>
+        <menuitem id="customs_tax_fraction_item" name="Customs Tax Fractions" parent="account.account_management_menu" action="customs_tax_fraction_action" sequence="55"/>
+    </data>
+</odoo>

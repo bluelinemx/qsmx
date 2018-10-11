@@ -1,0 +1,835 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* l10n_mx_bulk_provider_xml_import
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e-20171101\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-08 03:17+0000\n"
+"PO-Revision-Date: 2018-10-08 03:17+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_account_id
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Acquisition of merchandise"
+msgstr "Adquisición de mercancía"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi_amount
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_amount
+msgid "Amount"
+msgstr "Monto"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_amount_rounding
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_base
+msgid "Amount Rounding"
+msgstr "Monto Redondeado"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_account_analytic_id
+msgid "Analytic Account"
+msgstr "Cuenta Analítica"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Bill"
+msgstr "Factura"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Bill Date"
+msgstr "Fecha de Factura"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi
+msgid "CFDI"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_can_import
+msgid "Can Import"
+msgstr "Puede Importar"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_company_id
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Computer equipment and accessories"
+msgstr "Equipo de cómputo y accesorios"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Constructions"
+msgstr "Construcciones"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_files_count
+msgid "Count"
+msgstr "Cantidad"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_create_uid
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_create_uid
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_create_uid
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_create_date
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_create_date
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_create_date
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,invoice_type:0
+msgid "Credit Note"
+msgstr "Nota de Crédito"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_currency_id
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_currency_id
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_currency_id
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_currency_code
+msgid "Currency Code"
+msgstr "Código de Moneda"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_exchange_rate
+msgid "Current Rate"
+msgstr "Tasa"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_date_invoice
+msgid "Date Invoice"
+msgstr "Fecha de Factura"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_partner_shipping_id
+msgid "Delivery Address"
+msgstr "Dirección de Envío"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Deposits in savings accounts, premiums based on pension plans."
+msgstr ""
+"Depósitos en cuentas para el ahorro, primas que tengan como base planes de "
+"pensiones."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_product_description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Dices, dies, molds, matrices and tooling"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_discount
+msgid "Discount"
+msgstr "Descuento"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_display_name
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_display_name
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_display_name
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_display_name
+msgid "Display Name"
+msgstr "Nombre a Mostrar"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Donations"
+msgstr "Donaciones"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,invoice_state:0
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,state:0
+msgid "Done"
+msgstr "Completado"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,invoice_state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,error_code:0
+msgid "Duplicate UUID"
+msgstr "UUID Duplicado"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:510
+#, python-format
+msgid "Duplicated UUID %s"
+msgstr "UUID %s Duplicado"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.actions.act_window,name:l10n_mx_bulk_provider_xml_import.l10n_mx_edi_bulk_xml_import_wizard_menu
+msgid "EDI XML Bulk Import"
+msgstr "Importar múltiples EDI XMLs"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,state:0
+msgid "Error"
+msgstr "Error"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_error_code
+msgid "Error Code"
+msgstr "Código de Error"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_error_description
+msgid "Error Description"
+msgstr "Descripción del Error"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_error_count
+msgid "Errors"
+msgstr "Errores"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_file_name
+msgid "File Name"
+msgstr "Nombre de Fichero"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_xml_filename
+msgid "Filename"
+msgstr "Fichero"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_file_ids
+msgid "Files"
+msgstr "Ficheros"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_account_invoice_line_filter_product_code
+msgid "Filter Product Code"
+msgstr "Filtrar Código de Producto"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_account_invoice_line_filter_product_name
+msgid "Filter Product Name"
+msgstr "Filter Nombre de Producto"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Finish"
+msgstr "Finalizar"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_fiscal_position_id
+msgid "Fiscal Position"
+msgstr "Posición Fiscal"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_fiscal_position_code
+msgid "Fiscal Position Code"
+msgstr "Código de Posición Fiscal"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_name
+msgid "Folio"
+msgstr "Folio"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Funeral expenses"
+msgstr "Gastos funerarios"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "General expenses"
+msgstr "Gastos generales"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_has_payment_term
+msgid "Has Payment Term"
+msgstr "Tiene Término de pago"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_has_product
+msgid "Has Product"
+msgstr "Tiene Producto"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_id
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_id
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_id
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_import_id
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_import_id
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+msgid "Import"
+msgstr "Importar"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/wizard/l10n_mx_bulk_import_wizard.py:177
+#, python-format
+msgid "Import Results"
+msgstr "Resultados de Importación"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.menu,name:l10n_mx_bulk_provider_xml_import.l10n_mx_edi_bulk_xml_import_wizard_action
+msgid "Import Vendor XML"
+msgstr "Importar XML de Proveedores"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,error_code:0
+msgid "Invalid Company"
+msgstr "Empresa Inválida"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,error_code:0
+msgid "Invalid Currency"
+msgstr "Moneda Inválida"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,error_code:0
+msgid "Invalid Products"
+msgstr "Productos Inválidos"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model,name:l10n_mx_bulk_provider_xml_import.model_account_invoice
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_invoice_id
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model,name:l10n_mx_bulk_provider_xml_import.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línea de Factura"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_invoice_state
+msgid "Invoice State"
+msgstr "Estado de Factura"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_invoice_type
+msgid "Invoice Type"
+msgstr "Tipo de Factura"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi_certificate_id
+msgid "L10N Mx Edi Cfdi Certificate"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi_name
+msgid "L10N Mx Edi Cfdi Name"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_pac_status
+msgid "L10N Mx Edi Pac Status"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_sat_status
+msgid "L10N Mx Edi Sat Status"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice___last_update
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line___last_update
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax___last_update
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_write_uid
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_write_uid
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_write_uid
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_write_date
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_write_date
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_write_date
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_ids
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Lines"
+msgstr "Lineas"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Mandatory School Transportation Expenses"
+msgstr "Gastos de transportación escolar obligatoria."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_manual
+msgid "Manual"
+msgstr "Manual"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Medical expenses for disability"
+msgstr "Gastos médicos por incapacidad o discapacidad"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Medical insurance premiums"
+msgstr "Primas por seguros de gastos médicos"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Medical, dental and hospital expenses."
+msgstr "Honorarios médicos, dentales y gastos hospitalarios"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,error_code:0
+msgid "Missing Company"
+msgstr "Empresa Desconocida"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,error_code:0
+msgid "Missing Invoice"
+msgstr "Factura Desconocida"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,error_code:0
+msgid "Missing Provider"
+msgstr "Proveedor Desconocido"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:502
+#, python-format
+msgid "Missing Related UUID %s in XML"
+msgstr "UUID Relacionado %s Desconocido en el XML"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi_customer_name
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi_supplier_name
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/wizard/l10n_mx_bulk_import_wizard.py:199
+#, python-format
+msgid "No xml files found in the zip file"
+msgstr "No se encontraron xmls en el fichero zip"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Office furniture and equipment investment"
+msgstr "Mobilario y equipo de oficina por inversiones"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/wizard/l10n_mx_bulk_import_wizard.py:91
+#, python-format
+msgid "Only zip and xml files are allowed."
+msgstr "Solamente se permiten ficheros zip y xml"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Open Invoice"
+msgstr "Factura Abierta"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Other machinery and equipment"
+msgstr "Otra maquinaria y equipo"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+msgid "Partner RFC"
+msgstr "RFC Proveedor"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_payment_term_name
+msgid "Payement Term"
+msgstr "Término de Pago"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_payment_term_id
+msgid "Payment Term"
+msgstr "Término de Pago"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Payments for educational services (Colegiatura)"
+msgstr "Pagos por servicios educativos (colegiaturas)"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,state:0
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/wizard/l10n_mx_bulk_import_wizard.py:119
+#, python-format
+msgid "Preview Data"
+msgstr "Vista Previa de Datos"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/wizard/l10n_mx_bulk_import_wizard.py:162
+#, python-format
+msgid "Preview Files"
+msgstr "Vista Previa de Ficheros"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_price_subtotal
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_price_total
+msgid "Price"
+msgstr "Precio"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_product_code
+msgid "Product Code"
+msgstr "Código de Producto"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Provider RFC"
+msgstr "RFC de Proveedor"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi_customer_rfc
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi_supplier_rfc
+msgid "RFC"
+msgstr "RFC"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Real interest effectively paid for mortgage loans (room house)"
+msgstr ""
+"Intereses reales efectivamente pagados por créditos hipotecarios (casa "
+"habitación)."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+msgid "Refresh"
+msgstr "Refrescar"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_refund_invoice_id
+msgid "Refunded Invoice"
+msgstr "Factura Reembolsada"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Returns, discounts or bonuses"
+msgstr "Devoluciones, descuentos o bonificaciones"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_l10n_mx_edi_code_sat
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_l10n_mx_edi_code_sat_id
+msgid "SAT Code"
+msgstr "Código SAT"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Satellite communications"
+msgstr "Comunicaciones satelitales"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:543
+#, python-format
+msgid "Some invoice lines doesnt have a valid product associated."
+msgstr "Algunas líneas no tienen un producto válido asociado"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_state
+msgid "Status"
+msgstr "Estado"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_tax_id
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_tax_line_ids
+msgid "Tax Lines"
+msgstr "Líneas de Impuesto"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_amount_tax
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_invoice_line_tax_ids
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Telephone communications"
+msgstr "Comunicaciones telefónicas"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/account_invoice.py:18
+#, python-format
+msgid "The Fiscal Folio %s is already used in the system."
+msgstr "El Folio Fiscal %s ya se encuentra en uso en el sistema."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:628
+#, python-format
+msgid "The specified currency '{currency}' doesn't exist in the system"
+msgstr "La moneda '{currency}' especificada no se encuentra en el sistema"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/wizard/l10n_mx_bulk_import_wizard.py:145
+#, python-format
+msgid "There are no files to process. Please go back and upload a zip or xml file."
+msgstr "No existen ficheros para procesar. Vaya atrás y suba un fichero zip o xml."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/wizard/l10n_mx_bulk_import_wizard.py:101
+#, python-format
+msgid "There are not valid files to import. Please fix the errors and refresh or upload another set of files"
+msgstr "No existen ficheros válidos para procesar. Corrija los errores y refresque o suba otro conjunto de ficheros"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:276
+#, python-format
+msgid "There is no income account defined for this product: \"%s\". You may have to install a chart of account from Accounting app, settings menu."
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "To define"
+msgstr "Por definir"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_amount_total
+msgid "Total"
+msgstr "Total"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_total_taxes
+msgid "Total Taxes"
+msgstr "Impuestos Totales"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Transportation equipment"
+msgstr "Transportation equipment"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_account_invoice_l10n_mx_cfdi_uuid
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_cfdi_uuid
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_redunded_invoice_cfdi_uuid
+msgid "UUID"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:531
+#, python-format
+msgid "Unable to find client \"%s\" with RFC \"%s\"."
+msgstr "No se pudo encontrar el cliente \"%s\" con RFC \"%s\"."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:516
+#, python-format
+msgid "Unable to find company %s with RFC %s"
+msgstr "No se pudo encontrar la empresa %s con RFC %s"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:537
+#, python-format
+msgid "Unable to find currency \"%s\"."
+msgstr "No se pudo encontrar la moneda \"%s\"."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:523
+#, python-format
+msgid "Unable to process XML from company other than \"%s\" with RFC \"%s\". Invoice RFC: \"%s\"."
+msgstr "No se puede procesar el XML de una empresa diferente a \"%s\" con RFC \"%s\". RFC en la factura: \"%s\"."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_price_unit
+msgid "Unit Price"
+msgstr "Precio Unitario"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_line_uom_code
+msgid "Unit of Measure"
+msgstr "Unidad de Medida"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_amount_untaxed
+msgid "Untaxed Amount"
+msgstr "Cantidad sin Impuestos"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+msgid "Upload File"
+msgstr "Subir Fichero"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_usage
+msgid "Usage"
+msgstr "Uso"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,help:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_l10n_mx_edi_usage
+msgid "Used in CFDI 3.3 to express the key to the usage that will gives the receiver to this invoice. This value is defined by the customer. \n"
+"Note: It is not cause for cancellation if the key set is not the usage that will give the receiver of the document."
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_valid_count
+msgid "Valid"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:597
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_partner_id
+#, python-format
+msgid "Vendor"
+msgstr "Proveedor"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,invoice_type:0
+msgid "Vendor Bill"
+msgstr "Factura de Proveedor"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "Vendor Reference"
+msgstr "Referencia del Vendedor"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_version
+msgid "Version"
+msgstr "Versión"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,l10n_mx_edi_usage:0
+msgid "Voluntary contributions to SAR"
+msgstr "Aportaciones voluntarias al SAR."
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "XML"
+msgstr "XML"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_xml_content
+msgid "Xml Content"
+msgstr "Contenido XML"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_xml_file
+msgid "Xml File"
+msgstr "Fichero XML"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_xml_bulk_import_wizard_zip_file
+msgid "Zip or XML File"
+msgstr "Fichero Zip o XML"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form
+#: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_results_form
+msgid "enable currency"
+msgstr "activar moneda"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model,name:l10n_mx_bulk_provider_xml_import.model_l10n_mx_provider_xml_bulk_import_invoice
+msgid "l10n.mx.provider.xml.bulk.import.invoice"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model,name:l10n_mx_bulk_provider_xml_import.model_l10n_mx_provider_xml_bulk_import_invoice_line
+msgid "l10n.mx.provider.xml.bulk.import.invoice.line"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model,name:l10n_mx_bulk_provider_xml_import.model_l10n_mx_provider_xml_bulk_import_invoice_tax
+msgid "l10n.mx.provider.xml.bulk.import.invoice.tax"
+msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: model:ir.model,name:l10n_mx_bulk_provider_xml_import.model_l10n_mx_xml_bulk_import_wizard
+msgid "l10n.mx.xml.bulk.import.wizard"
+msgstr ""
+

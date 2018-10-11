@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="l10n_mx_edi_bulk_xml_import_wizard_menu" model="ir.actions.act_window">
+            <field name="name">EDI XML Bulk Import</field>
+            <field name="res_model">l10n.mx.xml.bulk.import.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="bulk_import_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="l10n_mx_edi_bulk_xml_import_wizard_action" name="Import Vendor XML"
+                  action="l10n_mx_edi_bulk_xml_import_wizard_menu" parent="account.menu_finance_payables_master_data"
+                  sequence="10"
+                  groups="account.group_account_manager"
+        />
+
+
+        <record id="account_invoice_supplier_form_view_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='reference']" position="after">
+                    <field name="l10n_mx_edi_usage" readonly="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="l10n_mx_cfdi_uuid" readonly="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

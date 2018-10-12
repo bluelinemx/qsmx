@@ -414,7 +414,7 @@ class EdiImport(models.TransientModel):
             raise ValidationError('Unable to parse XML file')
 
         self.version = xml.attrib.get('Version')
-        self.name = "{}/{}".format(xml.attrib.get('Serie'), xml.attrib.get('Folio'))
+        self.name = "{}/{}".format(xml.attrib.get('Serie'), xml.attrib.get('Folio')) if xml.attrib.get('Serie') else xml.attrib.get('Folio')
         self.date_invoice = datetime.strptime(xml.attrib.get('Fecha'), '%Y-%m-%dT%H:%M:%S') if xml.attrib.get(
             'Fecha') else False
         self.currency_code = xml.attrib.get('Moneda')

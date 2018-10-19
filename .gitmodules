@@ -1,0 +1,4 @@
+[submodule "bluelinemx/qsmx"]
+	path = bluelinemx/qsmx
+	url = git@github.com:bluelinemx/qsmx.git
+	branch = master

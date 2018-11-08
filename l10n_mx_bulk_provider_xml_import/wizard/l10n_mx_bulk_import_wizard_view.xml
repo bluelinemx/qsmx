@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bulk_import_wizard_form" model="ir.ui.view">
+            <field name="name">l10n.mx.xml.bulk.import.wizard.xml.import.form</field>
+            <field name="model">l10n.mx.xml.bulk.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="zip_file" filename="file_name"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Validate" type="object" class="oe_highlight" name="action_next"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="bulk_import_wizard_preview_form" model="ir.ui.view">
+            <field name="name">l10n.mx.xml.bulk.import.wizard.preview.form</field>
+            <field name="model">l10n.mx.xml.bulk.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="can_import" invisible="1"/>
+                                <field name="files_count"/>
+                            </group>
+                            <group>
+                                <field name="error_count"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="file_ids" mode="tree" nolabel="1" widget="one2many_list">
+                                    <tree create="false" delete="true">
+                                        <field name="xml_filename" readonly="1"/>
+                                        <field name="invoice_type" readonly="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="l10n_mx_edi_cfdi_uuid" readonly="1"/>
+                                        <field name="l10n_mx_edi_cfdi_customer_rfc" readonly="1" string="Partner RFC"/>
+                                        <field name="amount_total" readonly="1" widget="monetary"/>
+                                        <field name="currency_code" readonly="1" string="Currency"/>
+                                        <field name="error_code" readonly="1"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="invoice_type" readonly="1"/>
+
+                                                    <field name="company_id" readonly="1" widget="selection"
+                                                           options="{'no_open': True, 'no_create': True}"/>
+
+                                                    <field name="partner_id" readonly="0" widget="selection"
+                                                           context="{'default_supplier': 1, 'default_vat': l10n_mx_edi_cfdi_customer_rfc, 'default_name': l10n_mx_edi_cfdi_customer_name, 'default_company_type': 'company'}"/>
+
+                                                    <field name="name" readonly="1" string="Vendor Reference"/>
+
+
+                                                    <field name="payment_term_id" readonly="1"/>
+                                                    <field name="l10n_mx_edi_usage" readonly="1"/>
+
+                                                </group>
+                                                <group>
+                                                    <field name="date_invoice" readonly="1" string="Bill Date"/>
+                                                    <field name="has_payment_term" invisible="1"/>
+
+                                                    <field name="l10n_mx_edi_cfdi_uuid" readonly="1"/>
+
+                                                    <label for="currency_id"/>
+                                                    <div class="o_row">
+                                                        <field name="currency_id" readonly="1"/>
+                                                        <button name="action_enable_currency" string="enable currency"
+                                                                class="oe_link" type="object"
+                                                                attrs="{'invisible':[('currency_id', '!=', False)]}"/>
+                                                    </div>
+
+                                                    <field name="exchange_rate" readonly="1"/>
+
+                                                </group>
+                                            </group>
+
+                                            <group invisible="1">
+                                                <group string="Supplier">
+                                                    <field name="company_id" readonly="1"/>
+                                                    <field name="l10n_mx_edi_cfdi_supplier_name" readonly="1"/>
+                                                    <field name="l10n_mx_edi_cfdi_supplier_rfc" readonly="1"/>
+                                                </group>
+                                                <group string="Customer">
+                                                    <field name="partner_id" readonly="1"
+                                                           context="{'default_vat': l10n_mx_edi_cfdi_customer_rfc}"/>
+                                                    <field name="l10n_mx_edi_cfdi_customer_name" readonly="1"/>
+                                                    <field name="l10n_mx_edi_cfdi_customer_rfc" readonly="1"/>
+                                                </group>
+                                            </group>
+
+                                            <notebook>
+                                                <page string="Bill">
+                                                    <field name="line_ids" mode="tree" nolabel="1"
+                                                           widget="one2many_list">
+                                                        <tree create="false" delete="false" editable="bottom">
+                                                            <!--<field name="uom_code" readonly="1"/>-->
+                                                            <field name="currency_id" invisible="1"/>
+                                                            <field name="product_code" readonly="1"/>
+                                                            <field name="has_product" invisible="1"/>
+                                                            <field name="l10n_mx_edi_code_sat_id" invisible="1"/>
+                                                            <field name="l10n_mx_edi_code_sat" invisible="1"/>
+                                                            <field name="product_id"
+                                                                   attrs="{'readonly': [('has_product', '=', True)]}"
+                                                                   context="{'default_default_code': product_code, 'default_l10n_mx_edi_code_sat_id': l10n_mx_edi_code_sat_id, 'default_name': product_description, 'default_lst_price': price_unit}"/>
+                                                            <!--<field name="product_id"-->
+                                                                   <!--attrs="{'readonly': [('has_product', '=', True)]}"-->
+                                                                   <!--context="{'default_default_code': product_code, 'default_l10n_mx_edi_code_sat_id': product_code, 'default_name': product_description, 'default_lst_price': price_unit}"/>-->
+                                                            <field name="product_description" readonly="1"/>
+                                                            <field name="account_analytic_id"/>
+                                                            <field name="quantity" readonly="1"/>
+                                                            <field name="price_unit" widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"
+                                                                   readonly="1"/>
+                                                            <field name="price_subtotal" widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"
+                                                                   readonly="1"/>
+                                                        </tree>
+                                                    </field>
+
+                                                    <group>
+                                                        <group>
+                                                            <div class="oe_inline">
+                                                                <field name="tax_line_ids" readonly="1">
+                                                                    <tree editable="bottom" delete="0" string="Taxes">
+                                                                        <field name="name"/>
+                                                                        <!--Need invisible fields for on_change to create all necessary info -->
+                                                                        <field name="tax_id" invisible="1"/>
+                                                                        <field name="manual" invisible="1"/>
+                                                                        <field name="account_id"
+                                                                               groups="account.group_account_user"/>
+                                                                        <field name="amount" widget="monetary"
+                                                                               options="{'currency_field': 'currency_id'}"/>
+                                                                        <field name="amount_rounding" invisible="1"/>
+                                                                        <field name="currency_id" invisible="1"/>
+                                                                    </tree>
+                                                                </field>
+                                                            </div>
+                                                        </group>
+                                                        <group class="oe_subtotal_footer oe_right">
+                                                            <field name="amount_untaxed" widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"/>
+                                                            <field name="amount_tax" widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"/>
+                                                            <field name="amount_total"
+                                                                   class="oe_subtotal_footer_separator"
+                                                                   widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"/>
+                                                        </group>
+                                                    </group>
+                                                </page>
+                                                <page string="XML">
+                                                    <field name="xml_content" widget="ace" options="{'mode': 'xml'}"/>
+                                                </page>
+                                            </notebook>
+                                        </sheet>
+
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <footer>
+                        <button string="Import" type="object" class="oe_highlight" name="action_import"/>
+                        <button string="Refresh" class="btn btn-info" type="object" name="action_refresh"/>
+                        <button string="Upload File" class="btn btn-default" type="object" name="action_upload"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="bulk_import_wizard_results_form" model="ir.ui.view">
+            <field name="name">l10n.mx.xml.bulk.import.wizard.results.form</field>
+            <field name="model">l10n.mx.xml.bulk.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="file_ids" mode="tree" nolabel="1" widget="one2many_list">
+                                    <tree create="false" delete="true">
+                                        <field name="xml_filename" readonly="1"/>
+                                        <field name="invoice_type" readonly="1"/>
+                                        <field name="name" readonly="1"/>
+                                        <field name="invoice_id" readonly="1"/>
+                                        <field name="l10n_mx_edi_cfdi_uuid" readonly="1"/>
+                                        <field name="l10n_mx_edi_cfdi_customer_rfc" readonly="1" string="Provider RFC"/>
+                                        <field name="amount_total" readonly="1" widget="monetary"/>
+                                        <field name="currency_code" readonly="1" string="Currency"/>
+                                        <field name="state" readonly="1"/>
+                                        <button name="action_open_invoice" string="Invoice" type="object" icon="fa-external-link" help="Open Invoice" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="invoice_id" readonly="1"/>
+
+                                                    <field name="company_id" readonly="1" widget="selection"
+                                                           options="{'no_open': True, 'no_create': True}"/>
+
+                                                    <field name="partner_id" readonly="1" widget="selection"
+                                                           context="{'default_supplier': 1, 'default_vat': l10n_mx_edi_cfdi_customer_rfc, 'default_name': l10n_mx_edi_cfdi_customer_name, 'default_company_type': 'company'}"/>
+
+                                                    <field name="name" readonly="1" string="Vendor Reference"/>
+
+                                                    <field name="payment_term_id" readonly="1"/>
+                                                    <field name="l10n_mx_edi_usage" readonly="1"/>
+
+                                                </group>
+                                                <group>
+                                                    <field name="date_invoice" readonly="1" string="Bill Date"/>
+                                                    <field name="has_payment_term" invisible="1"/>
+
+                                                    <field name="l10n_mx_edi_cfdi_uuid" readonly="1"/>
+
+                                                    <label for="currency_id"/>
+                                                    <div class="o_row">
+                                                        <field name="currency_id" readonly="1"/>
+                                                        <button name="action_enable_currency" string="enable currency"
+                                                                class="oe_link" type="object"
+                                                                attrs="{'invisible':[('currency_id', '!=', False)]}"/>
+                                                    </div>
+
+                                                    <field name="exchange_rate" readonly="1"/>
+
+                                                </group>
+                                            </group>
+
+                                            <group invisible="1">
+                                                <group string="Supplier">
+                                                    <field name="company_id" readonly="1"/>
+                                                    <field name="l10n_mx_edi_cfdi_supplier_name" readonly="1"/>
+                                                    <field name="l10n_mx_edi_cfdi_supplier_rfc" readonly="1"/>
+                                                </group>
+                                                <group string="Customer">
+                                                    <field name="partner_id" readonly="1"
+                                                           context="{'default_vat': l10n_mx_edi_cfdi_customer_rfc}"/>
+                                                    <field name="l10n_mx_edi_cfdi_customer_name" readonly="1"/>
+                                                    <field name="l10n_mx_edi_cfdi_customer_rfc" readonly="1"/>
+                                                </group>
+                                            </group>
+
+                                            <notebook>
+                                                <page string="Bill">
+                                                    <field name="line_ids" mode="tree" nolabel="1"
+                                                           widget="one2many_list">
+                                                        <tree create="false" delete="false" editable="bottom">
+                                                            <!--<field name="uom_code" readonly="1"/>-->
+                                                            <field name="currency_id" invisible="1"/>
+                                                            <field name="product_code" readonly="1"/>
+                                                            <field name="has_product" invisible="1"/>
+                                                            <field name="l10n_mx_edi_code_sat" invisible="1"/>
+                                                            <field name="product_id"
+                                                                   attrs="{'readonly': [('has_product', '=', True)]}"
+                                                                   context="{'default_default_code': product_code, 'default_l10n_mx_edi_code_sat_id': product_code, 'default_name': product_description, 'default_lst_price': price_unit}"/>
+                                                            <field name="product_description" readonly="1"/>
+                                                            <field name="account_analytic_id"/>
+                                                            <field name="quantity" readonly="1"/>
+                                                            <field name="price_unit" widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"
+                                                                   readonly="1"/>
+                                                            <field name="price_subtotal" widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"
+                                                                   readonly="1"/>
+                                                        </tree>
+                                                    </field>
+
+                                                    <group>
+                                                        <group>
+                                                            <div class="oe_inline">
+                                                                <field name="tax_line_ids" readonly="1">
+                                                                    <tree editable="bottom" delete="0" string="Taxes">
+                                                                        <field name="name"/>
+                                                                        <!--Need invisible fields for on_change to create all necessary info -->
+                                                                        <field name="tax_id" invisible="1"/>
+                                                                        <field name="manual" invisible="1"/>
+                                                                        <field name="account_id"
+                                                                               groups="account.group_account_user"/>
+                                                                        <field name="amount" widget="monetary"
+                                                                               options="{'currency_field': 'currency_id'}"/>
+                                                                        <field name="amount_rounding" invisible="1"/>
+                                                                        <field name="currency_id" invisible="1"/>
+                                                                    </tree>
+                                                                </field>
+                                                            </div>
+                                                        </group>
+                                                        <group class="oe_subtotal_footer oe_right">
+                                                            <field name="amount_untaxed" widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"/>
+                                                            <field name="amount_tax" widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"/>
+                                                            <field name="amount_total"
+                                                                   class="oe_subtotal_footer_separator"
+                                                                   widget="monetary"
+                                                                   options="{'currency_field': 'currency_id'}"/>
+                                                        </group>
+                                                    </group>
+                                                </page>
+                                                <page string="XML">
+                                                    <field name="xml_content" widget="ace" options="{'mode': 'xml'}"/>
+                                                </page>
+                                            </notebook>
+                                        </sheet>
+
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <footer>
+                        <button string="Finish" class="btn btn-default" type="object" name="action_finish"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

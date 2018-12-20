@@ -263,12 +263,12 @@ class EdiImport(models.TransientModel):
 
         account_id = False
         if line.product_id.id:
-            accounts = line.product_id.product_tmpl_id._get_product_accounts()
-            account = accounts.get('expense') if line.product_id.type in ['consu', 'service'] else accounts.get('stock_input')
-            account_id = account.id
+            account_id = line.product_id.property_account_income_id.id
+
         if not account_id:
-            inc_acc = ir_property_obj.get('property_account_expense_categ_id', 'product.category')
+            inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
             account_id = self.fiscal_position_id.map_account(inc_acc).id if inc_acc else False
+
         if not account_id:
             raise UserError(
                 _(

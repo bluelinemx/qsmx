@@ -62,12 +62,12 @@ class EdiImportLine(models.TransientModel):
     def product_lookup(self):
         product = None
 
-        if self.l10n_mx_edi_code_sat is not False and self.product_code is not False:
+        if self.l10n_mx_edi_code_sat and self.product_code:
             product = self.env['product.product'].search([('l10n_mx_edi_code_sat_id.code', '=', self.l10n_mx_edi_code_sat), ('default_code', '=', self.product_code)])
         # elif self.l10n_mx_edi_code_sat:
         #     product = self.env['product.product'].search(
         #         [('l10n_mx_edi_code_sat_id.code', '=', self.l10n_mx_edi_code_sat)])
-        elif self.product_code is not False or len(self.product_code):
+        elif self.product_code and isinstance(self.product_code, str) and len(self.product_code):
             product = self.env['product.product'].search([('default_code', '=', self.product_code)])
 
         return product if product and product.id else False

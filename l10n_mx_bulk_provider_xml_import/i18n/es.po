@@ -500,6 +500,11 @@ msgid "Payement Term"
 msgstr "Término de Pago"
 
 #. module: l10n_mx_bulk_provider_xml_import
+#: selection:l10n.mx.provider.xml.bulk.import.invoice,invoice_type:0
+msgid "Payment"
+msgstr "Pago"
+
+#. module: l10n_mx_bulk_provider_xml_import
 #: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_payment_term_id
 msgid "Payment Term"
 msgstr "Término de Pago"
@@ -707,7 +712,13 @@ msgid "Unable to find currency \"%s\"."
 msgstr "No se pudo encontrar la moneda \"%s\"."
 
 #. module: l10n_mx_bulk_provider_xml_import
-#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:523
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:524
+#, python-format
+msgid "Unable to import invoice type"
+msgstr "No se puede importar este tipo de factura"
+
+#. module: l10n_mx_bulk_provider_xml_import
+#: code:addons/l10n_mx_bulk_provider_xml_import/models/models.py:535
 #, python-format
 msgid "Unable to process XML from company other than \"%s\" with RFC \"%s\". Invoice RFC: \"%s\"."
 msgstr "No se puede procesar el XML de una empresa diferente a \"%s\" con RFC \"%s\". RFC en la factura: \"%s\"."
@@ -785,6 +796,10 @@ msgstr "Aportaciones voluntarias al SAR."
 #: model:ir.model.fields,field_description:l10n_mx_bulk_provider_xml_import.field_l10n_mx_provider_xml_bulk_import_invoice_wizard_id
 msgid "Wizard"
 msgstr ""
+
+#. module: l10n_mx_bulk_provider_xml_import
+msgid "Not Processable"
+msgstr "No Procesable"
 
 #. module: l10n_mx_bulk_provider_xml_import
 #: model:ir.ui.view,arch_db:l10n_mx_bulk_provider_xml_import.bulk_import_wizard_preview_form

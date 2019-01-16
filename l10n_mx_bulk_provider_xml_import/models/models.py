@@ -62,12 +62,12 @@ class EdiImportLine(models.TransientModel):
     def product_lookup(self):
         product = None
 
-        if self.l10n_mx_edi_code_sat is not False and self.product_code is not False:
+        if self.l10n_mx_edi_code_sat and self.product_code:
             product = self.env['product.product'].search([('l10n_mx_edi_code_sat_id.code', '=', self.l10n_mx_edi_code_sat), ('default_code', '=', self.product_code)])
         # elif self.l10n_mx_edi_code_sat:
         #     product = self.env['product.product'].search(
         #         [('l10n_mx_edi_code_sat_id.code', '=', self.l10n_mx_edi_code_sat)])
-        elif self.product_code is not False or len(self.product_code):
+        elif self.product_code and isinstance(self.product_code, str) and len(self.product_code):
             product = self.env['product.product'].search([('default_code', '=', self.product_code)])
 
         return product if product and product.id else False
@@ -112,6 +112,7 @@ class EdiImport(models.TransientModel):
     invoice_type = fields.Selection([
         ('in_refund', 'Credit Note'),
         ('in_invoice', 'Vendor Bill'),
+        ('in_payment', 'Payment'),
     ], string='Invoice Type', default='in_invoice')
 
     invoice_state = fields.Selection([
@@ -421,7 +422,13 @@ class EdiImport(models.TransientModel):
         self.exchange_rate = xml.attrib.get('TipoCambio', 1)
         self.l10n_mx_edi_cfdi_amount = float(xml.attrib.get('Total', xml.attrib.get('total', 0)))
 
-        self.invoice_type = 'in_invoice' if xml.attrib.get('TipoDeComprobante', 'I').upper() == 'I' else 'in_refund'
+        invoice_type = xml.attrib.get('TipoDeComprobante', 'I').upper()
+        if invoice_type == 'I':
+            self.invoice_type = 'in_invoice'
+        elif invoice_type == 'P':
+            self.invoice_type = 'in_payment'
+        else:
+            self.invoice_type = 'in_refund'
 
         self.amount_untaxed = float(xml.attrib.get('SubTotal', xml.attrib.get('subTotal', 0)))
         self.amount_total = float(xml.attrib.get('Total', xml.attrib.get('total', 0)))
@@ -492,6 +499,9 @@ class EdiImport(models.TransientModel):
                             tax_lines.append((0, 0, line))
 
                     self.tax_line_ids = tax_lines
+
+        if self.invoice_type == 'in_payment':
+            raise InvoiceNotProcessableError(_('Unable to import invoice type'))
 
         if self.invoice_type == 'in_refund':
             # cfdi: CfdiRelacionados
@@ -673,3 +683,8 @@ class MissingPartnerError(UserError):
         super(MissingPartnerError, self).__init__(msg)
         self.partner_name = name
         self.partner_rfc = rfc
+
+
+class InvoiceNotProcessableError(UserError):
+    def __init__(self, msg):
+        super(InvoiceNotProcessableError, self).__init__(msg)

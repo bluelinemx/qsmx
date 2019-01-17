@@ -582,6 +582,9 @@ class EdiImport(models.TransientModel):
         price_subtotal = float(item.attrib.get('Importe', item.attrib.get('importe', 0)))
         quantity = float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0)))
         price_unit = float(item.attrib.get('ValorUnitario', item.attrib.get('valorUnitario', 0)))
+        discount_total = float(item.attrib.get('Descuento', item.attrib.get('descuento', 0)))
+
+        discount_percent = 100 * (discount_total * 1.0 / price_subtotal if price_subtotal > 0 else 0)
 
         line = {
             'import_id': self.id,
@@ -594,7 +597,7 @@ class EdiImport(models.TransientModel):
             'price_total': price_subtotal + total_taxes,
             'total_taxes': total_taxes,
             'currency_id': self.currency_id,
-            'discount': 0,
+            'discount': discount_percent,
             'product_description': item.attrib.get('Descripcion', item.attrib.get('descripcion', False)),
             'invoice_line_tax_ids': [(6, 0, tax_ids)],
         }

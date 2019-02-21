@@ -233,7 +233,11 @@ class EdiImport(models.TransientModel):
     @api.one
     @api.depends('l10n_mx_edi_redunded_invoice_cfdi_uuid')
     def _compute_refunded_invoice(self):
-        self.refund_invoice_id = self.env['account.invoice'].sudo().search([('l10n_mx_cfdi_uuid', '=', self.l10n_mx_edi_redunded_invoice_cfdi_uuid)]).id if self.invoice_type == 'in_refund' else False
+        if self.l10n_mx_edi_redunded_invoice_cfdi_uuid and self.invoice_type == 'in_refund':
+            self.refund_invoice_id = self.env['account.invoice'].sudo().search(
+                [('l10n_mx_cfdi_uuid', '=', self.l10n_mx_edi_redunded_invoice_cfdi_uuid)]).id
+        else:
+            self.refund_invoice_id = False
 
     @api.multi
     def action_validate(self, refresh=True):

@@ -4,7 +4,7 @@ import base64
 from odoo import models, fields, api, tools, _
 import xlrd
 from odoo.exceptions import ValidationError, UserError
-from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, datetime, DEFAULT_SERVER_DATETIME_FORMAT, etree
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, datetime, DEFAULT_SERVER_DATETIME_FORMAT, etree, defaultdict
 from xlrd import XLRDError
 import logging
 from lxml.objectify import fromstring
@@ -264,9 +264,11 @@ class EdiImport(models.TransientModel):
         account_id = False
         if line.product_id.id:
             account_id = line.product_id.property_account_income_id.id
+
         if not account_id:
             inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
             account_id = self.fiscal_position_id.map_account(inc_acc).id if inc_acc else False
+
         if not account_id:
             raise UserError(
                 _(
@@ -448,44 +450,37 @@ class EdiImport(models.TransientModel):
         concepts_section = getattr(xml, 'Conceptos', False)
 
         if concepts_section:
-            AccountTax = self.env['account.tax']
+
+            taxes = {}
 
             lines = []
             for i in range(concepts_section.countchildren()):
                 item = concepts_section.Concepto[i]
                 line = self._get_invoice_line_from_xml(item)
 
+                tax_info = line.pop('tax_lines')
+
+                for tline in tax_info:
+                    tax_item = tline['tax']
+
+                    if tax_item.id not in taxes:
+                        taxes[tax_item.id] = {
+                            'name': tax_item.name,
+                            'tax_id': tax_item.id,
+                            'account_id': tax_item.account_id.id,
+                            'currency_id': self.currency_id,
+                            'company_id': self.env.user.partner_id.company_id.id,
+                            'amount': tline['amount'],
+                            'base': self.amount_untaxed,
+                            'manual': True,
+                        }
+                    else:
+                        taxes[tline['tax'].id]['amount'] += tline['amount']
+
                 lines.append((0, 0, line))
 
             self.line_ids = lines
-
-            if taxes_section:
-                tax_lines = []
-                transfers_section = getattr(taxes_section, 'Traslados', False)
-                if transfers_section:
-
-                    for i in range(transfers_section.countchildren()):
-                        item = transfers_section.Traslado[i]
-                        importe = float(item.attrib.get('Importe', item.attrib.get('importe', 0)))
-                        impuesto = item.attrib.get('Impuesto', item.attrib.get('impuesto', False))
-                        tasa = float(item.attrib.get('TasaOCuota', item.attrib.get('tasa', 0))) * 100
-                        tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
-
-                        if tax_item.id:
-                            line = {
-                                'name': tax_item.name,
-                                'tax_id': tax_item.id,
-                                'account_id': tax_item.account_id.id,
-                                'currency_id': self.currency_id,
-                                'company_id': self.env.user.partner_id.company_id.id,
-                                'amount': importe,
-                                'base': self.amount_untaxed,
-                                'manual': True,
-                            }
-
-                            tax_lines.append((0, 0, line))
-
-                    self.tax_line_ids = tax_lines
+            self.tax_line_ids = [(0, 0, item) for item in taxes.values()]
 
         return True
 
@@ -493,22 +488,68 @@ class EdiImport(models.TransientModel):
         AccountTax = self.env['account.tax']
 
         tax_ids = []
+        taxes = []
         total_taxes = 0
         if self.version == '3.3':
-            if hasattr(item, 'Impuestos') and hasattr(item.Impuestos, 'Traslados'):
-                for tIndex in range(item.Impuestos.Traslados.countchildren()):
+            if hasattr(item, 'Impuestos'):
+                if hasattr(item.Impuestos, 'Traslados'):
+                    for tIndex in range(item.Impuestos.Traslados.countchildren()):
 
-                    concept_tax_section = getattr(item, 'Impuestos')
+                        concept_tax_section = getattr(item, 'Impuestos')
 
-                    if concept_tax_section:
-                        tax = concept_tax_section.Traslados.Traslado[0]
-                        tasa = float(tax.attrib['TasaOCuota']) * 100
-                        total_taxes += float(tax.attrib.get('Importe', 0))
+                        if concept_tax_section:
+                            tax = concept_tax_section.Traslados.Traslado[0]
+                            if tax.attrib.get('TasaOCuota'):
 
-                        tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
+                                tasa = float(tax.attrib['TasaOCuota']) * 100
+                                amount = float(tax.attrib.get('Importe', 0))
+                                total_taxes += amount
 
-                        if tax_item.id:
-                            tax_ids.append(tax_item.id)
+                                tax_item = AccountTax.search([('amount', '=', tasa), ('type_tax_use', '=', 'sale')], limit=1)
+
+                                if tax_item.id:
+                                    tax_ids.append(tax_item.id)
+
+                                    taxes.append({
+                                        'type': 'tax',
+                                        'item': item,
+                                        'tax': tax_item,
+                                        'amount': amount
+                                    })
+                                else:
+                                    raise UserError(
+                                        _(
+                                            'Unable to find tax for %s %%') % ( tasa,))
+
+                if hasattr(item.Impuestos, 'Retenciones'):
+                    for tIndex in range(item.Impuestos.Retenciones.countchildren()):
+
+                        concept_tax_section = getattr(item, 'Impuestos')
+
+                        if concept_tax_section:
+                            tax = concept_tax_section.Retenciones.Retencion[0]
+                            if tax.attrib.get('TasaOCuota'):
+
+                                tasa = float(tax.attrib['TasaOCuota']) * 100
+                                amount = float(tax.attrib.get('Importe', 0))
+                                total_taxes += amount
+
+                                tax_item = AccountTax.search([('amount', '=', -tasa), ('type_tax_use', '=', 'sale')],
+                                                             limit=1)
+
+                                if tax_item.id:
+                                    tax_ids.append(tax_item.id)
+
+                                    taxes.append({
+                                        'type': 'retention',
+                                        'item': item,
+                                        'tax': tax_item,
+                                        'amount': -amount
+                                    })
+                                else:
+                                    raise UserError(
+                                        _(
+                                            'Unable to find retention for %s %%') % ( tasa,))
 
         price_subtotal = float(item.attrib.get('Importe', item.attrib.get('importe', 0)))
         quantity = float(item.attrib.get('Cantidad', item.attrib.get('cantidad', 0)))
@@ -525,6 +566,7 @@ class EdiImport(models.TransientModel):
             'price_total': price_subtotal + total_taxes,
             'total_taxes': total_taxes,
             'currency_id': self.currency_id,
+            'tax_lines': taxes,
             'discount': 0,
             'product_description': item.attrib.get('Descripcion', item.attrib.get('descripcion', False)),
             'invoice_line_tax_ids': [(6, 0, tax_ids)],

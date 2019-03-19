@@ -49,8 +49,8 @@ class EdiImportLine(models.TransientModel):
     currency_id = fields.Many2one('res.currency', 'Currency')
 
     price_unit = fields.Float('Unit Price', digits=(12, 6))
-    price_subtotal = fields.Float('Price', digits=(12, 6))
-    price_total = fields.Float('Price', digits=(12, 6))
+    price_subtotal = fields.Float('Price', digits=(12, 6), compute='_compute_price', store=True)
+    price_total = fields.Float('Price', digits=(12, 6), compute='_compute_price', store=True)
     total_taxes = fields.Float('Total Taxes', digits=(12, 6))
     quantity = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'), default=1)
     discount = fields.Float('Discount', digits=(12, 6))
@@ -91,6 +91,19 @@ class EdiImportLine(models.TransientModel):
 
         if self.has_product:
             self.product_id = product.id
+
+    @api.one
+    @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
+                 'product_id', 'import_id.partner_id', 'import_id.currency_id', 'import_id.company_id', )
+    def _compute_price(self):
+        currency = self.currency_id
+        price = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
+        taxes = False
+        if self.invoice_line_tax_ids:
+            taxes = self.invoice_line_tax_ids.compute_all(price, currency, self.quantity, product=self.product_id,
+                                                          partner=self.import_id.partner_id)
+        self.price_subtotal = taxes['total_excluded'] if taxes else self.quantity * price
+        self.price_total = taxes['total_included'] if taxes else self.price_subtotal
 
 
 def get_xml_value(xml, selector, key):
@@ -183,12 +196,21 @@ class EdiImport(models.TransientModel):
     fiscal_position_id = fields.Many2one('account.fiscal.position', 'Fiscal Position', compute='_compute_edi_values',
                                          store=True)
 
-    amount_untaxed = fields.Float(string='Untaxed Amount', store=True, readonly=True, digits=(12, 6))
-    amount_tax = fields.Float(string='Taxes', store=True, readonly=True, digits=(12, 6))
-    amount_total = fields.Float(string='Total', store=True, readonly=True, digits=(12, 6))
+    amount_untaxed = fields.Float(string='Untaxed Amount', store=True, readonly=True, compute='_compute_amount', digits=(12, 6))
+    amount_tax = fields.Float(string='Taxes', store=True, readonly=True, compute='_compute_amount', digits=(12, 6))
+    amount_total = fields.Float(string='Total', store=True, readonly=True, compute='_compute_amount', digits=(12, 6))
 
     line_ids = fields.One2many('l10n.mx.provider.xml.bulk.import.invoice.line', 'import_id', 'Lines')
     tax_line_ids = fields.One2many('l10n.mx.provider.xml.bulk.import.invoice.tax', 'import_id', 'Tax Lines')
+
+    @api.one
+    @api.depends('line_ids.price_subtotal', 'tax_line_ids.amount', 'tax_line_ids.amount_rounding',
+                 'currency_id', 'company_id', 'date_invoice')
+    def _compute_amount(self):
+        round_curr = self.currency_id.round
+        self.amount_untaxed = sum(line.price_subtotal for line in self.line_ids)
+        self.amount_tax = sum(round_curr(line.amount) for line in self.tax_line_ids)
+        self.amount_total = self.amount_untaxed + self.amount_tax
 
     @api.multi
     @api.depends('currency_code', 'payment_term_name', 'fiscal_position_code', 'l10n_mx_edi_cfdi_supplier_rfc',

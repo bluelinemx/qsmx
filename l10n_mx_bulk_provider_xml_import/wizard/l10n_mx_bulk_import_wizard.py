@@ -7,6 +7,10 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from odoo.tools import etree, zipfile
 import os.path
+from ..models.models import InvoiceNotProcessableError
+
+VALID_PROCESSING_LINE_STATES = ['done', '']
+VALID_DISPLAY_LINE_STATES = ['done', 'skipped']
 
 
 class EdiBulkImportFile(models.TransientModel):
@@ -17,6 +21,7 @@ class EdiBulkImportFile(models.TransientModel):
         ('pending', 'Pending'),
         ('done', 'Done'),
         ('error', 'Error'),
+        ('skipped', 'Skipped'),
     ], string='Status', default='pending')
 
     error_code = fields.Selection([
@@ -81,7 +86,7 @@ class EdiBulkImport(models.TransientModel):
     @api.depends('file_ids', 'file_ids.state')
     def _compute_error_count(self):
         self.error_count = len([line for line in self.file_ids if line.state == 'error'])
-        self.valid_count = len([line for line in self.file_ids if line.state != 'error'])
+        self.valid_count = len([line for line in self.file_ids if line.state in ['pending', 'skipped']])
         self.can_import = self.valid_count > 0
 
     @api.multi
@@ -102,13 +107,14 @@ class EdiBulkImport(models.TransientModel):
             raise UserError(_('There are not valid files to import. Please fix the errors and refresh or upload another set of files'))
 
         for line in self.file_ids:
-            try:
-                if line.validate_import():
-                    invoice = line.create_invoice()
+            if line.state != 'skipped':
+                try:
+                    if line.validate_import():
+                        invoice = line.create_invoice()
 
-                line.state = 'done'
-            except Exception as e:
-                line.state = 'error'
+                    line.state = 'done'
+                except Exception as e:
+                    line.state = 'error'
 
         return self.action_import_results()
 
@@ -152,6 +158,10 @@ class EdiBulkImport(models.TransientModel):
                 line.state = 'pending'
                 line.error_code = False
                 line.error_description = False
+            except InvoiceNotProcessableError as p:
+                line.state = 'skipped'
+                line.error_code = type(p).__name__
+                line.error_description = p.name
             except UserError as e:
                 line.state = 'error'
                 line.error_code = type(e).__name__

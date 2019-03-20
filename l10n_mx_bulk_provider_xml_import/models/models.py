@@ -242,7 +242,7 @@ class EdiImport(models.TransientModel):
                 item.company_id = False
 
             if item.l10n_mx_edi_cfdi_customer_rfc:
-                supplier = self.env['res.partner'].search([('vat', '=', item.l10n_mx_edi_cfdi_customer_rfc)], limit=1)
+                supplier = self.env['res.partner'].search([('company_id', '=', self.env.user.company_id.id), ('vat', '=', item.l10n_mx_edi_cfdi_customer_rfc)], limit=1)
 
                 item.partner_id = supplier.id or False
 
@@ -527,6 +527,7 @@ class EdiImport(models.TransientModel):
                     self.tax_line_ids = tax_lines
 
         if self.invoice_type == 'in_payment':
+            self.state = 'skipped'
             raise InvoiceNotProcessableError(_('Unable to import invoice type'))
 
         if self.invoice_type == 'in_refund':

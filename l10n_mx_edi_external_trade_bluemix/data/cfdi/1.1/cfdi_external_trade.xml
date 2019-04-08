@@ -33,7 +33,7 @@
                                 t-att-CertificadoOrigen="'1' if is_origin_certificate else '0'"
                                 t-att-NumCertificadoOrigen="origin_certificate_number"
                                 t-att-Incoterm="incoterm_code"
-                                t-att-TipoCambioUSD="usd_rate"
+                                t-att-TipoCambioUSD="'%.6f' % usd_rate"
                                 t-att-TotalUSD="'%.*f' % (decimal_precision, record.l10n_mx_edi_customs_amount_total_usd)">
                             <cce11:Emisor t-attr-Curp="supplier.l10n_mx_edi_curp if not customer.is_company else False">
                                 <cce11:Domicilio t-att-Calle="supplier.street_name if supplier.street_name else False"

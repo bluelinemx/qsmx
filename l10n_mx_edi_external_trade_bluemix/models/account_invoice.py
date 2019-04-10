@@ -98,8 +98,7 @@ class Invoice(models.Model):
             'mxn': mxn,
 
             'receiver_reg_trib': values.get('customer').vat,
-            'usd_rate': '19.172882',
-            # 'usd_rate': '%0.*f' % (6, usd.compute(1, mxn)),
+            'usd_rate': usd.compute(1, mxn),
             'incoterm_code': self.l10n_mx_edi_incoterm_id.code if self.l10n_mx_edi_incoterm_id.id else False,
             'is_origin_certificate': 1 if self.l10n_mx_edi_is_origin_certificate else 0,
             'origin_certificate_number': self.l10n_mx_edi_origin_certificate_number if self.l10n_mx_edi_is_origin_certificate else False,

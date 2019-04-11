@@ -118,8 +118,6 @@ class Invoice(models.Model):
             round(l.l10n_mx_edi_customs_quantity * c.compute(
                 l.l10n_mx_edi_customs_price_unit, u), 2) for l in i])
 
-        self.message_post(body=str(values))
-
         return values
 
 

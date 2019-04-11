@@ -99,6 +99,7 @@ class Invoice(models.Model):
 
             'receiver_reg_trib': values.get('customer').vat,
             'usd_rate': '%0.*f' % (6, usd.compute(1, mxn)),
+            # 'usd_rate': '%0.*f' % (6, usd.compute(1, mxn)),
             'incoterm_code': self.l10n_mx_edi_incoterm_id.code if self.l10n_mx_edi_incoterm_id.id else False,
             'is_origin_certificate': 1 if self.l10n_mx_edi_is_origin_certificate else 0,
             'origin_certificate_number': self.l10n_mx_edi_origin_certificate_number if self.l10n_mx_edi_is_origin_certificate else False,
@@ -116,6 +117,8 @@ class Invoice(models.Model):
         values['total_usd'] = lambda i, u, c: sum([
             round(l.l10n_mx_edi_customs_quantity * c.compute(
                 l.l10n_mx_edi_customs_price_unit, u), 2) for l in i])
+
+        self.message_post(body=str(values))
 
         return values
 

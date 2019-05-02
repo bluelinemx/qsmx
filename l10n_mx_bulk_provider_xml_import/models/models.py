@@ -437,8 +437,8 @@ class EdiImport(models.TransientModel):
         try:
             xml = fromstring(base64.b64decode(self.xml_file))
             self.xml_content = etree.tostring(xml, pretty_print=True)
-        except Exception:
-            raise ValidationError('Unable to parse XML file')
+        except Exception as e:
+            raise ValidationError('Unable to parse XML file "{}": {}'.format(self.xml_filename, e))
 
         self.version = xml.attrib.get('Version')
         self.name = "{}/{}".format(xml.attrib.get('Serie'), xml.attrib.get('Folio')) if xml.attrib.get('Serie') else xml.attrib.get('Folio')

@@ -92,10 +92,11 @@
                                                     <field name="l10n_mx_edi_cfdi_supplier_rfc" readonly="1"/>
                                                 </group>
                                                 <group string="Customer">
-                                                    <field name="partner_id" readonly="1"
-                                                           context="{'default_vat': l10n_mx_edi_cfdi_customer_rfc}"/>
                                                     <field name="l10n_mx_edi_cfdi_customer_name" readonly="1"/>
                                                     <field name="l10n_mx_edi_cfdi_customer_rfc" readonly="1"/>
+                                                    <field name="partner_id" readonly="1"
+                                                           context="{'default_is_company': True, 'default_name': l10n_mx_edi_cfdi_customer_name, 'default_vat': l10n_mx_edi_cfdi_customer_rfc, 'default_supplier': True}"/>
+
                                                 </group>
                                             </group>
 
@@ -105,6 +106,7 @@
                                                            widget="one2many_list">
                                                         <tree create="false" delete="false" editable="bottom">
                                                             <!--<field name="uom_code" readonly="1"/>-->
+                                                            <field name="company_id" invisible="1"/>
                                                             <field name="currency_id" invisible="1"/>
                                                             <field name="product_code" readonly="1"/>
                                                             <field name="has_product" invisible="1"/>
@@ -112,7 +114,7 @@
                                                             <field name="l10n_mx_edi_code_sat" invisible="1"/>
                                                             <field name="product_id"
                                                                    attrs="{'readonly': [('has_product', '=', True)]}"
-                                                                   context="{'default_default_code': product_code, 'default_l10n_mx_edi_code_sat_id': l10n_mx_edi_code_sat_id, 'default_name': product_description, 'default_lst_price': price_unit}"/>
+                                                                   context="{'default_company_id': company_id, 'default_default_code': product_code, 'default_l10n_mx_edi_code_sat_id': l10n_mx_edi_code_sat_id, 'default_name': product_description, 'default_lst_price': price_unit}"/>
                                                             <!--<field name="product_id"-->
                                                                    <!--attrs="{'readonly': [('has_product', '=', True)]}"-->
                                                                    <!--context="{'default_default_code': product_code, 'default_l10n_mx_edi_code_sat_id': product_code, 'default_name': product_description, 'default_lst_price': price_unit}"/>-->

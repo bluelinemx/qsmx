@@ -35,6 +35,7 @@ class EdiImportLine(models.TransientModel):
     _name = 'l10n.mx.provider.xml.bulk.import.invoice.line'
 
     import_id = fields.Many2one('l10n.mx.provider.xml.bulk.import.invoice', required=True, ondelete='CASCADE')
+    company_id = fields.Many2one('res.company', related='import_id.company_id')
 
     account_analytic_id = fields.Many2one('account.analytic.account', 'Analytic Account')
     uom_code = fields.Char('Unit of Measure')
@@ -43,7 +44,7 @@ class EdiImportLine(models.TransientModel):
     l10n_mx_edi_code_sat_id = fields.Many2one('l10n_mx_edi.product.sat.code', string='SAT Code', compute='_compute_sat_code', ondelete='CASCADE')
     has_product = fields.Boolean()
 
-    product_id = fields.Many2one('product.product', 'Product', compute='_compute_product', store=True, domain="['|', ('l10n_mx_edi_code_sat_id.code', '=', l10n_mx_edi_code_sat), ('default_code', '=', product_code)]")
+    product_id = fields.Many2one('product.product', 'Product', compute='_compute_product', store=True, domain="[('company_id', '=', company_id), '|', ('l10n_mx_edi_code_sat_id.code', '=', l10n_mx_edi_code_sat), ('default_code', '=', product_code)]")
     product_description = fields.Char('Description')
 
     currency_id = fields.Many2one('res.currency', 'Currency')
@@ -63,12 +64,12 @@ class EdiImportLine(models.TransientModel):
         product = None
 
         if self.l10n_mx_edi_code_sat and self.product_code:
-            product = self.env['product.product'].search([('l10n_mx_edi_code_sat_id.code', '=', self.l10n_mx_edi_code_sat), ('default_code', '=', self.product_code)])
+            product = self.env['product.product'].search([('company_id', '=', self.env.user.company_id.id), ('l10n_mx_edi_code_sat_id.code', '=', self.l10n_mx_edi_code_sat), ('default_code', '=', self.product_code)])
         # elif self.l10n_mx_edi_code_sat:
         #     product = self.env['product.product'].search(
         #         [('l10n_mx_edi_code_sat_id.code', '=', self.l10n_mx_edi_code_sat)])
         elif self.product_code and isinstance(self.product_code, str) and len(self.product_code):
-            product = self.env['product.product'].search([('default_code', '=', self.product_code)])
+            product = self.env['product.product'].search([('company_id', '=', self.env.user.company_id.id), ('default_code', '=', self.product_code)])
 
         return product if product and product.id else False
 

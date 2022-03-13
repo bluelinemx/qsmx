@@ -3,7 +3,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'EDI Fiscal Legend Complement for the Mexican Localization',
-    'version': '12.0.1.0.0',
+    'version': '11.0.1.0.0',
     'author': 'Vauxoo',
     'category': 'Hidden',
     'license': 'LGPL-3',

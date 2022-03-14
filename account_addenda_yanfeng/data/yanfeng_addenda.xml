@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="addenda_yfai" name="YFAI Addenda">
+        <t t-set="moneda" t-value="record.currency_id.name"/>
+        <t t-set="inv_name" t-value="record.number.replace('/','')"/>
+        <t t-set="suppcode" t-value="record.sudo().company_id.partner_id.ref"/>
+         <YFAI:AddendaYFAI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:YFAI="https://www.yfai.com/suppliers"  xsi:schemaLocation="https://www.yfai.com/suppliers https://www.yfai.com/suppliers/YFAI-Addenda.xsd">
+             <YFAI:Factura t-att-Plant="record.partner_id.addenda_planta" t-att-FisicalDoc="'I'"
+                              t-att-CompanyCode="record.partner_id.ref"
+                              t-att-CompanyName="record.partner_id.name"/>
+            <YFAI:Moneda t-att-Currency="moneda"/>
+            <YFAI:Proveedor t-att-SuppCode="suppcode"/>
+            <YFAI:Pur t-att-PurchaseOrder="record.ref_orden_compra" t-att-DeliveryNote="inv_name"/>
+         </YFAI:AddendaYFAI>
+    </template>
+    <record id="addenda_yfai" model="ir.ui.view">
+        <field name="l10n_mx_edi_addenda_flag">True</field>
+    </record>
+</odoo>

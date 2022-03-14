@@ -2,6 +2,3 @@
 	path = bluelinemx/qsmx
 	url = git@github.com:bluelinemx/qsmx.git
 	branch = master
-[submodule "account_addenda_yanfeng"]
-	path = account_addenda_yanfeng
-	url = git@github.com:BeopenMX/account_addenda_yanfeng.git
